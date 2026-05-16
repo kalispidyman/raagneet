@@ -19,10 +19,10 @@ function App() {
         <p className="read-the-docs">
           Click on the Vite and React logos to learn more
         </p>
-        <footer className="footer">
-          <p>Designer @NEET</p>
-        </footer>
       </header>
+      <footer className="footer">
+        <p>Designer @NEET</p>
+      </footer>
     </div>
   )
 }
