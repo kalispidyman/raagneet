@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Cpu, Mail, Phone, MapPin, Github, Twitter, Linkedin } from 'lucide-react';
+import { Cpu, Mail, Phone, MapPin, Globe, MessageCircle, Briefcase } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
@@ -17,9 +17,9 @@ const Footer = () => {
               Premium IT solutions and cutting-edge software development for modern businesses.
             </p>
             <div className="social-links">
-              <a href="#" className="social-icon"><Twitter size={20} /></a>
-              <a href="#" className="social-icon"><Github size={20} /></a>
-              <a href="#" className="social-icon"><Linkedin size={20} /></a>
+              <a href="#" className="social-icon"><MessageCircle size={20} /></a>
+              <a href="#" className="social-icon"><Globe size={20} /></a>
+              <a href="#" className="social-icon"><Briefcase size={20} /></a>
             </div>
           </div>
 
