@@ -6,6 +6,10 @@ function App() {
 
   return (
     <div className="App">
+      <div className="auth-buttons">
+        <button>login</button>
+        <button>signup</button>
+      </div>
       <header className="App-header">
         <h1>Vite + React</h1>
         <div className="card">
@@ -20,9 +24,6 @@ function App() {
           Click on the Vite and React logos to learn more
         </p>
       </header>
-      <footer className="footer">
-        <p>Designer @NEET</p>
-      </footer>
     </div>
   )
 }
