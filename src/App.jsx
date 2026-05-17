@@ -1,57 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Home from './pages/Home.jsx';
-import About from './pages/About.jsx';
-import Services from './pages/Services.jsx';
-import Portfolio from './pages/Portfolio.jsx';
-import Contact from './pages/Contact.jsx';
-import Navbar from './components/Navbar.jsx';
-import Footer from './components/Footer.jsx';
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import About from './pages/About'
+import Services from './pages/Services'
+import Portfolio from './pages/Portfolio'
+import Contact from './pages/Contact'
+import { AnimatePresence } from 'framer-motion'
 
-const App = () => {
-  const [currentPage, setCurrentPage] = useState('home');
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const pages = {
-    home: <Home key="home" scrollY={scrollY} />,
-    about: <About key="about" />,
-    services: <Services key="services" />,
-    portfolio: <Portfolio key="portfolio" />,
-    contact: <Contact key="contact" />
-  };
-
+export default function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 text-slate-800 overflow-x-hidden">
-      <Navbar 
-        currentPage={currentPage} 
-        setCurrentPage={setCurrentPage} 
-        isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-      />
-      
-      <AnimatePresence mode="wait">
-        <motion.main
-          key={currentPage}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="pt-20 md:pt-24"
-        >
-          {pages[currentPage]}
-        </motion.main>
-      </AnimatePresence>
-
+    <div className="min-h-screen flex flex-col bg-gray-950 text-white overflow-x-hidden selection:bg-indigo-500/30">
+      <Navbar />
+      <main className="flex-grow pt-20">
+        <AnimatePresence mode="wait">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </AnimatePresence>
+      </main>
       <Footer />
     </div>
-  );
-};
-
-export default App;
+  )
+}
