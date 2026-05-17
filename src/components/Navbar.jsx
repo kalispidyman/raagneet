@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import ArcReactorLogo from './ArcReactorLogo';
 
 const Navbar = ({ onGetStarted }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,11 +18,10 @@ const Navbar = ({ onGetStarted }) => {
     <nav className="fixed w-full top-0 z-50 glass-panel border-x-0 border-t-0 rounded-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center text-white font-bold text-lg group-hover:shadow-[0_0_20px_rgba(13,148,136,0.5)] transition-all duration-300">
-              R
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="group-hover:scale-105 transition-transform duration-300">
+              <ArcReactorLogo companyName="RAAGNEET" size={44} />
             </div>
-            <span className="text-xl font-bold text-gradient tracking-wide">Raagneet Studios</span>
           </Link>
 
           {/* Desktop Menu */}
