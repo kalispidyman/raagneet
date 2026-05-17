@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ onGetStarted }) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
@@ -37,7 +37,7 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <button className="btn-primary ml-4">
+            <button onClick={onGetStarted} className="btn-primary ml-4">
               Get Started
             </button>
           </div>
