@@ -19,9 +19,9 @@ const Navbar = ({ onGetStarted }) => {
       <div className="absolute inset-0 bg-[rgba(15,23,42,0.6)] backdrop-blur-xl border-b border-white/[0.08]"></div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center group">
             <div className="group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">
-              <ArcReactorLogo companyName="RAAGNEET" size={44} />
+              <ArcReactorLogo companyName="RAAGNEET" size={36} />
             </div>
           </Link>
 
