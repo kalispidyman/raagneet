@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Watermark from './components/Watermark';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -38,6 +39,9 @@ function App() {
 
       {/* Authentication Modal */}
       {showAuth && <AuthModal onClose={() => setShowAuth(false)} />}
+      
+      {/* Global Designer Watermark */}
+      <Watermark />
     </div>
   );
 }
