@@ -10,15 +10,15 @@ import Contact from './pages/Contact';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen relative overflow-hidden">
-        {/* Animated Background Orbs */}
+      <div className="min-h-screen relative overflow-hidden bg-[#0B0F19] text-white selection:bg-teal-500/30">
+        {/* Abstract Background Orbs */}
         <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-teal-600/30 rounded-full blur-[150px] animate-float-slow" />
-          <div className="absolute top-[20%] right-[-5%] w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] animate-float-medium" />
-          <div className="absolute bottom-[-10%] left-[30%] w-[700px] h-[700px] bg-cyan-600/20 rounded-full blur-[150px] animate-float-fast" />
-          <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal-500/10 rounded-full blur-[180px] animate-pulse-slow" />
+          <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-teal-600/20 rounded-full blur-[150px] animate-float" />
+          <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] bg-purple-600/15 rounded-full blur-[150px] animate-float-delayed" />
+          <div className="absolute bottom-[-10%] left-[20%] w-[700px] h-[700px] bg-cyan-600/10 rounded-full blur-[180px] animate-float" />
         </div>
 
+        {/* Content Wrapper */}
         <div className="relative z-10 flex flex-col min-h-screen">
           <Navbar />
           <main className="flex-grow">
