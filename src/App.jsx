@@ -10,22 +10,28 @@ import Contact from './pages/Contact';
 import AuthModal from './components/AuthModal';
 import './index.css';
 
-
 function App() {
   return (
     <Router>
-      <Navbar />
-      <AuthModal />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </main>
-      <Footer />
+      <div className="app-wrapper">
+        <div className="bg-blobs">
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <div className="blob blob-3"></div>
+        </div>
+        <Navbar />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
+        <AuthModal />
+      </div>
     </Router>
   );
 }
