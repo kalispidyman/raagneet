@@ -1,88 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './HeroSection.css';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
-  const [scrollY, setScrollY] = useState(0);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const heroRef = useRef(null);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const handleMouseMove = (e) => {
-    if (window.innerWidth > 768 && heroRef.current) {
-      const rect = heroRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      setTilt({ x: y * 15, y: -x * 15 });
-    }
-  };
-
-  const handleTouchMove = (e) => {
-    if (e.touches.length > 0 && heroRef.current) {
-      const touch = e.touches[0];
-      const rect = heroRef.current.getBoundingClientRect();
-      const x = (touch.clientX - rect.left) / rect.width - 0.5;
-      const y = (touch.clientY - rect.top) / rect.height - 0.5;
-      setTilt({ x: y * 10, y: -x * 10 });
-    }
-  };
-
-  const resetTilt = () => setTilt({ x: 0, y: 0 });
-
-  const parallaxOffset = scrollY * 0.3;
-  const textOffset = scrollY * 0.15;
-  const visualOffset = scrollY * -0.2;
-
   return (
-    <section 
-      ref={heroRef} 
-      className="hero-section" 
-      onMouseMove={handleMouseMove} 
-      onMouseLeave={resetTilt}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={resetTilt}
-    >
-      <div className="hero-background" style={{ transform: `translateY(${parallaxOffset}px)` }}>
-        <div className="gradient-blob blob-1"></div>
-        <div className="gradient-blob blob-2"></div>
-        <div className="gradient-blob blob-3"></div>
-        <div className="grid-overlay"></div>
-      </div>
-      
-      <div className="hero-content">
-        <div className="hero-text" style={{ opacity: Math.max(0, 1 - scrollY / 500), transform: `translateY(${textOffset}px)` }}>
-          <span className="badge animate-slide-down">Mobile-First Design</span>
-          <h1 className="animate-slide-up">Crafting Digital <br /> <span className="highlight">Experiences</span></h1>
-          <p className="animate-fade-in">Immersive, interactive, and beautifully responsive. Built for the modern screen and optimized for every touchpoint.</p>
-          <div className="hero-buttons animate-fade-in-delay">
-            <button className="btn primary">Get Started</button>
-            <button className="btn secondary">Explore Work</button>
-          </div>
+    <section className="relative min-h-[80vh] flex items-center justify-center px-6 py-24">
+      <div className="max-w-5xl mx-auto text-center space-y-8">
+        <div className="glass-panel inline-block px-4 py-2 rounded-full mb-4">
+          <span className="text-sm font-medium text-cyan-300">✨ Redefining Digital Excellence</span>
         </div>
-        
-        <div className="hero-visual" style={{ transform: `translateY(${visualOffset}px)` }}>
-          <div className="phone-mockup" style={{ transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}>
-            <div className="notch"></div>
-            <div className="screen-content">
-              <div className="app-header"></div>
-              <div className="mockup-card card-1"></div>
-              <div className="mockup-card card-2"></div>
-              <div className="mockup-card card-3"></div>
-            </div>
-          </div>
-          <div className="floating-element fe-1">📱</div>
-          <div className="floating-element fe-2">🎨</div>
-          <div className="floating-element fe-3">⚡</div>
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+          <span className="text-gradient">Crafting the Future</span>
+          <br />
+          <span className="text-white/90">of Digital Experiences</span>
+        </h1>
+        <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          Raagneet Studios delivers premium, cutting-edge web solutions designed to elevate your brand and captivate your audience.
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <Link to="/portfolio" className="btn-primary px-8 py-4 text-lg">
+            View Our Work
+          </Link>
+          <Link to="/contact" className="px-8 py-4 text-lg rounded-full border border-white/[0.15] text-white hover:bg-white/[0.05] transition-all duration-300">
+            Get in Touch
+          </Link>
         </div>
-      </div>
-      
-      <div className="scroll-indicator">
-        <span>Scroll to explore</span>
-        <div className="mouse"></div>
       </div>
     </section>
   );
