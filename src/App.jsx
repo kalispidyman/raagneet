@@ -11,9 +11,14 @@ import AuthModal from './components/AuthModal'; // Keep AuthModal for potential 
 function App() {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <div className="app-wrapper">
+        <div className="bg-blobs">
+          <div className="blob blob-1"></div>
+          <div className="blob blob-2"></div>
+          <div className="blob blob-3"></div>
+        </div>
         <Navbar />
-        <main className="flex-grow">
+        <main className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
