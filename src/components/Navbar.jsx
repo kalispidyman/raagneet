@@ -21,7 +21,7 @@ const Navbar = ({ onGetStarted }) => {
         <div className="flex items-center justify-between h-20 overflow-visible">
           <Link to="/" className="flex items-center group overflow-visible pt-1">
             <div className="group-hover:scale-110 transition-transform duration-500 drop-shadow-[0_0_20px_rgba(34,211,238,0.6)]">
-              <ArcReactorLogo companyName="RAAGNEET" size={36} />
+              <ArcReactorLogo companyName="RAAGNEET" size={28} />
             </div>
           </Link>
 
