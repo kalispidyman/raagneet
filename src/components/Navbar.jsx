@@ -57,6 +57,12 @@ const Navbar = () => {
             </li>
           ))}
           <li className="nav-item nav-btn">
+            <Link to="/login" className="nav-links login-link">Login</Link>
+          </li>
+          <li className="nav-item nav-btn">
+            <Link to="/signup" className="btn btn-outline signup-btn">Sign Up</Link>
+          </li>
+          <li className="nav-item nav-btn">
             <Link to="/contact" className="btn btn-primary">Get a Quote</Link>
           </li>
         </ul>
@@ -81,6 +87,16 @@ const Navbar = () => {
               </NavLink>
             </li>
           ))}
+          <li className="nav-item-mobile">
+            <Link to="/login" className="nav-links-mobile login-link" onClick={closeMobileMenu}>
+              Login
+            </Link>
+          </li>
+          <li className="nav-item-mobile">
+            <Link to="/signup" className="btn btn-outline mobile-btn" onClick={closeMobileMenu}>
+              Sign Up
+            </Link>
+          </li>
           <li className="nav-item-mobile">
             <Link to="/contact" className="btn btn-primary mobile-btn" onClick={closeMobileMenu}>
               Get a Quote
