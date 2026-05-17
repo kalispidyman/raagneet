@@ -1,10 +1,3 @@
-/* Optional: additional fine-tuning (already embedded in JSX, but kept for maintainability) */
-/* This file can be used for global footer utility classes or overrides if needed */
-@layer components {
-  .footer-card {
-    @apply bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-900/20;
-  }
-  .footer-button {
-    @apply inline-flex items-center justify-center px-5 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-medium text-white hover:from-blue-700 hover:to-purple-700 transform transition-all duration-300 hover:scale-[1.02] active:scale-[0.98];
-  }
-}
+/* Optional: Remove any legacy styles that may conflict */
+/* This file is now fully controlled by Tailwind — no custom CSS needed */
+/* Keeping it minimal and clean */
