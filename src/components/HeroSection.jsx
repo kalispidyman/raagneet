@@ -2,7 +2,7 @@ import { ArrowRight, Sparkles, Globe, Zap } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <section className="min-h-[100dvh] w-full flex flex-col justify-center relative z-10 px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-32 max-w-7xl mx-auto">
+    <section className="min-h-[100dvh] w-full flex flex-col justify-center relative z-10 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-32 max-w-7xl mx-auto">
       <div className="w-full space-y-6 sm:space-y-8 text-center">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-xs sm:text-sm text-teal-300 font-medium mx-auto w-fit shadow-[0_0_15px_rgba(20,184,166,0.1)] animate-fade-in-up">

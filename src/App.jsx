@@ -14,7 +14,7 @@ function App() {
   const [showAuth, setShowAuth] = useState(false);
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#030712] text-white selection:bg-cyan-500/40 selection:text-white">
+    <div className="min-h-screen relative overflow-x-hidden bg-[#030712] text-white selection:bg-cyan-500/40 selection:text-white">
       {/* Enhanced Abstract Background Orbs */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-teal-600/25 rounded-full blur-[150px] animate-float" />
