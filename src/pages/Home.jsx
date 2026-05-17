@@ -1,21 +1,12 @@
-import React, { useState } from 'react';
-import AuthModal from '../components/AuthModal';
+import React from 'react';
+import './Home.css'; // Assuming there's a CSS file for the Home page
 
 const Home = () => {
-    const [isModalOpen, setModalOpen] = useState(false);
-
-    const handleLoginClick = () => setModalOpen(true);
-    const handleCloseModal = () => setModalOpen(false);
-
     return (
-        <>
-            <div className="header">
-                <button onClick={handleLoginClick}>Login</button>
-                <button onClick={handleLoginClick}>Signup</button>
-            </div>
-            <AuthModal isOpen={isModalOpen} onClose={handleCloseModal} />
-            {/* Other content here */}
-        </>
+        <div>
+            <h1 className="animated-text">Welcome to Our Website!</h1>
+            {/* Other content of the Home page */}
+        </div>
     );
 };
 
