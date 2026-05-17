@@ -4,6 +4,8 @@ import './ArcReactorLogo.css';
 const ArcReactorLogo = ({ companyName = "VIBRANIUM", size = 300 }) => {
   return (
     <div className="arc-container" style={{ '--reactor-size': `${size}px` }}>
+      {/* Target for Segment 2 (Embedded CSS Stylesheet) goes right here */}
+      
       {/* Reactor Hardware Stack */}
       <div className="arc-reactor">
         <div className="ring outer-ring" />
