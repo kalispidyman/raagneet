@@ -61,4 +61,35 @@ const Navbar = ({ onGetStarted }) => {
             </svg>
           </button>
         </div>
-      </
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isOpen && (
+        <div className="md:hidden absolute top-20 left-0 w-full bg-[#030712]/95 backdrop-blur-xl border-b border-white/10 animate-fade-in-up shadow-2xl">
+          <div className="px-4 py-6 space-y-4 flex flex-col items-center">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => setIsOpen(false)}
+                className={`text-lg font-medium transition-colors ${
+                  location.pathname === link.path ? 'text-cyan-400' : 'text-slate-300 hover:text-cyan-300'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <button 
+              onClick={() => { onGetStarted(); setIsOpen(false); }} 
+              className="btn-primary w-full mt-4 py-3"
+            >
+              Get Started
+            </button>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;
