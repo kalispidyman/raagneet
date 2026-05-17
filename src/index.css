@@ -32,14 +32,15 @@
 
 @layer components {
   .glass-panel {
-    @apply bg-[rgba(255,255,255,0.03)] backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300;
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300;
   }
   .glass-panel:hover {
     @apply border-white/[0.15] shadow-[0_8px_40px_rgba(6,182,212,0.15)];
   }
   
   .glass-card {
-    @apply glass-panel p-6 relative overflow-hidden group;
+    /* Fixed: Removed 'group' from @apply as it causes Tailwind build errors */
+    @apply glass-panel p-6 relative overflow-hidden;
   }
   .glass-card::before {
     content: '';
