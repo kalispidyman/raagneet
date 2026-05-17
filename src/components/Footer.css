@@ -1,11 +1,21 @@
-footer {
+.footer {
     text-align: center;
     padding: 20px;
-    background-color: #f1f1f1;
-}
+    background-color: #282c34;
+    color: white;
+  }
 
-footer p {
-    margin: 0;
-    font-size: 14px;
-    color: #333;
-}
+  .animated-text {
+    display: inline-block;
+    animation: color-change 5s infinite;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  @keyframes color-change {
+    0% { color: #ff5733; }
+    25% { color: #33ff57; }
+    50% { color: #3357ff; }
+    75% { color: #f0e68c; }
+    100% { color: #ff5733; }
+  }
