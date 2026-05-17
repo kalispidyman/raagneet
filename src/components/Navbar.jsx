@@ -1,52 +1,103 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import './Navbar.css';
 
-const navLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Services', path: '/services' },
-  { name: 'Portfolio', path: '/portfolio' },
-  { name: 'Contact', path: '/contact' },
-];
+const Navbar = ({ onSignIn, onSignUp }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+    { name: 'Services', path: '/services' },
+    { name: 'Portfolio', path: '/portfolio' },
+    { name: 'Contact', path: '/contact' },
+  ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-      <div className="absolute inset-0 bg-[#0B0F19]/70 backdrop-blur-xl border-b border-white/5" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent tracking-tight">
-            Nexa<span className="text-cyan-400">Glass</span>
-          </Link>
-          
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link key={link.path} to={link.path} className="text-sm font-medium text-slate-300 hover:text-cyan-400 transition-colors duration-200">
-                {link.name}
-              </Link>
-            ))}
-            <button className="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white font-semibold text-sm shadow-[0_0_20px_rgba(13,148,136,0.3)] hover:scale-105 hover:shadow-[0_0_30px_rgba(13,148,136,0.5)] transition-all duration-300 ease-out">
-              Get Started
-            </button>
-          </div>
+    <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
+      <div className="navbar-container">
+        <a href="/" className="navbar-logo">
+          Dev<span>Flow</span>
+        </a>
 
-          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden text-white focus:outline-none">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} /></svg>
+        {/* Desktop Navigation */}
+        <ul className="navbar-menu desktop-menu">
+          {navLinks.map((link) => (
+            <li key={link.name} className="navbar-item">
+              <a href={link.path} className="navbar-link">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        {/* Desktop Auth Buttons */}
+        <div className="navbar-actions desktop-actions">
+          <button className="btn-signin" onClick={onSignIn}>
+            Sign In
+          </button>
+          <button className="btn-signup" onClick={onSignUp}>
+            Sign Up
           </button>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className={`hamburger ${isMenuOpen ? 'hamburger-active' : ''}`}
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+        </button>
       </div>
 
-      {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-[#0B0F19]/95 backdrop-blur-xl border-b border-white/10 px-4 py-4 flex flex-col space-y-4">
+      {/* Mobile Navigation */}
+      <div className={`mobile-menu ${isMenuOpen ? 'mobile-menu-open' : ''}`}>
+        <ul className="mobile-menu-list">
           {navLinks.map((link) => (
-            <Link key={link.path} to={link.path} onClick={() => setIsOpen(false)} className="text-slate-300 hover:text-cyan-400 font-medium transition-colors">
-              {link.name}
-            </Link>
+            <li key={link.name} className="mobile-menu-item">
+              <a 
+                href={link.path} 
+                className="mobile-menu-link"
+                onClick={closeMenu}
+              >
+                {link.name}
+              </a>
+            </li>
           ))}
-        </div>
-      )}
+          <li className="mobile-menu-actions">
+            <button className="btn-signin-mobile" onClick={() => { onSignIn(); closeMenu(); }}>
+              Sign In
+            </button>
+            <button className="btn-signup-mobile" onClick={() => { onSignUp(); closeMenu(); }}>
+              Sign Up
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      {/* Overlay */}
+      {isMenuOpen && <div className="mobile-overlay" onClick={closeMenu}></div>}
     </nav>
   );
-}
+};
+
+export default Navbar;

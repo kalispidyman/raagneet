@@ -1,213 +1,105 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import './AuthModal.css';
 
-const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
-  const [isLogin, setIsLogin] = useState(initialMode === 'login');
+const AuthModal = ({ isOpen, onClose, mode }) => {
+  const [currentMode, setCurrentMode] = useState(mode);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     name: '',
-    confirmPassword: ''
   });
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email address is invalid';
-    }
-
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-
-    if (!isLogin) {
-      if (!formData.name) {
-        newErrors.name = 'Name is required';
-      }
-      if (!formData.confirmPassword) {
-        newErrors.confirmPassword = 'Please confirm your password';
-      } else if (formData.password !== formData.confirmPassword) {
-        newErrors.confirmPassword = 'Passwords do not match';
-      }
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
-    }
-  };
+  const isSignIn = currentMode === 'signin';
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      setIsSubmitting(true);
-      // Simulate API call
-      setTimeout(() => {
-        setIsSubmitting(false);
-        alert(`${isLogin ? 'Login' : 'Sign up'} successful!`);
-        onClose();
-      }, 1500);
-    }
+    console.log('Form submitted:', formData);
+    onClose();
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const toggleMode = () => {
-    setIsLogin(!isLogin);
-    setFormData({
-      email: '',
-      password: '',
-      name: '',
-      confirmPassword: ''
-    });
-    setErrors({});
+    setCurrentMode(isSignIn ? 'signup' : 'signin');
+    setFormData({ email: '', password: '', name: '' });
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 backdrop-blur-sm">
-      <div className="relative w-full max-w-md bg-white rounded-xl shadow-2xl overflow-hidden animate-fade-in">
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none"
-          aria-label="Close modal"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    <div className="auth-modal-overlay" onClick={onClose}>
+      <div className="auth-modal" onClick={(e) => e.stopPropagation()}>
+        <button className="auth-modal-close" onClick={onClose}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
 
-        <div className="p-8">
-          <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">
-            {isLogin ? 'Welcome Back' : 'Create Account'}
-          </h2>
-          <p className="text-gray-600 text-center mb-6">
-            {isLogin
-              ? 'Sign in to continue your journey'
-              : 'Join us and get started today'}
-          </p>
+        <div className="auth-modal-header">
+          <h2>{isSignIn ? 'Welcome Back' : 'Create Account'}</h2>
+          <p>{isSignIn ? 'Sign in to access your account' : 'Join us and start building'}</p>
+        </div>
 
-          <form onSubmit={handleSubmit}>
-            {!isLogin && (
-              <div className="mb-4">
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition ${
-                    errors.name ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="John Doe"
-                />
-                {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
-              </div>
-            )}
-
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                Email Address
-              </label>
+        <form onSubmit={handleSubmit} className="auth-modal-form">
+          {!isSignIn && (
+            <div className="form-group">
+              <label htmlFor="name">Full Name</label>
               <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition ${
-                  errors.email ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="you@example.com"
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                placeholder="John Doe"
+                required
               />
-              {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
             </div>
+          )}
 
-            <div className="mb-4">
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition ${
-                  errors.password ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="••••••••"
-              />
-              {errors.password && <p className="mt-1 text-sm text-red-500">{errors.password}</p>}
-            </div>
-
-            {!isLogin && (
-              <div className="mb-6">
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
-                  Confirm Password
-                </label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition ${
-                    errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
-                  }`}
-                  placeholder="••••••••"
-                />
-                {errors.confirmPassword && <p className="mt-1 text-sm text-red-500">{errors.confirmPassword}</p>}
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-70"
-            >
-              {isSubmitting ? 'Processing...' : isLogin ? 'Sign In' : 'Create Account'}
-            </button>
-          </form>
-
-          <div className="mt-6 text-center">
-            <p className="text-gray-600">
-              {isLogin ? "Don't have an account?" : "Already have an account?"}{' '}
-              <button
-                type="button"
-                onClick={toggleMode}
-                className="font-medium text-blue-600 hover:text-blue-800 transition-colors"
-              >
-                {isLogin ? 'Sign up' : 'Sign in'}
-              </button>
-            </p>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              placeholder="you@example.com"
+              required
+            />
           </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              placeholder="••••••••"
+              required
+            />
+          </div>
+
+          <button type="submit" className="auth-submit-btn">
+            {isSignIn ? 'Sign In' : 'Sign Up'}
+          </button>
+        </form>
+
+        <div className="auth-modal-footer">
+          <p>
+            {isSignIn ? "Don't have an account? " : 'Already have an account? '}
+            <button type="button" className="auth-toggle-btn" onClick={toggleMode}>
+              {isSignIn ? 'Sign Up' : 'Sign In'}
+            </button>
+          </p>
         </div>
       </div>
     </div>
