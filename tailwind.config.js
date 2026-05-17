@@ -20,12 +20,7 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
-      animation: {
-        'float-slow': 'float-slow 15s ease-in-out infinite',
-        'float-medium': 'float-medium 10s ease-in-out infinite',
-        'float-fast': 'float-fast 8s ease-in-out infinite',
-        'pulse-slow': 'pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      },
+      // Animations are now handled via CSS classes in index.css for better performance
     },
   },
   plugins: [],

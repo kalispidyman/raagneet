@@ -6,11 +6,11 @@
 
 @layer base {
   body {
-    @apply bg-[#050814] text-slate-200 antialiased overflow-x-hidden;
+    @apply bg-[#030712] text-slate-200 antialiased overflow-x-hidden;
     font-family: 'Inter', system-ui, sans-serif;
     background: 
-      radial-gradient(circle at 15% 50%, rgba(15, 23, 42, 0.8), transparent 25%), 
-      radial-gradient(circle at 85% 30%, rgba(8, 47, 73, 0.6), transparent 25%);
+      radial-gradient(circle at 10% 20%, rgba(15, 23, 42, 0.9), transparent 40%), 
+      radial-gradient(circle at 90% 80%, rgba(8, 47, 73, 0.8), transparent 40%);
   }
   h1, h2, h3, h4, h5, h6 {
     @apply text-white font-semibold tracking-tight;
@@ -19,27 +19,28 @@
     width: 8px;
   }
   ::-webkit-scrollbar-track {
-    background: #050814;
+    background: #030712;
   }
   ::-webkit-scrollbar-thumb {
     background: rgba(34, 211, 238, 0.3);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(34, 211, 238, 0.5);
+    background: rgba(34, 211, 238, 0.6);
   }
 }
 
 @layer components {
+  /* PREMIUM GLASSMORPHISM PANEL */
   .glass-panel {
-    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300;
+    @apply bg-white/[0.04] backdrop-blur-2xl border border-white/[0.1] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300;
   }
   .glass-panel:hover {
-    @apply border-white/[0.15] shadow-[0_8px_40px_rgba(6,182,212,0.15)];
+    @apply bg-white/[0.06] border-white/[0.2] shadow-[0_8px_40px_rgba(6,182,212,0.15)] border-t-white/[0.15] border-l-white/[0.15];
   }
   
+  /* GLASS CARD WITH SHIMMER */
   .glass-card {
-    /* Fixed: Removed 'group' from @apply as it causes Tailwind build errors */
     @apply glass-panel p-6 relative overflow-hidden;
   }
   .glass-card::before {
@@ -49,65 +50,80 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
-    transition: left 0.7s ease;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transition: left 0.8s ease;
+    pointer-events: none;
   }
   .glass-card:hover::before {
     left: 100%;
   }
   
+  /* INPUTS */
   .glass-input {
     @apply w-full px-4 py-3 rounded-xl bg-white/[0.05] border border-white/[0.1] text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 transition-all duration-300 backdrop-blur-sm;
   }
+  .glass-input:focus {
+    @apply bg-white/[0.08] shadow-[0_0_15px_rgba(6,182,212,0.15)];
+  }
 
+  /* BUTTONS */
   .btn-primary {
-    @apply px-6 py-3 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-medium shadow-[0_0_20px_rgba(13,148,136,0.3)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(13,148,136,0.6)] active:scale-[0.98];
+    @apply px-6 py-3 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold shadow-[0_0_20px_rgba(13,148,136,0.4)] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_35px_rgba(6,182,212,0.7)] active:scale-[0.98] relative overflow-hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+  }
+  .btn-primary:hover::after {
+    transform: translateX(100%);
   }
   
   .btn-secondary {
-    @apply px-6 py-3 rounded-full border border-white/20 bg-white/5 text-white font-medium backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/40 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)];
+    @apply px-6 py-3 rounded-full border border-white/20 bg-white/5 text-white font-medium backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:border-white/40 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)];
   }
   
+  /* TEXT UTILITIES */
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-400 via-cyan-400 to-white;
   }
-
   .text-gradient-subtle {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400;
   }
+  .text-glow {
+    text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+  }
 }
 
-/* Enhanced Animations */
+/* ANIMATIONS */
 @keyframes float {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(20px, -20px) scale(1.05); }
+  50% { transform: translate(25px, -25px) scale(1.05); }
 }
 @keyframes float-delayed {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-20px, 15px) scale(1.02); }
+  50% { transform: translate(-25px, 20px) scale(1.02); }
 }
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.15); }
+  50% { box-shadow: 0 0 45px rgba(6, 182, 212, 0.4); }
+}
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.1); }
-  50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.25); }
-}
-@keyframes borderGlow {
-  0%, 100% { border-color: rgba(255, 255, 255, 0.08); }
-  50% { border-color: rgba(34, 211, 238, 0.3); }
-}
 
-.animate-float { animation: float 15s ease-in-out infinite; }
-.animate-float-delayed { animation: float-delayed 20s ease-in-out infinite; }
+.animate-float { animation: float 18s ease-in-out infinite; }
+.animate-float-delayed { animation: float-delayed 22s ease-in-out infinite; }
 .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
 .animate-fade-in-up.delay-100 { animation-delay: 0.1s; }
 .animate-fade-in-up.delay-200 { animation-delay: 0.2s; }
 .animate-fade-in-up.delay-300 { animation-delay: 0.3s; }
-.animate-glow-pulse { animation: glowPulse 3s ease-in-out infinite; }
-.animate-border-glow { animation: borderGlow 4s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
