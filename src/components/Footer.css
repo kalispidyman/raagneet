@@ -1,3 +1,14 @@
-/* Optional: Remove any legacy styles that may conflict */
-/* This file is now fully controlled by Tailwind — no custom CSS needed */
-/* Keeping it minimal and clean */
+/* Optional: minimal overrides — Tailwind handles most responsive behavior */
+/* Ensure mobile-first stacking and spacing */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Preserve accessibility and contrast */
+footer a:focus,
+footer button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
