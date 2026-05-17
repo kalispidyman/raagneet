@@ -1,101 +1,54 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
-const Navbar = ({ onSignIn, onSignUp }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsOpen(!isOpen);
   };
 
   const closeMenu = () => {
-    setIsMenuOpen(false);
+    setIsOpen(false);
   };
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Services', path: '/services' },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Contact', path: '/contact' },
-  ];
+  const isActive = (path) => {
+    return location.pathname === path ? 'active' : '';
+  };
 
   return (
-    <nav className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
+    <nav className="navbar">
       <div className="navbar-container">
-        <a href="/" className="navbar-logo">
+        <Link to="/" className="navbar-logo" onClick={closeMenu}>
           Dev<span>Flow</span>
-        </a>
-
-        {/* Desktop Navigation */}
-        <ul className="navbar-menu desktop-menu">
-          {navLinks.map((link) => (
-            <li key={link.name} className="navbar-item">
-              <a href={link.path} className="navbar-link">
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        {/* Desktop Auth Buttons */}
-        <div className="navbar-actions desktop-actions">
-          <button className="btn-signin" onClick={onSignIn}>
-            Sign In
-          </button>
-          <button className="btn-signup" onClick={onSignUp}>
-            Sign Up
-          </button>
+        </Link>
+        
+        <div className="menu-icon" onClick={toggleMenu}>
+          <div className={`bar ${isOpen ? 'open' : ''}`}></div>
+          <div className={`bar ${isOpen ? 'open' : ''}`}></div>
+          <div className={`bar ${isOpen ? 'open' : ''}`}></div>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button 
-          className={`hamburger ${isMenuOpen ? 'hamburger-active' : ''}`}
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-        </button>
-      </div>
-
-      {/* Mobile Navigation */}
-      <div className={`mobile-menu ${isMenuOpen ? 'mobile-menu-open' : ''}`}>
-        <ul className="mobile-menu-list">
-          {navLinks.map((link) => (
-            <li key={link.name} className="mobile-menu-item">
-              <a 
-                href={link.path} 
-                className="mobile-menu-link"
-                onClick={closeMenu}
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
-          <li className="mobile-menu-actions">
-            <button className="btn-signin-mobile" onClick={() => { onSignIn(); closeMenu(); }}>
-              Sign In
-            </button>
-            <button className="btn-signup-mobile" onClick={() => { onSignUp(); closeMenu(); }}>
-              Sign Up
-            </button>
+        <ul className={`nav-menu ${isOpen ? 'active' : ''}`}>
+          <li className="nav-item">
+            <Link to="/" className={`nav-link ${isActive('/')}`} onClick={closeMenu}>Home</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/about" className={`nav-link ${isActive('/about')}`} onClick={closeMenu}>About</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/services" className={`nav-link ${isActive('/services')}`} onClick={closeMenu}>Services</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/portfolio" className={`nav-link ${isActive('/portfolio')}`} onClick={closeMenu}>Portfolio</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/contact" className={`nav-link ${isActive('/contact')}`} onClick={closeMenu}>Contact</Link>
           </li>
         </ul>
       </div>
-
-      {/* Overlay */}
-      {isMenuOpen && <div className="mobile-overlay" onClick={closeMenu}></div>}
     </nav>
   );
 };
