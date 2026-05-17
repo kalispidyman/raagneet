@@ -1,20 +1,17 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #333;
-    color: white;
+/* You can add custom styles here if needed, but Tailwind CSS handles most of it. */
+/* Example: */
+.nav-link {
+  padding: 0.5rem 0;
 }
 
-.navbar-logo a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5rem;
-}
-
-.navbar-links a {
-    color: white;
-    text-decoration: none;
-    margin-left: 20px;
+/* Ensure the mobile menu doesn't overlap on desktop */
+@media (min-width: 768px) {
+  .navbar .md\\:flex {
+    display: flex !important;
+    position: static;
+    background-color: transparent;
+    width: auto;
+    flex-direction: row;
+    padding: 0;
+  }
 }
