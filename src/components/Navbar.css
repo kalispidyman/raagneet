@@ -46,7 +46,7 @@
   display: flex;
   align-items: center;
   list-style: none;
-  gap: 2rem;
+  gap: 1.2rem; /* Adjusted gap to accommodate new buttons */
 }
 
 .nav-links {
@@ -78,7 +78,21 @@
 }
 
 .nav-btn {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
+}
+
+.login-link {
+  font-weight: 600;
+}
+
+.signup-btn {
+  padding: 8px 18px !important;
+  font-size: 0.9rem !important;
+}
+
+.nav-menu .btn-primary {
+  padding: 8px 18px !important;
+  font-size: 0.9rem !important;
 }
 
 .menu-icon {
@@ -109,7 +123,7 @@
 .nav-menu-mobile-list {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
   list-style: none;
 }
 
@@ -132,11 +146,11 @@
 .mobile-btn {
   width: 100%;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 /* Responsive Styles */
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1024px) {
   .nav-menu {
     display: none;
   }
