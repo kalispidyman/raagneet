@@ -1,120 +1,146 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const Navbar = ({ onLoginClick, onSignupClick }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+const Navbar = ({ currentPage, setCurrentPage, isMenuOpen, setIsMenuOpen }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'about', label: 'About' },
+    { id: 'services', label: 'Services' },
+    { id: 'portfolio', label: 'Portfolio' },
+    { id: 'contact', label: 'Contact' }
+  ];
 
   return (
-    <nav
-      className={`fixed w-full z-40 transition-all duration-300 ${
-        scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+    <motion.header
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/80 backdrop-blur-xl shadow-sm py-2' 
+          : 'bg-transparent py-4'
       }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex items-center">
-            <span className="text-2xl font-bold text-gray-900">Dev<span className="text-blue-600">Flow</span></span>
-          </div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600"
+          >
+            Nexus<span className="text-slate-500">Dev</span>
+          </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Home</a>
-            <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
-            <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Services</a>
-            <a href="#portfolio" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Portfolio</a>
-            <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
-          </div>
-
-          {/* Desktop Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <button
-              onClick={onLoginClick}
-              className="px-5 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
-            >
-              Sign In
-            </button>
-            <button
-              onClick={onSignupClick}
-              className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
-            >
-              Sign Up
-            </button>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={toggleMenu}
-              className="text-gray-700 hover:text-blue-600 focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+          <nav className="hidden md:flex space-x-1">
+            {navItems.map((item) => (
+              <motion.button
+                key={item.id}
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => setCurrentPage(item.id)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 relative overflow-hidden ${
+                  currentPage === item.id
+                    ? 'text-indigo-600 bg-indigo-50'
+                    : 'text-slate-700 hover:text-indigo-600 hover:bg-slate-100'
+                }`}
               >
-                {isMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
+                {currentPage === item.id && (
+                  <motion.span
+                    layoutId="active-nav"
+                    className="absolute inset-0 bg-indigo-500/20 rounded-lg"
+                    initial={false}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
-              </svg>
-            </button>
-          </div>
+                {item.label}
+              </motion.button>
+            ))}
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden p-2 rounded-lg hover:bg-slate-100 transition-colors"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          >
+            <motion.div
+              animate={isMenuOpen ? { rotate: 180 } : {}}
+              className="w-6 h-6 flex flex-col justify-center items-center"
+            >
+              <motion.span
+                className="block w-6 h-0.5 bg-slate-700 mb-1.5 rounded-full"
+                animate={
+                  isMenuOpen
+                    ? { rotate: 45, y: 4, x: -2 }
+                    : { rotate: 0, y: 0, x: 0 }
+                }
+                transition={{ duration: 0.3 }}
+              />
+              <motion.span
+                className="block w-6 h-0.5 bg-slate-700 mb-1.5 rounded-full"
+                animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              />
+              <motion.span
+                className="block w-6 h-0.5 bg-slate-700 rounded-full"
+                animate={
+                  isMenuOpen
+                    ? { rotate: -45, y: -4, x: -2 }
+                    : { rotate: 0, y: 0, x: 0 }
+                }
+                transition={{ duration: 0.3 }}
+              />
+            </motion.div>
+          </button>
         </div>
 
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4">
-            <div className="flex flex-col space-y-3">
-              <a href="#home" className="text-gray-700 hover:text-blue-600 font-medium py-2">Home</a>
-              <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium py-2">About</a>
-              <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium py-2">Services</a>
-              <a href="#portfolio" className="text-gray-700 hover:text-blue-600 font-medium py-2">Portfolio</a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium py-2">Contact</a>
-              
-              {/* Mobile Auth Buttons */}
-              <div className="pt-4 flex flex-col space-y-3">
-                <button
-                  onClick={onLoginClick}
-                  className="w-full text-left px-4 py-2 text-gray-700 hover:text-blue-600 font-medium rounded-lg hover:bg-gray-100"
-                >
-                  Sign In
-                </button>
-                <button
-                  onClick={onSignupClick}
-                  className="w-full text-left px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg"
-                >
-                  Sign Up
-                </button>
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.nav
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="md:hidden mt-4 overflow-hidden"
+            >
+              <div className="flex flex-col space-y-2 py-3 bg-white/80 backdrop-blur-xl rounded-xl shadow-lg border border-slate-200">
+                {navItems.map((item) => (
+                  <motion.button
+                    key={item.id}
+                    whileHover={{ x: 8 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      setCurrentPage(item.id);
+                      setIsMenuOpen(false);
+                    }}
+                    className={`px-4 py-3 text-left rounded-lg font-medium transition-all ${
+                      currentPage === item.id
+                        ? 'text-indigo-600 bg-indigo-50'
+                        : 'text-slate-700 hover:text-indigo-600 hover:bg-slate-100'
+                    }`}
+                  >
+                    {item.label}
+                  </motion.button>
+                ))}
               </div>
-            </div>
-          </div>
-        )}
+            </motion.nav>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.header>
   );
 };
 
