@@ -1,64 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import AuthModal from './AuthModal.jsx';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authMode, setAuthMode] = useState('login');
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const openAuthModal = (mode) => {
+    setAuthMode(mode);
+    setIsAuthModalOpen(true);
+  };
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-sm py-2' : 'bg-transparent py-4'} ${isScrolled ? 'text-gray-800' : 'text-white'}`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
+    <nav className="bg-white shadow-sm sticky top-0 z-40">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <span className="font-bold text-xl">DevFolio</span>
+          <div className="flex items-center">
+            <a href="/" className="text-xl font-bold text-gray-900">DevStudio</a>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="hover:text-blue-500 transition-colors">Home</a>
-            <a href="#about" className="hover:text-blue-500 transition-colors">About</a>
-            <a href="#services" className="hover:text-blue-500 transition-colors">Services</a>
-            <a href="#portfolio" className="hover:text-blue-500 transition-colors">Portfolio</a>
-            <a href="#contact" className="hover:text-blue-500 transition-colors">Contact</a>
+            <a href="/" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+            <a href="/about" className="text-gray-700 hover:text-blue-600 font-medium">About</a>
+            <a href="/services" className="text-gray-700 hover:text-blue-600 font-medium">Services</a>
+            <a href="/portfolio" className="text-gray-700 hover:text-blue-600 font-medium">Portfolio</a>
+            <a href="/contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
           </div>
 
-          {/* Auth Buttons — VISIBLE on all screen sizes */}
-          <div className="flex items-center space-x-4">
-            <button 
-              className="px-4 py-2 rounded-md font-medium hover:bg-blue-50 hover:text-blue-600 transition-colors"
-              onClick={() => document.getElementById('auth-modal')?.showModal()}
+          {/* Auth Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
+            <button
+              onClick={() => openAuthModal('login')}
+              className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition"
             >
-              Login
+              Log In
             </button>
-            <button 
-              className="px-4 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors"
-              onClick={() => document.getElementById('auth-modal')?.showModal()}
+            <button
+              onClick={() => openAuthModal('signup')}
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition"
             >
               Sign Up
             </button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-inherit focus:outline-none"
+              onClick={toggleMenu}
+              className="text-gray-700 hover:text-blue-600 focus:outline-none"
               aria-label="Toggle menu"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
@@ -66,35 +63,44 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 flex flex-col space-y-3">
-            <a href="#home" className="hover:text-blue-500 transition-colors" onClick={() => setIsMenuOpen(false)}>Home</a>
-            <a href="#about" className="hover:text-blue-500 transition-colors" onClick={() => setIsMenuOpen(false)}>About</a>
-            <a href="#services" className="hover:text-blue-500 transition-colors" onClick={() => setIsMenuOpen(false)}>Services</a>
-            <a href="#portfolio" className="hover:text-blue-500 transition-colors" onClick={() => setIsMenuOpen(false)}>Portfolio</a>
-            <a href="#contact" className="hover:text-blue-500 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</a>
-            <div className="pt-2 flex flex-col space-y-2">
-              <button 
-                className="text-left px-4 py-2 rounded-md font-medium hover:bg-blue-50 hover:text-blue-600 transition-colors"
-                onClick={() => {
-                  document.getElementById('auth-modal')?.showModal();
-                  setIsMenuOpen(false);
-                }}
-              >
-                Login
-              </button>
-              <button 
-                className="text-left px-4 py-2 bg-blue-600 text-white rounded-md font-medium hover:bg-blue-700 transition-colors"
-                onClick={() => {
-                  document.getElementById('auth-modal')?.showModal();
-                  setIsMenuOpen(false);
-                }}
-              >
-                Sign Up
-              </button>
+          <div className="md:hidden py-4 border-t border-gray-200">
+            <div className="flex flex-col space-y-3">
+              <a href="/" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+              <a href="/about" className="text-gray-700 hover:text-blue-600 font-medium">About</a>
+              <a href="/services" className="text-gray-700 hover:text-blue-600 font-medium">Services</a>
+              <a href="/portfolio" className="text-gray-700 hover:text-blue-600 font-medium">Portfolio</a>
+              <a href="/contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+              <div className="pt-2 flex flex-col space-y-2">
+                <button
+                  onClick={() => {
+                    openAuthModal('login');
+                    setIsMenuOpen(false);
+                  }}
+                  className="text-left px-3 py-2 text-gray-700 hover:text-blue-600 font-medium"
+                >
+                  Log In
+                </button>
+                <button
+                  onClick={() => {
+                    openAuthModal('signup');
+                    setIsMenuOpen(false);
+                  }}
+                  className="text-left px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+                >
+                  Sign Up
+                </button>
+              </div>
             </div>
           </div>
         )}
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        initialMode={authMode}
+      />
     </nav>
   );
 };
