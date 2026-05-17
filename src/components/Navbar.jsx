@@ -1,112 +1,156 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authMode, setAuthMode] = useState('login');
+  const [isLoginMode, setIsLoginMode] = useState(true);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const openAuthModal = (mode) => {
-    setAuthMode(mode);
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      if (isMenuOpen) setIsMenuOpen(false);
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMenuOpen]);
+
+  const toggleAuthModal = (isLogin = true) => {
+    setIsLoginMode(isLogin);
     setIsAuthModalOpen(true);
   };
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-40">
+    <nav className="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2">
-              <span className="text-xl font-bold text-gray-900">DevStudio</span>
-            </a>
+        <div className="flex justify-between h-16 items-center">
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center">
+            <span className="text-xl font-bold text-white">DevFolio</span>
           </div>
 
-          {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="/" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-            <a href="/about" className="text-gray-700 hover:text-blue-600 font-medium">About</a>
-            <a href="/services" className="text-gray-700 hover:text-blue-600 font-medium">Services</a>
-            <a href="/portfolio" className="text-gray-700 hover:text-blue-600 font-medium">Portfolio</a>
-            <a href="/contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
+          {/* Desktop Menu */}
+          <div className="hidden md:ml-10 md:flex md:space-x-8">
+            {['Home', 'About', 'Services', 'Portfolio', 'Contact'].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
+              >
+                {item}
+              </a>
+            ))}
           </div>
 
+          {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <button
-              onClick={() => openAuthModal('login')}
-              className="px-4 py-2 text-gray-700 hover:text-blue-600 font-medium transition"
-            >
-              Login
-            </button>
-            <button
-              onClick={() => openAuthModal('signup')}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition"
+              onClick={() => toggleAuthModal(false)}
+              className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-700 rounded-lg hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all"
             >
               Sign Up
+            </button>
+            <button
+              onClick={() => toggleAuthModal(true)}
+              className="px-4 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg transition-all"
+            >
+              Log In
             </button>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
-              onClick={toggleMenu}
-              className="text-gray-700 hover:text-blue-600 focus:outline-none"
-              aria-label="Toggle menu"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMenuOpen(!isMenuOpen);
+              }}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-white/10 focus:outline-none"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <svg
+                className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+              <svg
+                className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <div className="flex flex-col space-y-3">
-              <a href="/" className="text-gray-700 hover:text-blue-600 font-medium">Home</a>
-              <a href="/about" className="text-gray-700 hover:text-blue-600 font-medium">About</a>
-              <a href="/services" className="text-gray-700 hover:text-blue-600 font-medium">Services</a>
-              <a href="/portfolio" className="text-gray-700 hover:text-blue-600 font-medium">Portfolio</a>
-              <a href="/contact" className="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
-              <div className="pt-2 flex flex-col space-y-2">
-                <button
-                  onClick={() => {
-                    openAuthModal('login');
-                    setIsMenuOpen(false);
-                  }}
-                  className="text-left px-4 py-2 text-gray-700 hover:text-blue-600 font-medium"
-                >
-                  Login
-                </button>
-                <button
-                  onClick={() => {
-                    openAuthModal('signup');
-                    setIsMenuOpen(false);
-                  }}
-                  className="text-left px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
-                >
-                  Sign Up
-                </button>
-              </div>
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white/10 backdrop-blur-md border-t border-white/20">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {['Home', 'About', 'Services', 'Portfolio', 'Contact'].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-white/10"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item}
+              </a>
+            ))}
+            <div className="pt-4 pb-3 border-t border-white/20">
+              <button
+                onClick={() => {
+                  toggleAuthModal(false);
+                  setIsMenuOpen(false);
+                }}
+                className="w-full text-left px-3 py-2 text-base font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-700 rounded-lg hover:from-blue-700 hover:to-indigo-800 transition-all"
+              >
+                Sign Up
+              </button>
+              <button
+                onClick={() => {
+                  toggleAuthModal(true);
+                  setIsMenuOpen(false);
+                }}
+                className="w-full text-left px-3 py-2 mt-2 text-base font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg transition-all"
+              >
+                Log In
+              </button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Auth Modal */}
       {isAuthModalOpen && (
         <AuthModal
           isOpen={isAuthModalOpen}
           onClose={() => setIsAuthModalOpen(false)}
-          initialMode={authMode}
+          onSwitchToLogin={() => setIsLoginMode(true)}
+          onSwitchToSignup={() => setIsLoginMode(false)}
         />
       )}
     </nav>
   );
 };
 
-// Import AuthModal inside Navbar to avoid circular dependency or external import issues
-// Since we're updating Navbar.jsx, we'll use dynamic import or assume it's available.
-// But per instruction, we must *not* duplicate or misplace — so we inline the import above.
+// Import AuthModal inside the file to avoid circular dependency issues
+const AuthModal = React.lazy(() => import('./AuthModal.jsx').then(module => ({ default: module.default })));
 
 export default Navbar;

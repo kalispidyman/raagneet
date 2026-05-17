@@ -1,240 +1,145 @@
 import React, { useState } from 'react';
 
-const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
-  const [mode, setMode] = useState(initialMode);
+const AuthModal = ({ isOpen, onClose, onSwitchToLogin, onSwitchToSignup }) => {
+  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
-    login: { username: '', password: '' },
-    signup: { name: '', phone: '', email: '', password: '', confirmPassword: '' }
+    email: '',
+    password: '',
+    name: '',
+    confirmPassword: ''
   });
-  const [errors, setErrors] = useState({});
 
-  const handleChange = (section, field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [section]: { ...prev[section], [field]: value }
-    }));
-    // Clear error when user starts typing
-    if (errors[`${section}.${field}`]) {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[`${section}.${field}`];
-        return newErrors;
-      });
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (mode === 'login') {
-      if (!formData.login.username.trim()) newErrors['login.username'] = 'Username is required';
-      if (!formData.login.password) newErrors['login.password'] = 'Password is required';
-    } else {
-      const { name, phone, email, password, confirmPassword } = formData.signup;
-      if (!name.trim()) newErrors['signup.name'] = 'Name is required';
-      if (!phone.trim()) newErrors['signup.phone'] = 'Phone number is required';
-      if (!email.trim()) {
-        newErrors['signup.email'] = 'Email is required';
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        newErrors['signup.email'] = 'Invalid email format';
-      }
-      if (!password) newErrors['signup.password'] = 'Password is required';
-      else if (password.length < 6) newErrors['signup.password'] = 'Password must be at least 6 characters';
-      if (password !== confirmPassword) newErrors['signup.confirmPassword'] = 'Passwords do not match';
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      // In real app: submit to backend
-      console.log(`${mode} submitted:`, formData[mode]);
-      alert(`${mode === 'login' ? 'Login' : 'Signup'} successful!`);
-      onClose();
-    }
+    // Handle login/signup logic here
+    console.log(isLogin ? 'Login submitted' : 'Signup submitted', formData);
+    onClose();
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden">
-        <div className="p-6">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-gray-800">
-              {mode === 'login' ? 'Welcome Back' : 'Create Account'}
-            </h2>
-            <button
-              onClick={onClose}
-              className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
-              aria-label="Close"
-            >
-              &times;
-            </button>
-          </div>
+      <div className="relative w-full max-w-md">
+        {/* Glasomorphic background */}
+        <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-xl overflow-hidden">
+          <div className="p-6 sm:p-8">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-white">
+                {isLogin ? 'Welcome Back' : 'Create Account'}
+              </h2>
+              <button
+                onClick={onClose}
+                className="text-gray-300 hover:text-white transition-colors"
+                aria-label="Close"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
 
-          <form onSubmit={handleSubmit}>
-            {mode === 'login' ? (
-              <>
+            <form onSubmit={handleSubmit}>
+              {!isLogin && (
                 <div className="mb-4">
-                  <label htmlFor="login-username" className="block text-sm font-medium text-gray-700 mb-1">
-                    Username
-                  </label>
-                  <input
-                    id="login-username"
-                    type="text"
-                    value={formData.login.username}
-                    onChange={(e) => handleChange('login', 'username', e.target.value)}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors['login.username'] ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="Enter username"
-                  />
-                  {errors['login.username'] && (
-                    <p className="mt-1 text-sm text-red-600">{errors['login.username']}</p>
-                  )}
-                </div>
-
-                <div className="mb-6">
-                  <label htmlFor="login-password" className="block text-sm font-medium text-gray-700 mb-1">
-                    Password
-                  </label>
-                  <input
-                    id="login-password"
-                    type="password"
-                    value={formData.login.password}
-                    onChange={(e) => handleChange('login', 'password', e.target.value)}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors['login.password'] ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="Enter password"
-                  />
-                  {errors['login.password'] && (
-                    <p className="mt-1 text-sm text-red-600">{errors['login.password']}</p>
-                  )}
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="mb-4">
-                  <label htmlFor="signup-name" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-1">
                     Full Name
                   </label>
                   <input
-                    id="signup-name"
                     type="text"
-                    value={formData.signup.name}
-                    onChange={(e) => handleChange('signup', 'name', e.target.value)}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors['signup.name'] ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="Enter your full name"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required={!isLogin}
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    placeholder="John Doe"
                   />
-                  {errors['signup.name'] && (
-                    <p className="mt-1 text-sm text-red-600">{errors['signup.name']}</p>
-                  )}
                 </div>
+              )}
 
-                <div className="mb-4">
-                  <label htmlFor="signup-phone" className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone Number
-                  </label>
-                  <input
-                    id="signup-phone"
-                    type="tel"
-                    value={formData.signup.phone}
-                    onChange={(e) => handleChange('signup', 'phone', e.target.value)}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors['signup.phone'] ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="e.g. +1234567890"
-                  />
-                  {errors['signup.phone'] && (
-                    <p className="mt-1 text-sm text-red-600">{errors['signup.phone']}</p>
-                  )}
-                </div>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-1">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  placeholder="you@example.com"
+                />
+              </div>
 
-                <div className="mb-4">
-                  <label htmlFor="signup-email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email Address
-                  </label>
-                  <input
-                    id="signup-email"
-                    type="email"
-                    value={formData.signup.email}
-                    onChange={(e) => handleChange('signup', 'email', e.target.value)}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors['signup.email'] ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="Enter your email"
-                  />
-                  {errors['signup.email'] && (
-                    <p className="mt-1 text-sm text-red-600">{errors['signup.email']}</p>
-                  )}
-                </div>
+              <div className="mb-4">
+                <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-1">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  placeholder="••••••••"
+                />
+              </div>
 
-                <div className="mb-4">
-                  <label htmlFor="signup-password" className="block text-sm font-medium text-gray-700 mb-1">
-                    Password
-                  </label>
-                  <input
-                    id="signup-password"
-                    type="password"
-                    value={formData.signup.password}
-                    onChange={(e) => handleChange('signup', 'password', e.target.value)}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors['signup.password'] ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="Create a password"
-                  />
-                  {errors['signup.password'] && (
-                    <p className="mt-1 text-sm text-red-600">{errors['signup.password']}</p>
-                  )}
-                </div>
-
+              {!isLogin && (
                 <div className="mb-6">
-                  <label htmlFor="signup-confirm-password" className="block text-sm font-medium text-gray-700 mb-1">
+                  <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-200 mb-1">
                     Confirm Password
                   </label>
                   <input
-                    id="signup-confirm-password"
                     type="password"
-                    value={formData.signup.confirmPassword}
-                    onChange={(e) => handleChange('signup', 'confirmPassword', e.target.value)}
-                    className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                      errors['signup.confirmPassword'] ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                    placeholder="Confirm your password"
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    required={!isLogin}
+                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    placeholder="••••••••"
                   />
-                  {errors['signup.confirmPassword'] && (
-                    <p className="mt-1 text-sm text-red-600">{errors['signup.confirmPassword']}</p>
-                  )}
                 </div>
-              </>
-            )}
+              )}
 
-            <button
-              type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition duration-200"
-            >
-              {mode === 'login' ? 'Sign In' : 'Create Account'}
-            </button>
-          </form>
-
-          <div className="mt-6 text-center text-sm text-gray-600">
-            <p>
-              {mode === 'login' ? "Don't have an account?" : "Already have an account?"}
               <button
-                type="button"
-                onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-                className="ml-1 text-blue-600 hover:text-blue-800 font-medium"
+                type="submit"
+                className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-medium rounded-lg hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all transform hover:scale-[1.02]"
               >
-                {mode === 'login' ? 'Sign up' : 'Sign in'}
+                {isLogin ? 'Sign In' : 'Create Account'}
               </button>
-            </p>
+            </form>
+
+            <div className="mt-6 text-center">
+              <p className="text-gray-300 text-sm">
+                {isLogin ? "Don't have an account?" : "Already have an account?"}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsLogin(!isLogin);
+                    if (!isLogin) {
+                      onSwitchToLogin?.();
+                    } else {
+                      onSwitchToSignup?.();
+                    }
+                  }}
+                  className="ml-1 text-blue-400 hover:text-blue-300 font-medium transition-colors underline"
+                >
+                  {isLogin ? 'Sign up' : 'Sign in'}
+                </button>
+              </p>
+            </div>
           </div>
         </div>
       </div>
