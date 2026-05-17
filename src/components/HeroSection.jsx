@@ -1,25 +1,23 @@
-const HeroSection = ({ title, subtitle, ctaPrimary, ctaSecondary }) => {
+import React from 'react';
+
+const HeroSection = () => {
   return (
-    <div className="relative py-24 lg:py-32 px-4 sm:px-6 lg:px-8 flex items-center justify-center text-center overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-teal-900/15 via-[#0B0F19] to-[#0B0F19] pointer-events-none" />
-      
-      <div className="relative z-10 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 text-gradient leading-tight">
-          {title || "Elevate Your Digital Presence"}
-        </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-lg md:text-xl text-slate-300 mb-10 leading-relaxed">
-          {subtitle || "Experience the future of web design with our ultra-modern, frosted glass aesthetics and seamless interactions."}
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <button className="btn-primary">
-            {ctaPrimary || "Get Started"}
-          </button>
-          <button className="btn-secondary">
-            {ctaSecondary || "Learn More"}
-          </button>
-        </div>
+    <section className="relative text-center py-20 px-4">
+      <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-500">
+        Build the Future
+      </h1>
+      <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+        Experience a premium, ultra-modern interface designed for performance, clarity, and seamless interaction.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <button className="px-8 py-4 rounded-full bg-gradient-to-r from-cyan-600 to-teal-600 text-white font-semibold shadow-[0_0_20px_rgba(13,148,136,0.3)] hover:scale-105 hover:shadow-[0_0_30px_rgba(13,148,136,0.5)] transition-all duration-300 ease-out">
+          Get Started
+        </button>
+        <button className="px-8 py-4 rounded-full bg-white/[0.03] backdrop-blur-md border border-white/[0.08] text-slate-300 font-medium hover:bg-white/[0.06] hover:border-white/[0.15] transition-all duration-300 ease-out">
+          Learn More
+        </button>
       </div>
-    </div>
+    </section>
   );
 };
 

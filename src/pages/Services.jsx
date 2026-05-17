@@ -1,43 +1,28 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const Services = () => {
-  return (
-    <div className="min-h-screen bg-slate-50">
-      <Navbar />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h1 className="text-4xl md:text-5xl font-bold text-center text-slate-900 mb-6">
-          Our Services
-        </h1>
-        <p className="text-center text-slate-600 max-w-2xl mx-auto mb-16">
-          We offer a comprehensive range of digital solutions tailored to elevate your brand and streamline your operations.
-        </p>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Web Development</h3>
-            <p className="text-slate-600">Custom, responsive websites built with modern frameworks to ensure speed, security, and scalability.</p>
-          </div>
-          <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
-            <h3 className="text-xl font-bold text-slate-900 mb-3">UI/UX Design</h3>
-            <p className="text-slate-600">Intuitive and visually stunning interfaces designed to maximize user engagement and satisfaction.</p>
-          </div>
-          <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300">
-            <h3 className="text-xl font-bold text-slate-900 mb-3">Digital Marketing</h3>
-            <p className="text-slate-600">Data-driven strategies including SEO, social media, and content marketing to grow your audience.</p>
-          </div>
-        </div>
+  const services = [
+    { title: "UI/UX Design", desc: "Crafting intuitive, visually stunning interfaces." },
+    { title: "Web Development", desc: "Full-stack solutions using modern frameworks." },
+    { title: "Cloud Architecture", desc: "Scalable, secure, and resilient infrastructure." },
+    { title: "AI Integration", desc: "Seamless machine learning and automation." }
+  ];
 
-        <div className="mt-20 bg-white p-10 rounded-3xl shadow-lg border border-slate-100 text-center animate-slide-up">
-          <h3 className="text-2xl font-bold text-slate-900 mb-4">Ready to transform your digital presence?</h3>
-          <p className="text-slate-600 mb-8">Let's collaborate and bring your vision to life. Reach out for a free consultation.</p>
-          <a href="/contact" className="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-slate-800 transition-colors">
-            Get in Touch
-          </a>
-        </div>
+  return (
+    <div className="min-h-screen pt-32 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <h2 className="text-4xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">Our Services</h2>
+      <p className="text-center text-slate-400 max-w-2xl mx-auto mb-16">We deliver cutting-edge solutions tailored to your unique business needs.</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {services.map((s, i) => (
+          <div key={i} className="group p-8 rounded-2xl bg-white/[0.03] backdrop-blur-lg border border-white/[0.08] hover:border-white/[0.18] hover:-translate-y-1.5 transition-all duration-300 ease-out">
+            <div className="w-12 h-12 mb-6 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center text-cyan-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+            </div>
+            <h3 className="text-2xl font-semibold text-white mb-3">{s.title}</h3>
+            <p className="text-slate-400 leading-relaxed">{s.desc}</p>
+          </div>
+        ))}
       </div>
-      <Footer />
     </div>
   );
 };
