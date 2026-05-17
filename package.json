@@ -1,11 +1,12 @@
 {
-  "name": "your-app-name",
+  "name": "your-project-name",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vite",
+    "dev": "vite",
     "build": "vite build",
-    "test": "vitest"
+    "serve": "vite preview",
+    "lint": "eslint ."
   },
   "dependencies": {
     "react": "^17.0.2",
@@ -13,9 +14,7 @@
     "vite": "^2.6.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^1.0.0"
-  },
-  "engines": {
-    "node": ">=16.0.0"
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.27.1"
   }
 }
