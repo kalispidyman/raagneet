@@ -6,7 +6,7 @@
 
 /* Ensure the mobile menu doesn't overlap on desktop */
 @media (min-width: 768px) {
-  .navbar .md\\:flex {
+  .navbar .md\:flex {
     display: flex !important;
     position: static;
     background-color: transparent;
