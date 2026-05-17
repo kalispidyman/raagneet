@@ -10,18 +10,18 @@ import Contact from './pages/Contact';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-[#0B0F19] relative overflow-hidden">
-        {/* Abstract Background Orbs */}
-        <div className="fixed inset-0 z-0 pointer-events-none">
-          <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#0d9488] opacity-20 blur-[150px] animate-float-slow" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#7c3aed] opacity-20 blur-[150px] animate-float-medium" />
-          <div className="absolute top-[40%] left-[30%] w-[400px] h-[400px] rounded-full bg-[#0d9488] opacity-15 blur-[120px] animate-float-fast" />
-          <div className="absolute top-[20%] right-[20%] w-[350px] h-[350px] rounded-full bg-[#7c3aed] opacity-10 blur-[100px] animate-float-slow" />
+      <div className="min-h-screen relative overflow-hidden">
+        {/* Animated Background Orbs */}
+        <div className="fixed inset-0 pointer-events-none z-0">
+          <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-teal-600/30 rounded-full blur-[150px] animate-float-slow" />
+          <div className="absolute top-[20%] right-[-5%] w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] animate-float-medium" />
+          <div className="absolute bottom-[-10%] left-[30%] w-[700px] h-[700px] bg-cyan-600/20 rounded-full blur-[150px] animate-float-fast" />
+          <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-teal-500/10 rounded-full blur-[180px] animate-pulse-slow" />
         </div>
-        
+
         <div className="relative z-10 flex flex-col min-h-screen">
           <Navbar />
-          <main className="flex-grow pt-24">
+          <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />

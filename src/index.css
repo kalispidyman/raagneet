@@ -1,71 +1,77 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg-dark: #0B0F19;
-}
-
-body {
-  margin: 0;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: var(--bg-dark);
-  color: #ffffff;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #0B0F19;
-}
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+@layer base {
+  body {
+    @apply bg-[#0B0F19] text-slate-200 antialiased overflow-x-hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
 }
 
 @layer components {
   .glass-panel {
-    @apply bg-white/[0.03] backdrop-blur-md border border-white/[0.08] shadow-2xl;
+    @apply bg-white/[0.03] backdrop-blur-lg border border-white/[0.08] rounded-2xl shadow-2xl;
   }
-
+  
   .glass-card {
-    @apply bg-white/[0.03] backdrop-blur-md border border-white/[0.08] shadow-lg transition-all duration-300 ease-out;
+    @apply bg-white/[0.02] backdrop-blur-md border border-white/[0.06] rounded-xl shadow-lg 
+           transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-white/[0.18] hover:shadow-2xl;
   }
-  .glass-card:hover {
-    @apply border-white/[0.18] -translate-y-1.5 shadow-cyan-900/20;
+  
+  .btn-primary {
+    @apply px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 ease-out
+           bg-gradient-to-r from-teal-500 to-cyan-500 
+           shadow-[0_0_20px_rgba(13,148,136,0.3)] hover:shadow-[0_0_30px_rgba(13,148,136,0.5)] hover:scale-105;
   }
-
+  
+  .btn-secondary {
+    @apply px-6 py-3 rounded-full font-semibold text-white transition-all duration-300 ease-out
+           bg-white/[0.05] backdrop-blur-sm border border-white/[0.1] hover:bg-white/[0.1] hover:border-white/[0.2] hover:scale-105;
+  }
+  
   .text-gradient {
     @apply bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent;
   }
+  
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-teal-400 to-purple-400 bg-clip-text text-transparent;
+  }
+}
 
-  .btn-primary {
-    @apply px-6 py-3 rounded-full bg-gradient-to-r from-teal-400 to-cyan-500 text-slate-950 font-semibold shadow-[0_0_20px_rgba(13,148,136,0.3)] transition-all duration-300 ease-out hover:scale-105 hover:shadow-[0_0_30px_rgba(13,148,136,0.5)];
+@layer utilities {
+  .animate-float-slow {
+    animation: float-slow 15s ease-in-out infinite;
+  }
+  .animate-float-medium {
+    animation: float-medium 10s ease-in-out infinite;
+  }
+  .animate-float-fast {
+    animation: float-fast 8s ease-in-out infinite;
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
 
 @keyframes float-slow {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(20px, -30px) scale(1.1); }
-}
-@keyframes float-medium {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-30px, 20px) scale(1.05); }
-}
-@keyframes float-fast {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(40px, 40px) scale(0.95); }
+  50% { transform: translate(30px, -40px) scale(1.1); }
 }
 
-.animate-float-slow { animation: float-slow 20s ease-in-out infinite; }
-.animate-float-medium { animation: float-medium 15s ease-in-out infinite; }
-.animate-float-fast { animation: float-fast 10s ease-in-out infinite; }
+@keyframes float-medium {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-40px, 30px) scale(1.15); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, 20px) scale(1.05); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.6; }
+}
