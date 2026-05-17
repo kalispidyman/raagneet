@@ -3,7 +3,7 @@ import './HeroSection.css';
 
 const HeroSection = () => {
   const [scrollY, setScrollY] = useState(0);
-  const [visible, setVisible] = useState(false);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const heroRef = useRef(null);
 
   useEffect(() => {
@@ -12,62 +12,77 @@ const HeroSection = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
-    );
-    if (heroRef.current) observer.observe(heroRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const handleMouseMove = (e) => {
+    if (window.innerWidth > 768 && heroRef.current) {
+      const rect = heroRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      setTilt({ x: y * 15, y: -x * 15 });
+    }
+  };
 
-  // Parallax calculations
-  const parallaxOffset = scrollY * 0.35;
-  const contentOpacity = Math.max(0, 1 - scrollY / 250);
-  const contentScale = Math.max(0.95, 1 - scrollY / 1200);
+  const handleTouchMove = (e) => {
+    if (e.touches.length > 0 && heroRef.current) {
+      const touch = e.touches[0];
+      const rect = heroRef.current.getBoundingClientRect();
+      const x = (touch.clientX - rect.left) / rect.width - 0.5;
+      const y = (touch.clientY - rect.top) / rect.height - 0.5;
+      setTilt({ x: y * 10, y: -x * 10 });
+    }
+  };
+
+  const resetTilt = () => setTilt({ x: 0, y: 0 });
+
+  const parallaxOffset = scrollY * 0.3;
+  const textOffset = scrollY * 0.15;
+  const visualOffset = scrollY * -0.2;
 
   return (
     <section 
       ref={heroRef} 
-      className="hero-section"
-      aria-label="Hero Section"
+      className="hero-section" 
+      onMouseMove={handleMouseMove} 
+      onMouseLeave={resetTilt}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={resetTilt}
     >
-      <div className="hero-bg-layer" style={{ transform: `translateY(${parallaxOffset}px)` }}>
-        <div className="floating-shape shape-1"></div>
-        <div className="floating-shape shape-2"></div>
-        <div className="floating-shape shape-3"></div>
-        <div className="grid-pattern"></div>
+      <div className="hero-background" style={{ transform: `translateY(${parallaxOffset}px)` }}>
+        <div className="gradient-blob blob-1"></div>
+        <div className="gradient-blob blob-2"></div>
+        <div className="gradient-blob blob-3"></div>
+        <div className="grid-overlay"></div>
       </div>
-
-      <div 
-        className="hero-content"
-        style={{ opacity: contentOpacity, transform: `scale(${contentScale})` }}
-      >
-        <div className={`hero-text-wrapper ${visible ? 'animate-in' : ''}`}>
-          <h1 className="hero-title">
-            <span className="word">Design.</span>
-            <span className="word">Develop.</span>
-            <span className="word highlight">Deliver.</span>
-          </h1>
-          <p className="hero-subtitle">
-            Building immersive, mobile-first web experiences that engage users from the first scroll.
-          </p>
-          <div className="hero-cta-group">
-            <button className="btn btn-primary" aria-label="View Portfolio">
-              View My Work
-            </button>
-            <button className="btn btn-secondary" aria-label="Contact Me">
-              Let's Connect
-            </button>
+      
+      <div className="hero-content">
+        <div className="hero-text" style={{ opacity: Math.max(0, 1 - scrollY / 500), transform: `translateY(${textOffset}px)` }}>
+          <span className="badge animate-slide-down">Mobile-First Design</span>
+          <h1 className="animate-slide-up">Crafting Digital <br /> <span className="highlight">Experiences</span></h1>
+          <p className="animate-fade-in">Immersive, interactive, and beautifully responsive. Built for the modern screen and optimized for every touchpoint.</p>
+          <div className="hero-buttons animate-fade-in-delay">
+            <button className="btn primary">Get Started</button>
+            <button className="btn secondary">Explore Work</button>
           </div>
         </div>
-      </div>
-
-      <div className="scroll-indicator">
-        <div className="mouse">
-          <div className="wheel"></div>
+        
+        <div className="hero-visual" style={{ transform: `translateY(${visualOffset}px)` }}>
+          <div className="phone-mockup" style={{ transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` }}>
+            <div className="notch"></div>
+            <div className="screen-content">
+              <div className="app-header"></div>
+              <div className="mockup-card card-1"></div>
+              <div className="mockup-card card-2"></div>
+              <div className="mockup-card card-3"></div>
+            </div>
+          </div>
+          <div className="floating-element fe-1">📱</div>
+          <div className="floating-element fe-2">🎨</div>
+          <div className="floating-element fe-3">⚡</div>
         </div>
-        <span>Swipe Down</span>
+      </div>
+      
+      <div className="scroll-indicator">
+        <span>Scroll to explore</span>
+        <div className="mouse"></div>
       </div>
     </section>
   );
