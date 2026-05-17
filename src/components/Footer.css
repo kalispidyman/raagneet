@@ -1,21 +1,19 @@
 .footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #282c34;
-    color: white;
-  }
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
 
-  .animated-text {
-    display: inline-block;
-    animation: color-change 5s infinite;
-    font-size: 1.5em;
-    font-weight: bold;
-  }
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-  @keyframes color-change {
-    0% { color: #ff5733; }
-    25% { color: #33ff57; }
-    50% { color: #3357ff; }
-    75% { color: #f0e68c; }
-    100% { color: #ff5733; }
-  }
+.footer p {
+  margin: 5px 0;
+  font-size: 0.9em;
+}
