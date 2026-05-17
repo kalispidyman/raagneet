@@ -1,15 +1,30 @@
-import HeroSection from '../components/HeroSection.jsx'
-import Navbar from '../components/Navbar.jsx'
-import Footer from '../components/Footer.jsx'
+import React, { useState } from 'react';
+import HeroSection from '../components/HeroSection';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
+import AuthModal from '../components/AuthModal';
 
-export default function Home() {
+const Home = () => {
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState('login'); // 'login' or 'signup'
+
+  const openAuthModal = (mode) => {
+    setAuthModalMode(mode);
+    setAuthModalOpen(true);
+  };
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <main className="flex-grow">
-        <HeroSection />
-      </main>
+    <>
+      <Navbar onLoginClick={() => openAuthModal('login')} onSignupClick={() => openAuthModal('signup')} />
+      <HeroSection onLoginClick={() => openAuthModal('login')} onSignupClick={() => openAuthModal('signup')} />
       <Footer />
-    </div>
-  )
-}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        initialMode={authModalMode}
+      />
+    </>
+  );
+};
+
+export default Home;

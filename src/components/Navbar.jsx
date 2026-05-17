@@ -1,156 +1,121 @@
 import React, { useState, useEffect } from 'react';
 
-const Navbar = () => {
+const Navbar = ({ onLoginClick, onSignupClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [isLoginMode, setIsLoginMode] = useState(true);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Close mobile menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = () => {
-      if (isMenuOpen) setIsMenuOpen(false);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
     };
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [isMenuOpen]);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const toggleAuthModal = (isLogin = true) => {
-    setIsLoginMode(isLogin);
-    setIsAuthModalOpen(true);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <nav className="bg-white/10 backdrop-blur-md border-b border-white/20 sticky top-0 z-40">
+    <nav
+      className={`fixed w-full z-40 transition-all duration-300 ${
+        scrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
+        <div className="flex justify-between items-center">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <span className="text-xl font-bold text-white">DevFolio</span>
+          <div className="flex items-center">
+            <span className="text-2xl font-bold text-gray-900">Dev<span className="text-blue-600">Flow</span></span>
           </div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:ml-10 md:flex md:space-x-8">
-            {['Home', 'About', 'Services', 'Portfolio', 'Contact'].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-gray-200 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors"
-              >
-                {item}
-              </a>
-            ))}
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <a href="#home" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Home</a>
+            <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">About</a>
+            <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Services</a>
+            <a href="#portfolio" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Portfolio</a>
+            <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">Contact</a>
           </div>
 
-          {/* Desktop CTA Buttons */}
+          {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <button
-              onClick={() => toggleAuthModal(false)}
-              className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-700 rounded-lg hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all"
+              onClick={onLoginClick}
+              className="px-5 py-2 text-gray-700 hover:text-blue-600 font-medium transition-colors"
             >
-              Sign Up
+              Sign In
             </button>
             <button
-              onClick={() => toggleAuthModal(true)}
-              className="px-4 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg transition-all"
+              onClick={onSignupClick}
+              className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
             >
-              Log In
+              Sign Up
             </button>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsMenuOpen(!isMenuOpen);
-              }}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-white/10 focus:outline-none"
+              onClick={toggleMenu}
+              className="text-gray-700 hover:text-blue-600 focus:outline-none"
+              aria-label="Toggle menu"
             >
               <svg
-                className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-              <svg
-                className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
+                {isMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
               </svg>
             </button>
           </div>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white/10 backdrop-blur-md border-t border-white/20">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {['Home', 'About', 'Services', 'Portfolio', 'Contact'].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-200 hover:text-white hover:bg-white/10"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item}
-              </a>
-            ))}
-            <div className="pt-4 pb-3 border-t border-white/20">
-              <button
-                onClick={() => {
-                  toggleAuthModal(false);
-                  setIsMenuOpen(false);
-                }}
-                className="w-full text-left px-3 py-2 text-base font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-700 rounded-lg hover:from-blue-700 hover:to-indigo-800 transition-all"
-              >
-                Sign Up
-              </button>
-              <button
-                onClick={() => {
-                  toggleAuthModal(true);
-                  setIsMenuOpen(false);
-                }}
-                className="w-full text-left px-3 py-2 mt-2 text-base font-medium text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg transition-all"
-              >
-                Log In
-              </button>
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <div className="md:hidden mt-4 pb-4">
+            <div className="flex flex-col space-y-3">
+              <a href="#home" className="text-gray-700 hover:text-blue-600 font-medium py-2">Home</a>
+              <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium py-2">About</a>
+              <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium py-2">Services</a>
+              <a href="#portfolio" className="text-gray-700 hover:text-blue-600 font-medium py-2">Portfolio</a>
+              <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium py-2">Contact</a>
+              
+              {/* Mobile Auth Buttons */}
+              <div className="pt-4 flex flex-col space-y-3">
+                <button
+                  onClick={onLoginClick}
+                  className="w-full text-left px-4 py-2 text-gray-700 hover:text-blue-600 font-medium rounded-lg hover:bg-gray-100"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={onSignupClick}
+                  className="w-full text-left px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg"
+                >
+                  Sign Up
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Auth Modal */}
-      {isAuthModalOpen && (
-        <AuthModal
-          isOpen={isAuthModalOpen}
-          onClose={() => setIsAuthModalOpen(false)}
-          onSwitchToLogin={() => setIsLoginMode(true)}
-          onSwitchToSignup={() => setIsLoginMode(false)}
-        />
-      )}
+        )}
+      </div>
     </nav>
   );
 };
-
-// Import AuthModal inside the file to avoid circular dependency issues
-const AuthModal = React.lazy(() => import('./AuthModal.jsx').then(module => ({ default: module.default })));
 
 export default Navbar;
