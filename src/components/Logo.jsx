@@ -1,49 +1,31 @@
 import React from 'react';
 
-const Logo = ({ className = "w-12 h-12" }) => {
+const Logo = ({ className = "w-16 h-16" }) => {
   return (
     <div className={`relative ${className} group`}>
-      {/* Background Aura */}
-      <div className="absolute inset-0 bg-accent-cyan/20 blur-xl rounded-full group-hover:bg-accent-cyan/40 transition-colors duration-500" />
+      {/* Background Luminous Aura - intensified for visibility */}
+      <div className="absolute inset-0 bg-accent-cyan/30 blur-2xl rounded-full group-hover:bg-accent-cyan/50 transition-all duration-500 scale-110" />
       
-      <svg 
-        viewBox="0 0 100 100" 
-        fill="none" 
-        xmlns="http://www.w3.org/2000/svg"
-        className="relative z-10 w-full h-full drop-shadow-[0_0_12px_rgba(34,211,238,0.8)]"
-      >
-        {/* Hexagonal Frame */}
-        <path 
-          d="M50 5L89.5 27.5V72.5L50 95L10.5 72.5V27.5L50 5Z" 
-          stroke="url(#logo-gradient)" 
-          strokeWidth="4" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-          className="animate-[pulse_4s_infinite]"
-        />
-        
-        {/* Stylized 'R' */}
-        <path 
-          d="M35 30V70M35 30H55C62 30 65 35 65 40C65 45 62 50 55 50H35M50 50L65 70" 
-          stroke="white" 
-          strokeWidth="6" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        />
-        
-        {/* Glow Dots */}
-        <circle cx="50" cy="95" r="3" fill="#22d3ee" className="animate-ping" />
-        <circle cx="89.5" cy="27.5" r="2" fill="#7c3aed" />
-        <circle cx="10.5" cy="27.5" r="2" fill="#7c3aed" />
+      {/* Outer Rotating Energy Ring */}
+      <div className="absolute inset-[-4px] rounded-2xl border border-accent-cyan/20 animate-[spin_10s_linear_infinite] opacity-50" />
+      
+      {/* Inner Glowing Hexagon Frame */}
+      <div className="absolute inset-0 glass-container border-accent-cyan/40 rounded-xl overflow-hidden shadow-[0_0_30px_rgba(34,211,238,0.3)]">
+        <div className="absolute inset-0 bg-gradient-to-br from-accent-teal/10 via-transparent to-accent-purple/10" />
+      </div>
 
-        <defs>
-          <linearGradient id="logo-gradient" x1="10.5" y1="5" x2="89.5" y2="95" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#22d3ee" />
-            <stop offset="0.5" stopColor="#0d9488" />
-            <stop offset="1" stopColor="#7c3aed" />
-          </linearGradient>
-        </defs>
-      </svg>
+      {/* The Scorpion Logo - Processed for maximum visibility */}
+      <div className="relative z-10 w-full h-full p-1.5 flex items-center justify-center">
+        <img 
+          src="/logo.png" 
+          alt="RAAGNEET Scorpion Logo" 
+          className="w-full h-full object-contain brightness-[1.8] contrast-[1.2] invert drop-shadow-[0_0_12px_rgba(34,211,238,0.9)]"
+        />
+      </div>
+
+      {/* Decorative Glow Dots at corners */}
+      <div className="absolute -top-1 -right-1 w-2 h-2 bg-accent-cyan rounded-full animate-pulse shadow-[0_0_10px_rgba(34,211,238,1)]" />
+      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-accent-purple rounded-full animate-pulse shadow-[0_0_10px_rgba(124,58,237,1)]" />
     </div>
   );
 };
