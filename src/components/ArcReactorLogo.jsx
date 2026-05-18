@@ -3,35 +3,45 @@ import './ArcReactorLogo.css';
 
 const ArcReactorLogo = ({ companyName = "RAAGNEET", size = 300 }) => {
   return (
-    <div className="arc-container" style={{ '--reactor-size': `${size}px` }}>
-      <div className="arc-reactor">
-        {/* Outer Metallic Housing */}
-        <div className="housing-outer" />
+    <div className="logo-container" style={{ '--logo-size': `${size}px` }}>
+      <div className="nexus-core">
+        {/* Geometric Outer Frame */}
+        <div className="nexus-frame">
+          <div className="frame-inner" />
+        </div>
         
-        {/* Rotating Energy Conduits */}
-        <div className="energy-ring">
-          {[...Array(8)].map((_, i) => (
-            <div key={i} className="energy-segment" style={{ '--i': i }} />
+        {/* Inner Geometric "R" Element */}
+        <div className="nexus-geometry">
+          <svg viewBox="0 0 100 100" className="r-shape">
+            <path 
+              d="M30 20 H55 C70 20 70 45 55 45 H30 V80 M30 45 L65 80" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="8" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            />
+          </svg>
+        </div>
+
+        {/* Central Pulsing Nexus */}
+        <div className="nexus-point">
+          <div className="point-glow" />
+          <div className="point-core" />
+        </div>
+
+        {/* Particle Ring */}
+        <div className="particle-ring">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="particle" style={{ '--i': i }} />
           ))}
         </div>
-
-        {/* Central Glowing Core */}
-        <div className="core-chamber">
-          <div className="core-glow" />
-          <div className="core-light" />
-          <div className="core-shard" />
-        </div>
-
-        {/* Holographic HUD Overlays */}
-        <svg className="hud-overlay" viewBox="0 0 200 200">
-          <circle cx="100" cy="100" r="92" className="hud-ring" />
-          <circle cx="100" cy="100" r="82" className="hud-ring hud-dashed" />
-        </svg>
       </div>
 
-      <div className="branding-container">
-        <h1 className="company-title">{companyName}</h1>
-        <span className="company-subtitle">ADVANCED SYSTEMS</span>
+      <div className="nexus-branding">
+        <h1 className="nexus-title">{companyName}</h1>
+        <div className="nexus-accent-line" />
+        <span className="nexus-subtitle">SYSTEMS</span>
       </div>
     </div>
   );
