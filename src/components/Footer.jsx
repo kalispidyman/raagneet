@@ -9,9 +9,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-teal to-accent-cyan flex items-center justify-center">
-                <span className="text-white font-black text-xl">R</span>
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/5 p-1 glass-container border-accent-cyan/20">
+                <img src="/logo.png" alt="RAAGNEET Logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-xl font-bold text-white tracking-tight">
                 RAAG<span className="text-accent-cyan">NEET</span>
