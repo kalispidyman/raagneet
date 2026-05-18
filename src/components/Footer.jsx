@@ -9,9 +9,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/5 p-1 glass-container border-accent-cyan/20">
-                <img src="/logo.png" alt="RAAGNEET Logo" className="w-full h-full object-contain" />
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/10 p-1.5 glass-container border-accent-cyan/20 group-hover:border-accent-cyan/40 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+                <img 
+                  src="/logo.png" 
+                  alt="RAAGNEET Logo" 
+                  className="w-full h-full object-contain brightness-[1.5] contrast-[1.2]" 
+                />
               </div>
               <span className="text-xl font-bold text-white tracking-tight">
                 RAAG<span className="text-accent-cyan">NEET</span>

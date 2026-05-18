@@ -35,9 +35,13 @@ const Navbar = () => {
           scrolled ? 'bg-slate-900/60' : 'bg-transparent border-transparent'
         }`}>
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/5 p-1 glass-container border-accent-cyan/20">
-              <img src="/logo.png" alt="RAAGNEET Logo" className="w-full h-full object-contain" />
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/10 p-1.5 glass-container border-accent-cyan/30 group-hover:border-accent-cyan/50 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+              <img 
+                src="/logo.png" 
+                alt="RAAGNEET Logo" 
+                className="w-full h-full object-contain brightness-[1.5] contrast-[1.2] drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" 
+              />
             </div>
             <span className="text-xl font-bold text-white tracking-tight hidden sm:block">
               RAAG<span className="text-accent-cyan">NEET</span>
