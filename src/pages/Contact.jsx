@@ -1,114 +1,141 @@
 import React from 'react';
-import { Send, MapPin, Phone, Mail, MessageCircle, ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Mail, Phone, MapPin, Send, MessageSquare, User, AtSign } from 'lucide-react';
 
 const Contact = () => {
   return (
-    <div className="relative min-h-screen bg-dark-950 overflow-hidden">
-      {/* BACKGROUND ORBS */}
-      <div className="absolute inset-0 z-0">
-        <div className="bg-orb w-[600px] h-[600px] bg-accent-teal top-[-10%] left-[-10%] animate-drift-slow opacity-20" />
-        <div className="bg-orb w-[600px] h-[600px] bg-accent-purple bottom-[-10%] right-[-10%] animate-drift-slower opacity-20" />
-      </div>
-
-      <div className="relative z-10 pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-20 space-y-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-md text-sm text-accent-cyan font-semibold mx-auto w-fit">
-            <MessageCircle className="w-4 h-4" />
-            Connect With Us
-          </div>
-          <h1 className="text-5xl md:text-7xl font-black text-premium">
-            Get In <span className="text-accent-teal">Touch</span>
-          </h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Ready to start your next big project? Contact us today and let's build something amazing together.
-          </p>
+    <div className="pt-32 pb-24 px-6">
+      <div className="container mx-auto">
+        <div className="text-center mb-24">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-bold mb-6 text-premium"
+          >
+            Get In Touch
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-slate-400 max-w-2xl mx-auto"
+          >
+            Have a project in mind? We'd love to hear from you. Let's create something extraordinary together.
+          </motion.p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          {/* CONTACT FORM */}
-          <div className="glass-card-modern !p-12 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-accent-teal/10 blur-[60px] opacity-20 group-hover:opacity-40 transition-opacity" />
-            
-            <h2 className="text-3xl font-bold mb-8 text-white flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-accent-teal/10 border border-accent-teal/20 flex items-center justify-center text-accent-teal">
-                <Send size={18} />
-              </div>
-              Send a Message
-            </h2>
-            
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Full Name</label>
-                  <input type="text" placeholder="John Doe" className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-accent-teal/50 focus:bg-white/[0.05] transition-all" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Email Address</label>
-                  <input type="email" placeholder="john@example.com" className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-accent-teal/50 focus:bg-white/[0.05] transition-all" />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-1">Project Details</label>
-                <textarea rows="4" placeholder="Tell us about your vision..." className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-accent-teal/50 focus:bg-white/[0.05] transition-all resize-none"></textarea>
-              </div>
-              <button type="submit" className="btn-primary-glass w-full text-lg py-4 flex items-center justify-center gap-3">
-                Send Message <Send size={20} />
-              </button>
-            </form>
-          </div>
-
-          {/* CONTACT INFO */}
-          <div className="space-y-8">
-            {[
-              { 
-                icon: <MapPin size={28} />, 
-                title: "Our Studio", 
-                content: "123 Innovation Drive, Tech Valley, CA 94043",
-                color: "text-accent-teal",
-                bg: "bg-accent-teal/10"
-              },
-              { 
-                icon: <Mail size={28} />, 
-                title: "Email Us", 
-                content: "hello@raagneet.com",
-                subcontent: "support@raagneet.com",
-                color: "text-accent-cyan",
-                bg: "bg-accent-cyan/10"
-              },
-              { 
-                icon: <Phone size={28} />, 
-                title: "Call Us", 
-                content: "+1 (555) 123-4567",
-                subcontent: "Mon-Fri, 9am - 6pm PST",
-                color: "text-accent-purple",
-                bg: "bg-accent-purple/10"
-              }
-            ].map((item, i) => (
-              <div key={i} className="glass-card-modern !p-8 flex items-center gap-8 group cursor-pointer hover:bg-white/[0.05]">
-                <div className={`w-16 h-16 rounded-2xl ${item.bg} flex items-center justify-center ${item.color} group-hover:scale-110 transition-transform duration-500`}>
-                  {item.icon}
-                </div>
-                <div className="flex-grow">
-                  <h3 className="text-sm font-black text-slate-500 uppercase tracking-[0.2em] mb-1">{item.title}</h3>
-                  <p className="text-xl font-bold text-white mb-0.5">{item.content}</p>
-                  {item.subcontent && <p className="text-slate-400 text-sm">{item.subcontent}</p>}
-                </div>
-                <div className="text-slate-600 group-hover:text-white transition-colors">
-                  <ArrowUpRight size={24} />
-                </div>
-              </div>
-            ))}
-            
-            {/* SOCIAL LINK MINI GLASS CONTAINER */}
-            <div className="glass-container !rounded-3xl p-8 flex justify-between items-center">
-              <span className="text-white font-bold">Follow our work</span>
-              <div className="flex gap-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/[0.08] hover:bg-accent-cyan/20 transition-all cursor-pointer" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Contact Info */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="lg:col-span-5 space-y-8"
+          >
+            <div className="glass-card-modern p-10 space-y-8 border-white/[0.05]">
+              <h2 className="text-2xl font-bold mb-4">Contact Information</h2>
+              <p className="text-slate-400 mb-8">Reach out to us through any of these channels. Our team typically responds within 24 hours.</p>
+              
+              <div className="space-y-6">
+                {[
+                  { icon: <Mail className="text-accent-teal" />, label: 'Email Us', value: 'hello@raagneet.com' },
+                  { icon: <Phone className="text-accent-cyan" />, label: 'Call Us', value: '+1 (555) 123-4567' },
+                  { icon: <MapPin className="text-accent-purple" />, label: 'Visit Us', value: '123 Future Tech Lane, Digital City, DC 10101' },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-6 group">
+                    <div className="w-12 h-12 rounded-xl glass-container flex items-center justify-center group-hover:bg-white/5 transition-colors">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">{item.label}</p>
+                      <p className="text-white font-medium">{item.value}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
+
+              {/* Minimal Map Placeholder */}
+              <div className="mt-12 h-48 rounded-[1.5rem] glass-container border-white/[0.05] relative overflow-hidden bg-slate-900/50">
+                <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-accent-teal via-transparent to-transparent" />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <MapPin className="text-accent-teal mx-auto mb-2 animate-bounce" />
+                    <span className="text-xs text-slate-400 font-medium">Interactive Map Placeholder</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="lg:col-span-7"
+          >
+            <form className="glass-card-modern p-10 lg:p-16 space-y-8 border-white/[0.05]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Name */}
+                <div className="space-y-2 group">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2 px-1">
+                    <User size={14} className="group-focus-within:text-accent-teal transition-colors" />
+                    Full Name
+                  </label>
+                  <input 
+                    type="text" 
+                    placeholder="John Doe"
+                    className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-accent-teal/50 focus:bg-white/[0.05] focus:shadow-[0_0_20px_rgba(13,148,136,0.1)] transition-all"
+                  />
+                </div>
+                {/* Email */}
+                <div className="space-y-2 group">
+                  <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2 px-1">
+                    <AtSign size={14} className="group-focus-within:text-accent-cyan transition-colors" />
+                    Email Address
+                  </label>
+                  <input 
+                    type="email" 
+                    placeholder="john@example.com"
+                    className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-accent-cyan/50 focus:bg-white/[0.05] focus:shadow-[0_0_20px_rgba(34,211,238,0.1)] transition-all"
+                  />
+                </div>
+              </div>
+
+              {/* Subject */}
+              <div className="space-y-2 group">
+                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2 px-1">
+                  <MessageSquare size={14} className="group-focus-within:text-accent-purple transition-colors" />
+                  Subject
+                </label>
+                <select className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-accent-purple/50 focus:bg-white/[0.05] transition-all appearance-none cursor-pointer">
+                  <option className="bg-slate-900">General Inquiry</option>
+                  <option className="bg-slate-900">Project Proposal</option>
+                  <option className="bg-slate-900">Service Support</option>
+                  <option className="bg-slate-900">Partnership</option>
+                </select>
+              </div>
+
+              {/* Message */}
+              <div className="space-y-2 group">
+                <label className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2 px-1">
+                  <Send size={14} className="group-focus-within:text-accent-teal transition-colors" />
+                  Your Message
+                </label>
+                <textarea 
+                  rows="5"
+                  placeholder="Tell us about your project..."
+                  className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-accent-teal/50 focus:bg-white/[0.05] focus:shadow-[0_0_20px_rgba(13,148,136,0.1)] transition-all resize-none"
+                ></textarea>
+              </div>
+
+              <button 
+                type="submit" 
+                className="btn-primary-glass w-full py-5 flex items-center justify-center gap-3 group"
+              >
+                Send Message
+                <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </button>
+            </form>
+          </motion.div>
         </div>
       </div>
     </div>

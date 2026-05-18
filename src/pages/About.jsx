@@ -1,91 +1,127 @@
 import React from 'react';
-import { Rocket, Heart, Zap, Shield, Users } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Target, Users, Award, Rocket } from 'lucide-react';
 
 const About = () => {
-  const stats = [
-    { value: '50+', label: 'Projects Completed', icon: <Rocket className="w-5 h-5 text-accent-teal" /> },
-    { value: '99%', label: 'Happy Clients', icon: <Heart className="w-5 h-5 text-accent-cyan" /> },
-    { value: '5+', label: 'Years Experience', icon: <Zap className="w-5 h-5 text-accent-purple" /> },
-    { value: '24/7', label: 'Premium Support', icon: <Shield className="w-5 h-5 text-accent-teal" /> }
-  ];
-
-  const values = [
-    {
-      icon: <Zap className="w-10 h-10 text-accent-teal" />,
-      title: 'Innovation First',
-      desc: 'We explore new technologies and design paradigms to create future-proof solutions that stand the test of time.'
-    },
-    {
-      icon: <Shield className="w-10 h-10 text-accent-cyan" />,
-      title: 'Quality & Integrity',
-      desc: 'Every line of code and pixel of design is crafted with precision, ensuring enterprise-grade reliability and aesthetics.'
-    },
-    {
-      icon: <Users className="w-10 h-10 text-accent-purple" />,
-      title: 'True Collaboration',
-      desc: 'We partner closely with you to transform your visions into concrete digital successes that drive real business growth.'
-    }
+  const milestones = [
+    { year: '2020', title: 'The Genesis', desc: 'RAAGNEET was founded with a vision to redefine digital aesthetics.' },
+    { year: '2021', title: 'Global Reach', desc: 'Expanded our operations to serve clients across 3 continents.' },
+    { year: '2022', title: 'Innovation Peak', desc: 'Launched our proprietary design system for high-end glassmorphism.' },
+    { year: '2023', title: 'Future Ready', desc: 'Integrated AI-driven development workflows to speed up delivery.' },
   ];
 
   return (
-    <div className="relative min-h-screen bg-dark-950 overflow-hidden">
-      {/* BACKGROUND ORBS */}
-      <div className="absolute inset-0 z-0">
-        <div className="bg-orb w-[600px] h-[600px] bg-accent-teal top-[-10%] right-[-10%] animate-drift-slow" />
-        <div className="bg-orb w-[500px] h-[500px] bg-accent-purple bottom-[-5%] left-[-5%] animate-drift-slower" />
-      </div>
-
-      <div className="relative z-10 pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-20 space-y-6">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-md text-sm text-accent-cyan font-semibold mx-auto w-fit">
-            <Rocket className="w-4 h-4" />
-            Our Journey
-          </div>
-          <h1 className="text-5xl md:text-7xl font-black text-premium">
-            About <span className="text-accent-cyan">Raagneet</span>
-          </h1>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            We are a collective of engineers, designers, and visionaries dedicated to pushing the boundaries of digital craftsmanship.
-          </p>
+    <div className="pt-32 pb-24 px-6">
+      <div className="container mx-auto">
+        {/* Header */}
+        <div className="text-center mb-24">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-bold mb-6 text-premium"
+          >
+            Our Story & Vision
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-slate-400 max-w-2xl mx-auto"
+          >
+            We are a team of passionate designers and engineers dedicated to creating immersive digital experiences that leave a lasting impression.
+          </motion.p>
         </div>
 
-        {/* STATS */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24">
-          {stats.map((stat, i) => (
-            <div key={i} className="glass-card-modern text-center p-8 flex flex-col items-center gap-4 group">
-              <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center group-hover:bg-accent-teal/10 transition-all">
-                {stat.icon}
-              </div>
-              <div>
-                <h3 className="text-4xl font-black text-white mb-1">{stat.value}</h3>
-                <p className="text-sm text-slate-500 font-bold uppercase tracking-widest">{stat.label}</p>
+        {/* Dual Column Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-32">
+          {/* Story Panel */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="glass-card-modern p-10 lg:p-16 relative overflow-hidden group"
+          >
+            <div className="absolute top-0 right-0 w-32 h-32 bg-accent-teal/10 blur-3xl group-hover:bg-accent-teal/20 transition-colors" />
+            <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
+              <Target className="text-accent-teal" size={32} />
+              The Mission
+            </h2>
+            <div className="space-y-6 text-slate-400 leading-relaxed text-lg">
+              <p>
+                At RAAGNEET, we believe that design is not just how it looks, but how it works and feels. Our mission is to bridge the gap between complex technology and human-centric design.
+              </p>
+              <p>
+                Every project we undertake is a journey into the future of digital interaction. We specialize in glassmorphism and motion-rich interfaces that provide a tactile, premium feel to every user.
+              </p>
+              <div className="grid grid-cols-2 gap-8 pt-8">
+                <div className="space-y-2">
+                  <h4 className="text-white font-bold flex items-center gap-2">
+                    <Users size={18} className="text-accent-cyan" />
+                    Community
+                  </h4>
+                  <p className="text-sm">Building lasting relationships with our clients and the tech community.</p>
+                </div>
+                <div className="space-y-2">
+                  <h4 className="text-white font-bold flex items-center gap-2">
+                    <Award size={18} className="text-accent-purple" />
+                    Quality
+                  </h4>
+                  <p className="text-sm">Uncompromising standards in every line of code and pixel of design.</p>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
+          </motion.div>
 
-        {/* VALUES */}
-        <div className="grid md:grid-cols-3 gap-8 mb-24">
-          {values.map((val, i) => (
-            <div key={i} className="glass-card-modern p-10 group">
-              <div className="mb-8 p-4 w-fit rounded-2xl bg-white/[0.03] border border-white/[0.05] group-hover:scale-110 transition-transform duration-500">
-                {val.icon}
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-4">{val.title}</h3>
-              <p className="text-slate-400 leading-relaxed text-lg">{val.desc}</p>
+          {/* Milestone Timeline */}
+          <div className="space-y-12">
+            <h2 className="text-3xl font-bold mb-12 flex items-center gap-4 px-4">
+              <Rocket className="text-accent-purple" size={32} />
+              Key Milestones
+            </h2>
+            <div className="relative pl-8 space-y-12 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-gradient-to-b before:from-accent-teal before:via-accent-purple before:to-transparent">
+              {milestones.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="relative"
+                >
+                  <div className="absolute -left-[35px] top-1.5 w-6 h-6 rounded-full glass-container flex items-center justify-center border-accent-teal/50 bg-slate-900">
+                    <div className="w-2 h-2 rounded-full bg-accent-teal" />
+                  </div>
+                  <div className="glass-card-modern p-6">
+                    <span className="text-accent-cyan font-bold text-sm mb-2 block">{item.year}</span>
+                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
 
-        {/* MISSION CTA */}
-        <div className="glass-container !rounded-3xl p-12 text-center relative overflow-hidden">
-          <div className="relative z-10">
-            <h2 className="text-3xl md:text-5xl font-black text-white mb-6">Driven by Excellence.</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg mb-10">
-              Our mission is to empower businesses through technology that is as beautiful as it is functional.
-            </p>
-            <button className="btn-primary-glass">Work With Us</button>
-          </div>
+        {/* Values Section */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {[
+            { title: 'Transparency', desc: 'Clear communication at every step.' },
+            { title: 'Innovation', desc: 'Pushing the boundaries of tech.' },
+            { title: 'Reliability', desc: 'Dependable delivery, always.' },
+            { title: 'Impact', desc: 'Designs that drive real results.' },
+          ].map((value, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="glass-container p-8 rounded-2xl text-center border-white/[0.05] hover:border-accent-teal/30 transition-colors"
+            >
+              <h4 className="text-lg font-bold mb-2">{value.title}</h4>
+              <p className="text-slate-500 text-sm">{value.desc}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>

@@ -1,99 +1,112 @@
 import React from 'react';
-import { Code, Palette, Cloud, Brain, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Code2, Palette, Globe2, Megaphone, Smartphone, Settings2, BarChart, ShieldCheck } from 'lucide-react';
 
 const Services = () => {
   const services = [
-    { 
-      title: "UI/UX Design", 
-      desc: "Crafting intuitive, visually stunning interfaces that captivate users and drive engagement.",
-      icon: <Palette className="w-10 h-10 text-accent-teal" />,
-      color: "from-accent-teal/20 to-accent-cyan/10"
+    {
+      icon: <Palette className="text-accent-teal" />,
+      title: "UI/UX Design",
+      desc: "Creating visually stunning and highly intuitive user interfaces that prioritize user experience and brand identity.",
+      color: "from-accent-teal/20 to-transparent"
     },
-    { 
-      title: "Web Development", 
-      desc: "Full-stack solutions built with modern, resilient frameworks and scalable architectures.",
-      icon: <Code className="w-10 h-10 text-accent-cyan" />,
-      color: "from-accent-cyan/20 to-accent-purple/10"
+    {
+      icon: <Code2 className="text-accent-cyan" />,
+      title: "Web Development",
+      desc: "Building robust, scalable, and high-performance web applications using modern frameworks and best practices.",
+      color: "from-accent-cyan/20 to-transparent"
     },
-    { 
-      title: "Cloud Architecture", 
-      desc: "Secure, resilient, and globally distributed infrastructure optimized for peak performance.",
-      icon: <Cloud className="w-10 h-10 text-accent-purple" />,
-      color: "from-accent-purple/20 to-accent-teal/10"
+    {
+      icon: <Smartphone className="text-accent-purple" />,
+      title: "App Development",
+      desc: "Developing seamless mobile experiences for iOS and Android that engage users and deliver value.",
+      color: "from-accent-purple/20 to-transparent"
     },
-    { 
-      title: "AI Integration", 
-      desc: "Seamless machine learning models and intelligent automation to supercharge your workflow.",
-      icon: <Brain className="w-10 h-10 text-accent-teal" />,
-      color: "from-accent-teal/20 to-accent-cyan/10"
+    {
+      icon: <Megaphone className="text-orange-400" />,
+      title: "Digital Marketing",
+      desc: "Strategic marketing campaigns designed to increase visibility, engagement, and conversion rates.",
+      color: "from-orange-400/20 to-transparent"
+    },
+    {
+      icon: <BarChart className="text-green-400" />,
+      title: "SEO Optimization",
+      desc: "Enhancing your online presence to rank higher in search results and drive organic traffic.",
+      color: "from-green-400/20 to-transparent"
+    },
+    {
+      icon: <ShieldCheck className="text-blue-400" />,
+      title: "Cyber Security",
+      desc: "Implementing advanced security protocols to protect your digital assets and user data.",
+      color: "from-blue-400/20 to-transparent"
     }
   ];
 
   return (
-    <div className="relative min-h-screen bg-dark-950 overflow-hidden">
-      {/* BACKGROUND ORBS */}
-      <div className="absolute inset-0 z-0">
-        <div className="bg-orb w-[700px] h-[700px] bg-accent-cyan top-[10%] left-[-10%] animate-drift-slow" />
-        <div className="bg-orb w-[600px] h-[600px] bg-accent-purple bottom-[10%] right-[-10%] animate-drift-slower" />
-      </div>
-
-      <div className="relative z-10 pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-20 space-y-6">
-          <h1 className="text-5xl md:text-7xl font-black text-premium">
-            Our <span className="text-accent-teal">Services</span>
-          </h1>
-          <p className="text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
-            We deliver cutting-edge solutions tailored to your unique business needs, blending aesthetics with enterprise-grade performance.
-          </p>
+    <div className="pt-32 pb-24 px-6">
+      <div className="container mx-auto">
+        <div className="text-center mb-24">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-6xl font-bold mb-6 text-premium"
+          >
+            Specialized Services
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-slate-400 max-w-2xl mx-auto"
+          >
+            We provide a wide range of digital solutions tailored to meet your unique business needs and objectives.
+          </motion.p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-          {services.map((s, i) => (
-            <div 
-              key={i} 
-              className="glass-card-modern p-10 group relative overflow-hidden flex flex-col items-start"
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              whileHover={{ y: -10 }}
+              className="glass-card-modern p-10 relative overflow-hidden group"
             >
-              {/* ACCENT GRADIENT */}
-              <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${s.color} blur-[50px] opacity-20 group-hover:opacity-40 transition-opacity duration-500`} />
+              <div className={`absolute -right-20 -top-20 w-64 h-64 bg-gradient-to-br ${service.color} blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
               
-              <div className="w-20 h-20 mb-8 rounded-2xl bg-white/[0.03] flex items-center justify-center border border-white/[0.08] group-hover:scale-110 group-hover:border-accent-cyan/30 transition-all duration-500 shadow-xl">
-                {s.icon}
+              <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center mb-8 group-hover:scale-110 transition-transform group-hover:border-accent-teal/50">
+                {React.cloneElement(service.icon, { size: 32 })}
               </div>
               
-              <h3 className="text-3xl font-bold text-white mb-4 group-hover:text-accent-cyan transition-colors">
-                {s.title}
-              </h3>
-              
-              <p className="text-slate-400 leading-relaxed text-lg mb-8 flex-grow">
-                {s.desc}
+              <h3 className="text-2xl font-bold mb-4 group-hover:text-white transition-colors">{service.title}</h3>
+              <p className="text-slate-400 leading-relaxed mb-8">
+                {service.desc}
               </p>
               
-              <button className="flex items-center gap-2 text-white font-bold group-hover:text-accent-cyan transition-colors">
-                Learn More <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <button className="flex items-center gap-2 text-sm font-semibold text-accent-cyan hover:text-white transition-colors group/btn">
+                Learn More 
+                <Settings2 size={16} className="group-hover/btn:rotate-90 transition-transform" />
               </button>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* ECOSYSTEM SECTION */}
-        <div className="glass-container !rounded-[2.5rem] p-12 md:p-20 flex flex-col lg:flex-row items-center gap-12">
-          <div className="lg:w-1/2 space-y-6">
-            <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">A Complete Digital Ecosystem.</h2>
-            <p className="text-slate-400 text-lg leading-relaxed">
-              We don't just build apps; we create integrated digital environments that scale with your ambitions. From strategy to deployment.
-            </p>
-            <div className="flex gap-4 pt-4">
-              <button className="btn-primary-glass">Get a Quote</button>
-            </div>
-          </div>
-          <div className="lg:w-1/2 grid grid-cols-2 gap-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="aspect-square rounded-3xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center group hover:bg-white/[0.05] transition-all">
-                <div className="w-12 h-12 rounded-full bg-accent-teal/10 animate-pulse-slow" />
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Call to Action */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="mt-24 glass-container rounded-[2rem] p-12 text-center border-accent-teal/20 relative overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-accent-teal/5 opacity-20 pointer-events-none" />
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 relative z-10">Need a Custom Solution?</h2>
+          <p className="text-slate-400 mb-10 max-w-xl mx-auto relative z-10">We specialize in bespoke digital products. Let's discuss your vision and bring it to life.</p>
+          <button className="btn-primary-glass relative z-10">
+            Schedule a Discovery Call
+          </button>
+        </motion.div>
       </div>
     </div>
   );
