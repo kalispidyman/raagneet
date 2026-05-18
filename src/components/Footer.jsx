@@ -35,10 +35,10 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links & Services - Navigation Left, Services Right on mobile */}
-          <div className="grid grid-cols-2 gap-4 sm:gap-8 md:grid-cols-1 lg:grid-cols-2 lg:col-span-2">
-            <div className="flex flex-col items-start md:items-start text-left">
-              <h4 className="text-white font-bold mb-6 text-[10px] sm:text-sm uppercase tracking-[0.2em]">Navigation</h4>
+          {/* Links & Services - Arranged together side-by-side on mobile */}
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-1 lg:grid-cols-2 lg:col-span-2">
+            <div className="flex flex-col items-start text-left">
+              <h4 className="text-white font-bold mb-6 text-xs sm:text-sm uppercase tracking-[0.2em]">Navigation</h4>
               <ul className="space-y-4">
                 {['Home', 'About', 'Services', 'Portfolio', 'Contact'].map((item) => (
                   <li key={item}>
@@ -53,8 +53,8 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div className="flex flex-col items-end md:items-start text-right md:text-left">
-              <h4 className="text-white font-bold mb-6 text-[10px] sm:text-sm uppercase tracking-[0.2em]">Services</h4>
+            <div className="flex flex-col items-start text-left">
+              <h4 className="text-white font-bold mb-6 text-xs sm:text-sm uppercase tracking-[0.2em]">Services</h4>
               <ul className="space-y-4">
                 {['Web Design', 'Development', 'Branding', 'UI/UX Design', 'Consultancy'].map((item) => (
                   <li key={item}>
