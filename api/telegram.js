@@ -13,11 +13,22 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Extract the subpath after "/api/telegram"
-  // On Vercel, req.url contains the full path /api/telegram/botTOKEN/method
-  const url = new URL(req.url, 'https://' + (req.headers.host || 'localhost'));
-  const subpath = url.pathname.replace(/^\/api\/telegram/, '');
-  const targetUrl = 'https://api.telegram.org' + subpath + url.search;
+  // Extract subpath from rewrite path query or fallback to original req.url
+  let subpath = '';
+  if (req.query.path) {
+    subpath = '/' + req.query.path;
+  } else {
+    const url = new URL(req.url, 'https://' + (req.headers.host || 'localhost'));
+    subpath = url.pathname.replace(/^\/api\/telegram/, '');
+  }
+
+  // Handle raw query params
+  const urlObj = new URL(req.url, 'https://' + (req.headers.host || 'localhost'));
+  const searchParams = urlObj.searchParams;
+  searchParams.delete('path'); // remove the proxy route helper param if present
+  const searchStr = searchParams.toString();
+  
+  const targetUrl = 'https://api.telegram.org' + subpath + (searchStr ? '?' + searchStr : '');
 
   try {
     const fetchOptions = {
