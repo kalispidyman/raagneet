@@ -1,49 +1,94 @@
-import { ArrowRight, Sparkles, Globe, Zap } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { ArrowRight, Sparkles, Globe, Zap, Cpu, Shield, Layers } from 'lucide-react';
+import './HeroSection.css';
 
 const HeroSection = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
+  const titleWords = "Crafting the Future of Digital Experiences".split(" ");
+
   return (
-    <section className="min-h-[100dvh] w-full flex flex-col justify-center relative z-10 px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-32 max-w-7xl mx-auto">
-      <div className="w-full space-y-6 sm:space-y-8 text-center">
-        {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-xs sm:text-sm text-teal-300 font-medium mx-auto w-fit shadow-[0_0_15px_rgba(20,184,166,0.1)] animate-fade-in-up">
-          <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-teal-400 animate-pulse" />
-          <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-teal-400 animate-pulse shadow-[0_0_10px_rgba(45,212,191,1)]" />
-          <span className="truncate">Redefining Digital Excellence</span>
-        </div>
-        
-        {/* Heading - Full width, optimized for mobile */}
-        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight sm:leading-[1.1] text-gradient max-w-full sm:max-w-5xl mx-auto animate-fade-in-up delay-100 px-2 sm:px-0">
-          Crafting the Future of <br className="hidden sm:block" /> Digital Experiences
-        </h1>
-        
-        {/* Description */}
-        <p className="text-base sm:text-lg md:text-xl text-slate-400 max-w-full sm:max-w-2xl mx-auto animate-fade-in-up delay-200 leading-relaxed px-2 sm:px-0">
-          Raagneet Studios delivers cutting-edge web, mobile, and AI solutions designed to elevate your brand and accelerate growth.
-        </p>
-        
-        {/* Buttons - Full width on mobile */}
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-2 sm:pt-4 animate-fade-in-up delay-300 w-full sm:w-auto">
-          <button className="btn-primary w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg flex items-center justify-center gap-2">
-            Start Your Project <ArrowRight className="w-5 h-5" />
-          </button>
-          <button className="btn-secondary w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 text-base sm:text-lg flex items-center justify-center gap-2">
-            View Our Work <Globe className="w-5 h-5" />
-          </button>
-        </div>
+    <section className={`hero-section ${isLoaded ? 'is-loaded' : ''}`}>
+      {/* Background Ambient Elements */}
+      <div className="hero-bg-accents">
+        <div className="accent-orb orb-1" />
+        <div className="accent-orb orb-2" />
+        <div className="hero-grid-overlay" />
       </div>
 
-      {/* Glassmorphic Feature Pills - Full width wrapping */}
-      <div className="mt-8 sm:mt-12 md:mt-16 flex flex-wrap justify-center gap-2 sm:gap-4 animate-fade-in-up delay-500 w-full px-2 sm:px-0">
-        {[
-          { icon: <Zap className="w-3.5 h-3.5 sm:w-4 sm:h-4" />, text: 'Lightning Fast' },
-          { icon: <Globe className="w-3.5 h-3.5 sm:w-4 sm:h-4" />, text: 'Global Scale' },
-          { icon: <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />, text: 'Premium Design' }
-        ].map((item, i) => (
-          <div key={i} className="flex-1 sm:flex-none glass-panel px-3 py-2 sm:px-4 sm:py-2 rounded-full flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-300 hover:text-teal-300 hover:border-teal-500/30 transition-all duration-300 cursor-default min-w-[110px] sm:min-w-0">
-            {item.icon}
-            <span className="truncate">{item.text}</span>
+      <div className="hero-container">
+        <div className="hero-content">
+          {/* Badge */}
+          <div className="hero-badge-wrapper animate-slide-down">
+            <div className="hero-badge">
+              <Sparkles className="badge-icon" />
+              <span>Redefining Digital Excellence</span>
+              <div className="badge-glow" />
+            </div>
           </div>
-        ))}
+          
+          {/* Animated Heading */}
+          <h1 className="hero-title">
+            {titleWords.map((word, i) => (
+              <span key={i} className="title-word-wrapper">
+                <span className="title-word" style={{ '--word-index': i }}>
+                  {word}
+                </span>
+                {i < titleWords.length - 1 && "\u00A0"}
+              </span>
+            ))}
+          </h1>
+          
+          {/* Description */}
+          <p className="hero-description animate-fade-in">
+            Raagneet Studios delivers cutting-edge web, mobile, and AI solutions designed to elevate your brand and accelerate growth.
+          </p>
+          
+          {/* Action Buttons */}
+          <div className="hero-actions animate-slide-up">
+            <button className="btn-primary hero-btn">
+              Start Your Project <ArrowRight className="btn-icon" />
+            </button>
+            <button className="btn-secondary hero-btn">
+              View Our Work <Globe className="btn-icon" />
+            </button>
+          </div>
+
+          {/* Feature Pills */}
+          <div className="hero-features animate-fade-in">
+            {[
+              { icon: <Zap />, text: 'Lightning Fast' },
+              { icon: <Shield />, text: 'Secure Scale' },
+              { icon: <Layers />, text: 'Premium Design' }
+            ].map((item, i) => (
+              <div key={i} className="feature-pill" style={{ '--pill-index': i }}>
+                <span className="pill-icon">{item.icon}</span>
+                <span className="pill-text">{item.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Visual Element / Side Graphic */}
+        <div className="hero-visual animate-float-delayed">
+          <div className="visual-nexus-wrapper">
+            <div className="visual-nexus">
+              <div className="nexus-ring ring-1" />
+              <div className="nexus-ring ring-2" />
+              <div className="nexus-ring ring-3" />
+              <div className="nexus-core-glow" />
+              <Cpu className="nexus-icon" />
+            </div>
+            {/* Floating Data Points */}
+            <div className="data-point point-1"><Zap size={12} /></div>
+            <div className="data-point point-2"><Globe size={12} /></div>
+            <div className="data-point point-3"><Shield size={12} /></div>
+          </div>
+        </div>
       </div>
     </section>
   );
