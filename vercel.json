@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api/telegram/(.*)",
-      "destination": "/api/telegram?path=$1"
+      "source": "/api/bot(.*)",
+      "destination": "/api/bot?path=$1"
     },
     {
       "source": "/((?!api/).*)",
