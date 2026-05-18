@@ -36,11 +36,11 @@ const Navbar = () => {
         }`}>
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/10 p-1.5 glass-container border-accent-cyan/30 group-hover:border-accent-cyan/50 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+            <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/20 p-1.5 glass-container border-accent-cyan/50 group-hover:border-white/50 transition-all shadow-[0_0_25px_rgba(34,211,238,0.2)]">
               <img 
                 src="/logo.png" 
                 alt="RAAGNEET Logo" 
-                className="w-full h-full object-contain brightness-[1.5] contrast-[1.2] drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]" 
+                className="w-full h-full object-contain invert brightness-[2] drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]" 
               />
             </div>
             <span className="text-xl font-bold text-white tracking-tight hidden sm:block">

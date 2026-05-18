@@ -10,11 +10,11 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/10 p-1.5 glass-container border-accent-cyan/20 group-hover:border-accent-cyan/40 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+              <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/20 p-1.5 glass-container border-accent-cyan/40 group-hover:border-white/40 transition-all shadow-[0_0_20px_rgba(34,211,238,0.1)]">
                 <img 
                   src="/logo.png" 
                   alt="RAAGNEET Logo" 
-                  className="w-full h-full object-contain brightness-[1.5] contrast-[1.2]" 
+                  className="w-full h-full object-contain invert brightness-[2] drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]" 
                 />
               </div>
               <span className="text-xl font-bold text-white tracking-tight">
