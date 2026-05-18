@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import BackgroundOrbs from './BackgroundOrbs';
+import Watermark from './Watermark';
 
 const Layout = ({ children }) => {
   return (
@@ -11,6 +12,7 @@ const Layout = ({ children }) => {
       <main>
         {children}
       </main>
+      <Watermark />
       <Footer />
     </div>
   );
