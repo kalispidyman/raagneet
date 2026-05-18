@@ -5,14 +5,14 @@ import Logo from './Logo';
 
 const Footer = () => {
   return (
-    <footer className="relative z-10 pt-24 pb-12 border-t border-white/[0.05] overflow-hidden">
+    <footer className="relative z-10 pt-24 pb-12 border-t border-white/[0.05] overflow-hidden text-center md:text-left">
       {/* Background Decorative Element */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[300px] bg-accent-teal/5 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Brand - Centered on mobile */}
-          <div className="space-y-8 text-center md:text-left flex flex-col items-center md:items-start">
+          {/* Brand */}
+          <div className="space-y-8 flex flex-col items-center md:items-start">
             <Link to="/" className="flex items-center gap-4 group">
               <Logo className="w-14 h-14" />
               <span className="text-2xl font-black text-white tracking-tighter">
@@ -35,9 +35,9 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links & Services - 2 columns on mobile */}
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-1 lg:grid-cols-2 lg:col-span-2">
-            <div>
+          {/* Links & Services - Stacked and Centered on mobile */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 md:grid-cols-1 lg:grid-cols-2 lg:col-span-2">
+            <div className="flex flex-col items-center md:items-start">
               <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-[0.2em]">Navigation</h4>
               <ul className="space-y-4">
                 {['Home', 'About', 'Services', 'Portfolio', 'Contact'].map((item) => (
@@ -53,7 +53,7 @@ const Footer = () => {
               </ul>
             </div>
 
-            <div>
+            <div className="flex flex-col items-center md:items-start">
               <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-[0.2em]">Services</h4>
               <ul className="space-y-4">
                 {['Web Design', 'Development', 'Branding', 'UI/UX Design', 'Consultancy'].map((item) => (
@@ -67,15 +67,15 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Newsletter - Centered on mobile */}
-          <div className="text-center md:text-left">
+          {/* Newsletter */}
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-[0.2em]">Newsletter</h4>
             <p className="text-slate-400 text-sm mb-6">Stay updated with our latest insights.</p>
-            <div className="relative max-w-sm mx-auto md:mx-0">
+            <div className="relative w-full max-w-sm">
               <input 
                 type="email" 
                 placeholder="Enter your email" 
-                className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-6 py-4 text-sm text-white focus:outline-none focus:border-accent-teal/50 focus:bg-white/[0.05] transition-all pr-14"
+                className="w-full bg-white/[0.03] border border-white/[0.08] rounded-2xl px-6 py-4 text-sm text-white text-center md:text-left focus:outline-none focus:border-accent-teal/50 focus:bg-white/[0.05] transition-all pr-14 md:pr-14"
               />
               <button className="absolute right-2 top-2 w-10 h-10 rounded-xl bg-accent-teal flex items-center justify-center text-white hover:bg-accent-teal/80 transition-colors shadow-lg shadow-accent-teal/20">
                 <Send size={18} />
