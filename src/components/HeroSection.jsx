@@ -9,15 +9,21 @@ const HeroSection = () => {
     setIsLoaded(true);
   }, []);
 
-  const titleWords = "Crafting the Future of Digital Experiences".split(" ");
+  const titleText = "Crafting the Future of Digital Experiences";
+  
+  // Split into words, then characters to avoid layout shifts but allow granular animation
+  const words = titleText.split(" ");
 
   return (
     <section className={`hero-section ${isLoaded ? 'is-loaded' : ''}`}>
-      {/* Background Ambient Elements */}
-      <div className="hero-bg-accents">
-        <div className="accent-orb orb-1" />
-        <div className="accent-orb orb-2" />
-        <div className="hero-grid-overlay" />
+      {/* Background Animated Loop */}
+      <div className="hero-bg-loop">
+        <div className="loop-grid" />
+        <div className="loop-lines" />
+        <div className="hero-bg-accents">
+          <div className="accent-orb orb-1" />
+          <div className="accent-orb orb-2" />
+        </div>
       </div>
 
       <div className="hero-container">
@@ -31,14 +37,20 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Animated Heading */}
+          {/* Enhanced Animated Heading */}
           <h1 className="hero-title">
-            {titleWords.map((word, i) => (
-              <span key={i} className="title-word-wrapper">
-                <span className="title-word" style={{ '--word-index': i }}>
-                  {word}
-                </span>
-                {i < titleWords.length - 1 && "\u00A0"}
+            {words.map((word, wIdx) => (
+              <span key={wIdx} className="title-word-wrapper">
+                {word.split("").map((char, cIdx) => (
+                  <span 
+                    key={cIdx} 
+                    className="title-char" 
+                    style={{ '--char-index': wIdx * 10 + cIdx }}
+                  >
+                    {char}
+                  </span>
+                ))}
+                {wIdx < words.length - 1 && <span className="title-char">&nbsp;</span>}
               </span>
             ))}
           </h1>
@@ -58,18 +70,16 @@ const HeroSection = () => {
             </button>
           </div>
 
-          {/* Feature Pills */}
-          <div className="hero-features animate-fade-in">
-            {[
-              { icon: <Zap />, text: 'Lightning Fast' },
-              { icon: <Shield />, text: 'Secure Scale' },
-              { icon: <Layers />, text: 'Premium Design' }
-            ].map((item, i) => (
-              <div key={i} className="feature-pill" style={{ '--pill-index': i }}>
-                <span className="pill-icon">{item.icon}</span>
-                <span className="pill-text">{item.text}</span>
-              </div>
-            ))}
+          {/* Left Side Feature Indicators (Redesigned Animation) */}
+          <div className="hero-indicators animate-fade-in">
+            <div className="indicator-track">
+              <div className="indicator-pulse" />
+              <div className="indicator-label">SYSTEM_READY</div>
+            </div>
+            <div className="indicator-track">
+              <div className="indicator-pulse delay-1" />
+              <div className="indicator-label">ENCRYPTION_ACTIVE</div>
+            </div>
           </div>
         </div>
 
@@ -81,6 +91,7 @@ const HeroSection = () => {
               <div className="nexus-ring ring-2" />
               <div className="nexus-ring ring-3" />
               <div className="nexus-core-glow" />
+              <div className="nexus-scanner" />
               <Cpu className="nexus-icon" />
             </div>
             {/* Floating Data Points */}
