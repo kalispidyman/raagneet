@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Github, Twitter, Linkedin, Mail, Send } from 'lucide-react';
+import Logo from './Logo';
 
 const Footer = () => {
   return (
@@ -9,16 +10,10 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/20 p-1.5 glass-container border-accent-cyan/40 group-hover:border-white/40 transition-all shadow-[0_0_20px_rgba(34,211,238,0.1)]">
-                <img 
-                  src="/logo.png" 
-                  alt="RAAGNEET Logo" 
-                  className="w-full h-full object-contain invert brightness-[2] drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]" 
-                />
-              </div>
-              <span className="text-xl font-bold text-white tracking-tight">
-                RAAG<span className="text-accent-cyan">NEET</span>
+            <Link to="/" className="flex items-center gap-4 group">
+              <Logo className="w-14 h-14" />
+              <span className="text-2xl font-black text-white tracking-tighter">
+                RAAG<span className="text-accent-cyan group-hover:text-white transition-colors">NEET</span>
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">

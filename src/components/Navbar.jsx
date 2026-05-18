@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronRight } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import Logo from './Logo';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,16 +36,10 @@ const Navbar = () => {
           scrolled ? 'bg-slate-900/60' : 'bg-transparent border-transparent'
         }`}>
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-12 h-12 rounded-xl overflow-hidden bg-white/20 p-1.5 glass-container border-accent-cyan/50 group-hover:border-white/50 transition-all shadow-[0_0_25px_rgba(34,211,238,0.2)]">
-              <img 
-                src="/logo.png" 
-                alt="RAAGNEET Logo" 
-                className="w-full h-full object-contain invert brightness-[2] drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]" 
-              />
-            </div>
-            <span className="text-xl font-bold text-white tracking-tight hidden sm:block">
-              RAAG<span className="text-accent-cyan">NEET</span>
+          <Link to="/" className="flex items-center gap-4 group">
+            <Logo className="w-16 h-16" />
+            <span className="text-2xl font-black text-white tracking-tighter hidden sm:block">
+              RAAG<span className="text-accent-cyan group-hover:text-white transition-colors">NEET</span>
             </span>
           </Link>
 
