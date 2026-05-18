@@ -3,17 +3,17 @@ import { motion } from 'framer-motion';
 
 const Watermark = () => {
   return (
-    <div className="w-full flex justify-center items-center py-8 mt-4 pointer-events-none select-none">
+    <div className="w-full flex justify-center items-center py-10 pb-12 select-none">
       <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 1 }}
-        className="glass-container px-5 py-2.5 rounded-full border-white/[0.05] flex items-center gap-3 backdrop-blur-md shadow-lg"
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="glass-container px-6 py-3 rounded-full border-white/[0.08] flex items-center gap-3 backdrop-blur-xl shadow-2xl"
       >
-        <div className="w-1.5 h-1.5 rounded-full bg-accent-cyan/60 animate-pulse shadow-[0_0_8px_rgba(34,211,238,0.5)]" />
-        <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-slate-500/80">
-          Designer <span className="text-slate-300">@NEET</span>
+        <div className="w-2 h-2 rounded-full bg-accent-cyan animate-pulse shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
+        <span className="text-[11px] font-bold tracking-[0.4em] uppercase text-slate-400">
+          Designer <span className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]">@NEET</span>
         </span>
       </motion.div>
     </div>

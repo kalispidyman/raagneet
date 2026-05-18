@@ -12,8 +12,8 @@ const Layout = ({ children }) => {
       <main>
         {children}
       </main>
-      <Watermark />
       <Footer />
+      <Watermark />
     </div>
   );
 };
