@@ -12,6 +12,7 @@ export default defineConfig({
     port: 3000,
     open: true,
   },
-  // Ensure proper base for Vercel deployments
-  base: process.env.NODE_ENV === 'production' ? './' : '/',
+  // Use absolute root-relative base for Vercel compatibility
+  // This ensures all asset references resolve from the domain root
+  base: '/',
 });
