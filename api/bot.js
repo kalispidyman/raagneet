@@ -1,3 +1,9 @@
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 export default async function handler(req, res) {
   // Support CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -32,15 +38,28 @@ export default async function handler(req, res) {
   const targetUrl = 'https://api.telegram.org' + subpath + (searchStr ? '?' + searchStr : '');
 
   try {
+    // Read raw body from stream
+    const chunks = [];
+    for await (const chunk of req) {
+      chunks.push(chunk);
+    }
+    const bodyBuffer = Buffer.concat(chunks);
+
+    const headers = {};
+    if (req.headers['content-type']) {
+      headers['content-type'] = req.headers['content-type'];
+    }
+    if (req.headers['content-length']) {
+      headers['content-length'] = req.headers['content-length'];
+    }
+
     const fetchOptions = {
       method: req.method,
-      headers: {
-        'Content-Type': req.headers['content-type'] || 'application/json',
-      }
+      headers
     };
 
     if (req.method !== 'GET' && req.method !== 'HEAD') {
-      fetchOptions.body = typeof req.body === 'object' ? JSON.stringify(req.body) : req.body;
+      fetchOptions.body = bodyBuffer;
     }
 
     const response = await fetch(targetUrl, fetchOptions);
