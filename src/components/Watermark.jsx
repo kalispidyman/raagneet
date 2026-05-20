@@ -13,24 +13,6 @@ const Watermark = () => {
             "0 0 20px rgba(34, 211, 238, 0.15)"
           ]
         }}
-        animate={{ 
-          y: [0, -8, 0],
-          boxShadow: [
-            "0 0 20px rgba(34, 211, 238, 0.1)",
-            "0 0 40px rgba(34, 211, 238, 0.3)",
-            "0 0 20px rgba(34, 211, 238, 0.1)"
-          ]
-        }}
-        transition={{ 
-          duration: 4, 
-          repeat: Infinity, 
-          ease: "easeInOut",
-          boxShadow: {
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }
-        }}
         className="glass-container px-7 py-3.5 rounded-full border-white/[0.1] flex items-center gap-4 backdrop-blur-2xl shadow-2xl relative overflow-hidden group cursor-pointer"
       >
         {/* Shimmer Light Sweep */}
