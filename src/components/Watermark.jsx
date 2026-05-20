@@ -64,10 +64,6 @@ const Watermark = () => {
             transition={{ duration: 2, repeat: Infinity }}
             className="w-2.5 h-2.5 rounded-full bg-accent-cyan shadow-[0_0_15px_rgba(34,211,238,1)]" 
           />
-          
-          <span className="text-[12px] font-bold tracking-[0.5em] uppercase flex items-center">
-            <span className="text-slate-500">Designer</span>
-          </span>
         </div>
 
         {/* Outer Glow Ring */}
