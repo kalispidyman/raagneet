@@ -67,22 +67,6 @@ const Watermark = () => {
           
           <span className="text-[12px] font-bold tracking-[0.5em] uppercase flex items-center">
             <span className="text-slate-500">Designer</span>
-            <motion.span 
-              animate={{ 
-                color: ["#cbd5e1", "#ffffff", "#22d3ee", "#ffffff", "#cbd5e1"],
-                textShadow: [
-                  "0 0 0px rgba(34, 211, 238, 0)",
-                  "0 0 10px rgba(34, 211, 238, 0.5)",
-                  "0 0 20px rgba(34, 211, 238, 0.8)",
-                  "0 0 10px rgba(34, 211, 238, 0.5)",
-                  "0 0 0px rgba(34, 211, 238, 0)"
-                ]
-              }}
-              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-              className="ml-3 font-black"
-            >
-              testing
-            </motion.span>
           </span>
         </div>
 
