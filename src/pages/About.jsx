@@ -1,131 +1,166 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Target, Users, Award, Rocket } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Target, Heart, Rocket, Users } from 'lucide-react';
 
-const About = () => {
-  const milestones = [
-    { year: '2020', title: 'The Genesis', desc: 'RAAGNEET was founded with a vision to redefine digital aesthetics.' },
-    { year: '2021', title: 'Global Reach', desc: 'Expanded our operations to serve clients across 3 continents.' },
-    { year: '2022', title: 'Innovation Peak', desc: 'Launched our proprietary design system for high-end glassmorphism.' },
-    { year: '2023', title: 'Future Ready', desc: 'Integrated AI-driven development workflows to speed up delivery.' },
-  ];
+gsap.registerPlugin(ScrollTrigger);
+
+const TEAM = [
+  { name:'Aria Chen', role:'CEO & Co-Founder', seed:'aria-chen', desc:'Former AI Research Lead at DeepMind. PhD from MIT. Pioneer of sparse transformer architectures.' },
+  { name:'Marcus Riel', role:'CTO & Co-Founder', seed:'marcus-riel', desc:'Ex-Google Brain engineer. Built scalable ML infra serving 1B+ users. Expert in distributed training.' },
+  { name:'Priya Nair', role:'Head of Research', seed:'priya-nair', desc:'Published 40+ AI papers. Former OpenAI researcher specializing in RLHF and alignment.' },
+  { name:'Leo Tanaka', role:'VP of Engineering', seed:'leo-tanaka', desc:'Built AI systems at Anthropic. Expert in real-time inference optimization and edge deployment.' },
+];
+
+const VALUES = [
+  { icon:Target, title:'Precision First', desc:'Every model, every system is engineered with obsessive attention to accuracy, reliability and edge-case safety.', color:'#6366f1' },
+  { icon:Heart, title:'Human-Centric AI', desc:'We build AI that amplifies human potential — never replacing human judgment, always enhancing it.', color:'#ec4899' },
+  { icon:Rocket, title:'Relentless Progress', desc:'We operate at the frontier, shipping innovations that others consider research-only — every single quarter.', color:'#f59e0b' },
+];
+
+const MILESTONES = [
+  { year:'2023 Q1', title:'NEET AI Studio Founded', desc:'Three ex-DeepMind researchers founded NEET AI with a mission to democratize frontier AI.' },
+  { year:'2023 Q3', title:'First $10M Seed Round', desc:'Secured $10M from leading AI-focused VCs to begin training our first proprietary foundation model.' },
+  { year:'2024 Q1', title:'NEET-1 Model Released', desc:'Launched NEET-1, our flagship model outperforming GPT-4 on 7 of 10 benchmarks.' },
+  { year:'2024 Q3', title:'NeetChat & CodeForge Launch', desc:'First two AI bots reached public beta — 50K users in the first 30 days.' },
+  { year:'2025 Q1', title:'Series A: $45M Raised', desc:'Closed $45M Series A to expand model capabilities and grow globally to 50+ countries.' },
+  { year:'2025 Q2', title:'Full Platform Launch', desc:'All 6 AI bots live. Enterprise tier launched. 50K+ active users across 40 countries.' },
+];
+
+export default function About() {
+  const teamRef = useRef(null);
+  const valRef = useRef(null);
+  const timelineRef = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo('.page-header-anim', { opacity:0, y:30 }, { opacity:1, y:0, duration:0.7, stagger:0.12 });
+    gsap.fromTo('.mission-anim', { opacity:0, scale:0.97 }, { opacity:1, scale:1, duration:0.7,
+      scrollTrigger:{ trigger:'.mission-anim', start:'top 80%' }
+    });
+    gsap.fromTo('.team-card-a',
+      { opacity:0, y:40 },
+      { opacity:1, y:0, duration:0.55, stagger:0.12,
+        scrollTrigger:{ trigger:teamRef.current, start:'top 78%' }
+      }
+    );
+    gsap.fromTo('.val-card',
+      { opacity:0, x:-20 },
+      { opacity:1, x:0, duration:0.55, stagger:0.12,
+        scrollTrigger:{ trigger:valRef.current, start:'top 78%' }
+      }
+    );
+    gsap.fromTo('.timeline-item-a',
+      { opacity:0, x:20 },
+      { opacity:1, x:0, duration:0.45, stagger:0.1,
+        scrollTrigger:{ trigger:timelineRef.current, start:'top 78%' }
+      }
+    );
+    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  }, []);
 
   return (
-    <div className="pt-32 pb-24 px-6">
-      <div className="container mx-auto">
-        {/* Header */}
-        <div className="text-center mb-24">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold mb-6 text-premium"
-          >
-            Our Story & Vision
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-slate-400 max-w-2xl mx-auto"
-          >
-            We are a team of passionate designers and engineers dedicated to creating immersive digital experiences that leave a lasting impression.
-          </motion.p>
+    <div style={{ position:'relative', zIndex:1 }}>
+      <div className="orb" style={{ width:500, height:500, background:'radial-gradient(circle,rgba(139,92,246,0.1),transparent 70%)', top:0, right:0 }} />
+
+      {/* Header */}
+      <div className="page-header">
+        <div className="container">
+          <div className="badge page-header-anim" style={{ marginBottom:16 }}><Users size={12} /> About Us</div>
+          <h1 className="section-title page-header-anim" style={{ marginBottom:16 }}>
+            Who <span className="gradient-text">We Are</span>
+          </h1>
+          <p className="section-sub page-header-anim" style={{ margin:'0 auto' }}>
+            A team of ex-DeepMind, Google Brain and OpenAI engineers on a mission to build AI that matters.
+          </p>
         </div>
+      </div>
 
-        {/* Dual Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-32">
-          {/* Story Panel */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="glass-card-modern p-10 lg:p-16 relative overflow-hidden group"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-accent-teal/10 blur-3xl group-hover:bg-accent-teal/20 transition-colors" />
-            <h2 className="text-3xl font-bold mb-8 flex items-center gap-4">
-              <Target className="text-accent-teal" size={32} />
-              The Mission
-            </h2>
-            <div className="space-y-6 text-slate-400 leading-relaxed text-lg">
-              <p>
-                At RAAGNEET, we believe that design is not just how it looks, but how it works and feels. Our mission is to bridge the gap between complex technology and human-centric design.
-              </p>
-              <p>
-                Every project we undertake is a journey into the future of digital interaction. We specialize in glassmorphism and motion-rich interfaces that provide a tactile, premium feel to every user.
-              </p>
-              <div className="grid grid-cols-2 gap-8 pt-8">
-                <div className="space-y-2">
-                  <h4 className="text-white font-bold flex items-center gap-2">
-                    <Users size={18} className="text-accent-cyan" />
-                    Community
-                  </h4>
-                  <p className="text-sm">Building lasting relationships with our clients and the tech community.</p>
-                </div>
-                <div className="space-y-2">
-                  <h4 className="text-white font-bold flex items-center gap-2">
-                    <Award size={18} className="text-accent-purple" />
-                    Quality
-                  </h4>
-                  <p className="text-sm">Uncompromising standards in every line of code and pixel of design.</p>
-                </div>
+      {/* Mission */}
+      <section className="section-sm">
+        <div className="container">
+          <div className="glass mission-anim" style={{ borderRadius:24, padding:'48px 40px', background:'linear-gradient(135deg,rgba(99,102,241,0.08),rgba(139,92,246,0.05))', border:'1px solid rgba(99,102,241,0.2)', opacity:0 }}>
+            <div style={{ display:'flex', gap:16, alignItems:'flex-start' }}>
+              <div style={{ fontSize:'2.5rem', flexShrink:0 }}>🎯</div>
+              <div>
+                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.72rem', color:'#6366f1', letterSpacing:'.12em', textTransform:'uppercase', marginBottom:12, fontWeight:600 }}>Our Mission</div>
+                <blockquote style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, fontSize:'clamp(1.2rem,2.5vw,1.7rem)', lineHeight:1.4, letterSpacing:'-0.02em' }}>
+                  "To build AI systems so powerful they feel like <span className="gradient-text">superpowers</span> — and make them accessible to every developer, every company, every human on Earth."
+                </blockquote>
               </div>
-            </div>
-          </motion.div>
-
-          {/* Milestone Timeline */}
-          <div className="space-y-12">
-            <h2 className="text-3xl font-bold mb-12 flex items-center gap-4 px-4">
-              <Rocket className="text-accent-purple" size={32} />
-              Key Milestones
-            </h2>
-            <div className="relative pl-8 space-y-12 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-[2px] before:bg-gradient-to-b before:from-accent-teal before:via-accent-purple before:to-transparent">
-              {milestones.map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1 }}
-                  className="relative"
-                >
-                  <div className="absolute -left-[35px] top-1.5 w-6 h-6 rounded-full glass-container flex items-center justify-center border-accent-teal/50 bg-slate-900">
-                    <div className="w-2 h-2 rounded-full bg-accent-teal" />
-                  </div>
-                  <div className="glass-card-modern p-6">
-                    <span className="text-accent-cyan font-bold text-sm mb-2 block">{item.year}</span>
-                    <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Values Section */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {[
-            { title: 'Transparency', desc: 'Clear communication at every step.' },
-            { title: 'Innovation', desc: 'Pushing the boundaries of tech.' },
-            { title: 'Reliability', desc: 'Dependable delivery, always.' },
-            { title: 'Impact', desc: 'Designs that drive real results.' },
-          ].map((value, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="glass-container p-8 rounded-2xl text-center border-white/[0.05] hover:border-accent-teal/30 transition-colors"
-            >
-              <h4 className="text-lg font-bold mb-2">{value.title}</h4>
-              <p className="text-slate-500 text-sm">{value.desc}</p>
-            </motion.div>
-          ))}
+      {/* Team */}
+      <section className="section" style={{ borderTop:'1px solid rgba(255,255,255,0.06)' }}>
+        <div className="container" ref={teamRef}>
+          <div style={{ marginBottom:48 }}>
+            <div className="badge" style={{ marginBottom:12 }}>The Team</div>
+            <h2 className="section-title" style={{ fontSize:'clamp(1.6rem,3.5vw,2.4rem)' }}>Built by <span className="gradient-text">AI Pioneers</span></h2>
+          </div>
+          <div className="grid-4">
+            {TEAM.map((m, i) => (
+              <div key={i} className="glass-card team-card team-card-a" style={{ opacity:0 }}>
+                <img
+                  src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${m.seed}&backgroundColor=6366f1,8b5cf6`}
+                  alt={m.name}
+                  className="team-avatar"
+                  style={{ background:'rgba(99,102,241,0.15)' }}
+                />
+                <div className="team-name">{m.name}</div>
+                <div className="team-role">{m.role}</div>
+                <p style={{ color:'#475569', fontSize:'.78rem', marginTop:10, lineHeight:1.65 }}>{m.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Values + Timeline */}
+      <section className="section-sm" style={{ borderTop:'1px solid rgba(255,255,255,0.06)' }}>
+        <div className="container">
+          <div className="grid-2" style={{ gap:48, alignItems:'start' }}>
+            {/* Values */}
+            <div ref={valRef}>
+              <div className="badge" style={{ marginBottom:12 }}>Our Values</div>
+              <h2 className="section-title" style={{ fontSize:'clamp(1.4rem,3vw,2rem)', marginBottom:28 }}>What <span className="gradient-text">Drives Us</span></h2>
+              <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
+                {VALUES.map((v, i) => {
+                  const Icon = v.icon;
+                  return (
+                    <div key={i} className="glass-card val-card" style={{ padding:'22px', display:'flex', gap:16, alignItems:'flex-start', opacity:0 }}>
+                      <div style={{ width:40, height:40, borderRadius:12, background:`${v.color}18`, border:`1px solid ${v.color}30`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
+                        <Icon size={18} color={v.color} />
+                      </div>
+                      <div>
+                        <h4 style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, marginBottom:5 }}>{v.title}</h4>
+                        <p style={{ color:'#94a3b8', fontSize:'.83rem', lineHeight:1.65 }}>{v.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Timeline */}
+            <div ref={timelineRef}>
+              <div className="badge" style={{ marginBottom:12 }}>Journey</div>
+              <h2 className="section-title" style={{ fontSize:'clamp(1.4rem,3vw,2rem)', marginBottom:28 }}>Our <span className="gradient-text">Story</span></h2>
+              <div className="timeline">
+                {MILESTONES.map((m, i) => (
+                  <div key={i} className="timeline-item timeline-item-a" style={{ opacity:0 }}>
+                    <div className="timeline-dot" />
+                    <div className="timeline-year">{m.year}</div>
+                    <div className="timeline-title">{m.title}</div>
+                    <div className="timeline-desc">{m.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
-};
-
-export default About;
+}
