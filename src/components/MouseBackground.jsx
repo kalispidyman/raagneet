@@ -15,14 +15,14 @@ export default function MouseBackground() {
     };
     resize();
 
-    const N = 75;
+    const N = 100;
     const particles = Array.from({ length: N }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      size: Math.random() * 1.5 + 0.5,
-      hue: Math.random() > 0.6 ? 245 : Math.random() > 0.5 ? 270 : 190,
+      vx: (Math.random() - 0.5) * 0.45,
+      vy: (Math.random() - 0.5) * 0.45,
+      size: Math.random() * 2.8 + 1.2,
+      hue: Math.random() > 0.6 ? 245 : Math.random() > 0.3 ? 190 : 280,
     }));
 
     const onMove = e => { mouse.x = e.clientX; mouse.y = e.clientY; };
@@ -35,38 +35,57 @@ export default function MouseBackground() {
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
         const dist = Math.hypot(dx, dy);
-        if (dist < 180) { p.vx += (dx / dist) * 0.035; p.vy += (dy / dist) * 0.035; }
-        p.vx *= 0.97; p.vy *= 0.97;
+        
+        // Premium soft vortex/attraction force around cursor
+        if (dist < 240) {
+          const force = (240 - dist) / 240;
+          p.vx += (dx / dist) * force * 0.15;
+          p.vy += (dy / dist) * force * 0.15;
+          // Orbital rotation vector
+          p.vx += (-dy / dist) * force * 0.09;
+          p.vy += (dx / dist) * force * 0.09;
+        }
+        
+        p.vx *= 0.95; p.vy *= 0.95;
         p.x += p.vx; p.y += p.vy;
+        
         if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0;
         if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0;
+        
+        // Draw gorgeous neon glowing particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${p.hue},80%,70%,0.65)`;
+        ctx.fillStyle = `hsla(${p.hue}, 92%, 65%, 0.88)`;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = `hsla(${p.hue}, 92%, 65%, 0.55)`;
         ctx.fill();
       });
+
+      // Clear shadowBlur for rapid lines computation
+      ctx.shadowBlur = 0;
 
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const d = Math.hypot(dx, dy);
-          if (d < 130) {
+          if (d < 140) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            const alpha = (1 - d / 130) * 0.28;
-            ctx.strokeStyle = `rgba(99,102,241,${alpha})`;
-            ctx.lineWidth = 0.6;
+            const alpha = (1 - d / 140) * 0.38;
+            ctx.strokeStyle = `rgba(139, 92, 246, ${alpha})`;
+            ctx.lineWidth = 0.75;
             ctx.stroke();
           }
         }
       }
 
-      // Mouse glow
-      const grd = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 120);
-      grd.addColorStop(0, 'rgba(99,102,241,0.06)');
-      grd.addColorStop(1, 'rgba(99,102,241,0)');
+      // Dynamic glowing cursor backdrop
+      const grd = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 250);
+      grd.addColorStop(0, 'rgba(6, 182, 212, 0.12)');
+      grd.addColorStop(0.5, 'rgba(99, 102, 241, 0.05)');
+      grd.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = grd;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
