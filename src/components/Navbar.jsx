@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import gsap from 'gsap';
-import { Layers, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import Logo from './Logo';
 
 const LINKS = [
   { to: '/', label: 'Home' },
@@ -32,15 +33,9 @@ export default function Navbar() {
     <>
       <nav ref={navRef} className="navbar" style={{ opacity: 0 }}>
         <div className="nav-inner">
-          {/* Logo */}
-          <Link to="/" className="nav-logo" onClick={() => setOpen(false)}>
-            <div style={{ width:34, height:34, borderRadius:10, background:'linear-gradient(135deg,#6366f1,#8b5cf6)', display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 0 16px rgba(99,102,241,0.4)' }}>
-              <Layers size={18} color="white" />
-            </div>
-            <span>
-              <span style={{ color:'#a5b4fc' }}>NEET</span>
-              {' '}AI Studio
-            </span>
+          {/* Custom Animated Logo */}
+          <Link to="/" className="nav-logo-link" style={{ textDecoration: 'none' }} onClick={() => setOpen(false)}>
+            <Logo size="sm" />
           </Link>
 
           {/* Desktop links */}

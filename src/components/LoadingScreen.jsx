@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import Logo from './Logo';
 
 export default function LoadingScreen({ onDone }) {
   const screenRef = useRef(null);
@@ -41,15 +42,12 @@ export default function LoadingScreen({ onDone }) {
       <div style={{ position:'absolute', width:'400px', height:'400px', borderRadius:'50%', background:'radial-gradient(circle,rgba(99,102,241,0.15),transparent 70%)', top:'30%', left:'50%', transform:'translate(-50%,-50%)', pointerEvents:'none' }} />
       <div style={{ position:'absolute', width:'300px', height:'300px', borderRadius:'50%', background:'radial-gradient(circle,rgba(139,92,246,0.1),transparent 70%)', bottom:'20%', right:'20%', pointerEvents:'none' }} />
 
-      {/* Ring */}
-      <div ref={ringRef} style={{ position:'relative', marginBottom:'32px' }}>
+      {/* Ring & Custom Animated Brand Logo inside Loader */}
+      <div ref={ringRef} style={{ position:'relative', marginBottom:'32px', display:'flex', alignItems:'center', justifyContent:'center' }}>
         <div className="load-ring-outer" />
-        <div className="load-ring" />
-        <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center' }}>
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="url(#lg1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <defs><linearGradient id="lg1" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse"><stop stopColor="#6366f1"/><stop offset="1" stopColor="#06b6d4"/></linearGradient></defs>
-          </svg>
+        <div className="load-ring" style={{ position: 'absolute' }} />
+        <div style={{ zIndex: 2, transform: 'scale(0.85)', pointerEvents: 'none' }}>
+          <Logo size="md" animated={false} />
         </div>
       </div>
 
