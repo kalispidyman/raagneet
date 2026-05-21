@@ -3,15 +3,7 @@ import './index.css';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || '';
 
-interface TokenUsage { prompt_tokens: number; completion_tokens: number; total_tokens: number; }
-interface ChatMessage { sender: 'user' | 'bot'; text: string; timestamp: string; }
-interface SessionData {
-  loggedIn: boolean; email: string | null; name: string | null; picture: string | null;
-  hasApiKey: boolean; maskedApiKey: string | null;
-  usage?: TokenUsage; chats?: ChatMessage[];
-}
-
-function Toast({ msg, type, onDone }: { msg: string; type: 'success' | 'error'; onDone: () => void }) {
+function Toast({ msg, type, onDone }) {
   useEffect(() => { const t = setTimeout(onDone, 3000); return () => clearTimeout(t); }, []);
   return (
     <div className={`toast ${type}`}>
@@ -21,17 +13,17 @@ function Toast({ msg, type, onDone }: { msg: string; type: 'success' | 'error'; 
 }
 
 export default function App() {
-  const [session, setSession] = useState<SessionData>({
+  const [session, setSession] = useState({
     loggedIn: false, email: null, name: null, picture: null,
     hasApiKey: false, maskedApiKey: null,
     usage: { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 }, chats: []
   });
-  const [logs, setLogs] = useState<string[]>([]);
+  const [logs, setLogs] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [boaKey, setBoaKey] = useState('');
   const [isSavingKey, setIsSavingKey] = useState(false);
-  const [toast, setToast] = useState<{ msg: string; type: 'success' | 'error' } | null>(null);
-  const chatEndRef = useRef<HTMLDivElement>(null);
+  const [toast, setToast] = useState(null);
+  const chatEndRef = useRef(null);
 
   const fetchSession = async () => {
     try {
@@ -98,7 +90,7 @@ export default function App() {
   const isBoa = session.maskedApiKey?.startsWith('boa-') || (!session.hasApiKey);
   const modelName = isBoa ? 'Claude Sonnet (Thinking)' : 'Gemini 2.5 Flash';
 
-  const fmt = (iso: string) => { try { return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch { return ''; } };
+  const fmt = (iso) => { try { return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch { return ''; } };
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'var(--font-sans)', position: 'relative', zIndex: 1 }}>
