@@ -82,8 +82,8 @@ export default function About() {
             <div style={{ display:'flex', gap:16, alignItems:'flex-start' }}>
               <div style={{ fontSize:'2.5rem', flexShrink:0 }}>🎯</div>
               <div>
-                <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'.72rem', color:'#6366f1', letterSpacing:'.12em', textTransform:'uppercase', marginBottom:12, fontWeight:600 }}>Our Mission</div>
-                <blockquote style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, fontSize:'clamp(1.2rem,2.5vw,1.7rem)', lineHeight:1.4, letterSpacing:'-0.02em' }}>
+                <div style={{ fontFamily:"var(--ffm)", fontSize:'.72rem', color:'#6366f1', letterSpacing:'.12em', textTransform:'uppercase', marginBottom:12, fontWeight:600 }}>Our Mission</div>
+                <blockquote style={{ fontFamily:"var(--ffd)", fontWeight:700, fontSize:'clamp(1.2rem,2.5vw,1.7rem)', lineHeight:1.4, letterSpacing:'-0.02em' }}>
                   "To build AI systems so powerful they feel like <span className="gradient-text">superpowers</span> — and make them accessible to every developer, every company, every human on Earth."
                 </blockquote>
               </div>
@@ -134,7 +134,7 @@ export default function About() {
                         <Icon size={18} color={v.color} />
                       </div>
                       <div>
-                        <h4 style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, marginBottom:5 }}>{v.title}</h4>
+                        <h4 style={{ fontFamily:"var(--ffd)", fontWeight:700, marginBottom:5 }}>{v.title}</h4>
                         <p style={{ color:'#94a3b8', fontSize:'.83rem', lineHeight:1.65 }}>{v.desc}</p>
                       </div>
                     </div>

@@ -80,7 +80,7 @@ export default function Products() {
                       ● {bot.status}
                     </span>
                   </div>
-                  <h3 style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:'1.15rem', marginBottom:10, color:bot.color }}>{bot.name}</h3>
+                  <h3 style={{ fontFamily:"var(--ffd)", fontWeight:800, fontSize:'1.15rem', marginBottom:10, color:bot.color }}>{bot.name}</h3>
                   <p style={{ color:'#94a3b8', fontSize:'.85rem', lineHeight:1.7, marginBottom:18 }}>{bot.desc}</p>
                   <div style={{ display:'flex', flexWrap:'wrap', gap:6, marginBottom:20 }}>
                     {bot.tags.map(t => (
@@ -114,7 +114,7 @@ export default function Products() {
                   </div>
                 )}
                 <div style={{ fontSize:'.8rem', color:'#94a3b8', fontWeight:600, textTransform:'uppercase', letterSpacing:'.08em', marginBottom:8 }}>{plan.name}</div>
-                <div style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:'2.4rem', color:plan.accent, marginBottom:6 }}>{plan.price}<span style={{ fontSize:'1rem', fontWeight:400, color:'#475569' }}>{plan.price !== 'Free' && plan.price !== 'Custom' ? '/mo' : ''}</span></div>
+                <div style={{ fontFamily:"var(--ffd)", fontWeight:800, fontSize:'2.4rem', color:plan.accent, marginBottom:6 }}>{plan.price}<span style={{ fontSize:'1rem', fontWeight:400, color:'#475569' }}>{plan.price !== 'Free' && plan.price !== 'Custom' ? '/mo' : ''}</span></div>
                 <p style={{ color:'#94a3b8', fontSize:'.82rem', marginBottom:28, lineHeight:1.6 }}>{plan.desc}</p>
                 <div style={{ marginBottom:28 }}>
                   {plan.features.map(f => (

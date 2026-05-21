@@ -36,7 +36,7 @@ export default function Footer() {
               <div style={{ width:36, height:36, borderRadius:10, background:'linear-gradient(135deg,#6366f1,#8b5cf6)', display:'flex', alignItems:'center', justifyContent:'center', boxShadow:'0 0 16px rgba(99,102,241,0.35)' }}>
                 <Layers size={18} color="white" />
               </div>
-              <span style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:'1.05rem' }}>
+              <span style={{ fontFamily:"var(--ffd)", fontWeight:800, fontSize:'1.05rem' }}>
                 <span style={{ color:'#a5b4fc' }}>NEET</span> AI Studio
               </span>
             </Link>

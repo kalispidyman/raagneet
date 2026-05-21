@@ -104,7 +104,7 @@ export default function Technology() {
               <div key={i} className="glass-card stack-item" style={{ padding:'24px 28px', display:'flex', gap:24, alignItems:'flex-start', opacity:0 }}>
                 <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:'1.3rem', fontWeight:700, color:s.color, minWidth:36 }}>{s.step}</div>
                 <div style={{ flex:1 }}>
-                  <h3 style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, fontSize:'1rem', marginBottom:6, color:s.color }}>{s.label}</h3>
+                  <h3 style={{ fontFamily:"var(--ffd)", fontWeight:700, fontSize:'1rem', marginBottom:6, color:s.color }}>{s.label}</h3>
                   <p style={{ color:'#94a3b8', fontSize:'.87rem', lineHeight:1.7 }}>{s.desc}</p>
                 </div>
                 <div style={{ width:4, alignSelf:'stretch', borderRadius:99, background:`linear-gradient(to bottom,${s.color},transparent)`, flexShrink:0, minHeight:60 }} />
@@ -131,7 +131,7 @@ export default function Technology() {
                       <Icon size={20} color={inn.color} />
                     </div>
                     <div>
-                      <h3 style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, fontSize:'.95rem', marginBottom:4 }}>{inn.title}</h3>
+                      <h3 style={{ fontFamily:"var(--ffd)", fontWeight:700, fontSize:'.95rem', marginBottom:4 }}>{inn.title}</h3>
                       <p style={{ color:'#94a3b8', fontSize:'.82rem', lineHeight:1.65 }}>{inn.desc}</p>
                     </div>
                   </div>

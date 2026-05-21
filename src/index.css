@@ -6,7 +6,7 @@
   --indigo: #6366f1; --violet: #8b5cf6; --cyan: #06b6d4;
   --pink: #ec4899; --emerald: #10b981; --amber: #f59e0b;
   --text: #f1f5f9; --text-2: #94a3b8; --text-3: #475569;
-  --ff: 'Inter', sans-serif; --ffd: 'Syne', sans-serif; --ffm: 'JetBrains Mono', monospace;
+  --ff: 'Plus Jakarta Sans', sans-serif; --ffd: 'Outfit', sans-serif; --ffm: 'JetBrains Mono', monospace;
   --ease: cubic-bezier(0.4,0,0.2,1);
 }
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }

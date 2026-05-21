@@ -82,12 +82,12 @@ export default function Contact() {
               {sent ? (
                 <div style={{ textAlign:'center', padding:'40px 0' }}>
                   <div style={{ fontSize:'2.5rem', marginBottom:16 }}>✅</div>
-                  <h3 style={{ fontFamily:"'Syne',sans-serif", fontWeight:700, marginBottom:8 }}>Message Sent!</h3>
+                  <h3 style={{ fontFamily:"var(--ffd)", fontWeight:700, marginBottom:8 }}>Message Sent!</h3>
                   <p style={{ color:'#94a3b8', fontSize:'.88rem' }}>We'll get back to you within 24 hours.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit}>
-                  <h3 style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:'1.2rem', marginBottom:24 }}>Send a Message</h3>
+                  <h3 style={{ fontFamily:"var(--ffd)", fontWeight:800, fontSize:'1.2rem', marginBottom:24 }}>Send a Message</h3>
                   <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 }}>
                     <div className="form-group">
                       <label>Name</label>

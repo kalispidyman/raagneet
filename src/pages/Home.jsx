@@ -167,7 +167,7 @@ export default function Home() {
                 <div style={{ width:56, height:56, borderRadius:16, background:bot.bg, border:`1px solid ${bot.color}30`, display:'flex', alignItems:'center', justifyContent:'center', fontSize:'1.5rem', marginBottom:20 }}>
                   {bot.icon}
                 </div>
-                <h3 style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:'1.25rem', marginBottom:10, color:bot.color }}>{bot.name}</h3>
+                <h3 style={{ fontFamily:"var(--ffd)", fontWeight:800, fontSize:'1.25rem', marginBottom:10, color:bot.color }}>{bot.name}</h3>
                 <p style={{ color:'#94a3b8', fontSize:'.88rem', lineHeight:1.7, marginBottom:20 }}>{bot.desc}</p>
                 <div style={{ display:'flex', flexWrap:'wrap', gap:6, marginBottom:24 }}>
                   {bot.tags.map(t => (
@@ -198,7 +198,7 @@ export default function Home() {
               <div className="badge" style={{ marginBottom:20 }}>
                 <Activity size={12} /> Ready to Deploy
               </div>
-              <h2 style={{ fontFamily:"'Syne',sans-serif", fontWeight:800, fontSize:'clamp(1.8rem,4vw,2.8rem)', letterSpacing:'-0.03em', marginBottom:16 }}>
+              <h2 style={{ fontFamily:"var(--ffd)", fontWeight:800, fontSize:'clamp(1.8rem,4vw,2.8rem)', letterSpacing:'-0.03em', marginBottom:16 }}>
                 Start Building with AI <span className="gradient-text">Today</span>
               </h2>
               <p style={{ color:'#94a3b8', fontSize:'1.05rem', maxWidth:480, margin:'0 auto 32px', lineHeight:1.7 }}>
