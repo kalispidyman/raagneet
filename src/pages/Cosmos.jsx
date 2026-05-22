@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useMemo, Suspense, createContext, u
 import * as THREE from 'three';
 import { Canvas, useFrame, useThree, extend } from '@react-three/fiber';
 import { OrbitControls, Stars, useCursor, Html, MeshDistortMaterial } from '@react-three/drei';
-import { AnimatePresence, motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { AnimatePresence, motion, useMotionValue, useTransform, useSpring, animate } from 'framer-motion';
 import { gsap } from 'gsap';
 import { Search, Globe, Zap, Database, Settings, ChevronLeft, ChevronRight, Radio, Activity, Shield, Cpu, ArrowRight } from 'lucide-react';
 
@@ -81,23 +81,25 @@ const NebulaParticles = ({ mouseRef }) => {
   const vertexShader = `
     uniform float uTime;
     uniform vec2 uMouse;
-    attribute vec3 instanceOffset;
     varying float vDist;
     varying float vAlpha;
     void main() {
       vec3 pos = position;
       float wave = sin(pos.y * 0.5 + uTime * 2.0) * 0.4;
-      pos += wave;
+      pos.y += wave;
       
       vec2 diff = (pos.xy - uMouse) * 0.5;
-      float force = smoothstep(0.8, 0.0, length(diff));
-      pos.xy += normalize(diff) * force * 1.5;
+      float len = length(diff);
+      float force = smoothstep(0.8, 0.0, len);
+      if (len > 0.001) {
+        pos.xy += (diff / len) * force * 1.5;
+      }
       
       vDist = length(pos) * 0.1;
       vAlpha = smoothstep(1.5, 0.0, length(pos.xy));
       
       vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-      gl_PointSize = 6.0 * (30.0 / -mvPosition.z);
+      gl_PointSize = 6.0 * (30.0 / max(-mvPosition.z, 0.001));
       gl_Position = projectionMatrix * mvPosition;
     }
   `;
@@ -120,9 +122,7 @@ const NebulaParticles = ({ mouseRef }) => {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          count={count}
-          array={positions}
-          itemSize={3}
+          args={[positions, 3]}
         />
       </bufferGeometry>
       <shaderMaterial
@@ -163,8 +163,8 @@ const ExoplanetGlobe = ({ onCoordinateSelect }) => {
     <group scale={2}>
       <mesh ref={mesh} onClick={handleRaycast}>
         <sphereGeometry args={[1.5, 64, 64]} />
-        <meshStandardMaterial color="#111" metalness={0.8} roughness={0.2} />
-        <MeshDistortMaterial speed={2} distort={0.1} color="#0f172a" />
+        {/* Strictly one physical material inside the mesh to avoid duplicate-material attachment crash */}
+        <MeshDistortMaterial speed={2} distort={0.1} color="#0c112b" roughness={0.15} metalness={0.85} />
       </mesh>
       <gridHelper args={[5, 20, '#06b6d4', '#1e293b']} rotation={[0, 0, 0]} scale={0.5} />
       <OrbitControls enablePan={false} enableZoom={false} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 1.5} />
@@ -185,7 +185,7 @@ const BlackHoleShader = () => {
       <shaderMaterial
         ref={mat}
         transparent
-        side={2}
+        side={THREE.DoubleSide}
         uniforms={{ uTime: { value: 0 }, uResolution: { value: [1, 1] } }}
         vertexShader={`
           varying vec2 vUv;
@@ -198,7 +198,7 @@ const BlackHoleShader = () => {
             vec2 p = (vUv * 2.0 - 1.0);
             float r = length(p);
             float angle = atan(p.y, p.x);
-            float distortion = 0.15 * sin(r * 10.0 - uTime * 3.0) / r;
+            float distortion = 0.15 * sin(r * 10.0 - uTime * 3.0) / max(r, 0.001);
             vec3 col = vec3(0.05, 0.0, 0.1);
             col += vec3(0.9, 0.3, 0.5) * smoothstep(0.45, 0.4, r + distortion);
             col += vec3(0.2, 0.5, 0.8) * smoothstep(0.55, 0.48, r + distortion);
@@ -256,13 +256,14 @@ const TelemetryRings = ({ label, percent, color }) => {
   const strokeDashoffset = useMotionValue(circumference);
 
   useEffect(() => {
-    gsap.to(strokeDashoffset, {
-      x: circumference - (percent / 100) * circumference,
+    // Utilize framer-motion native animate to update motionValue flawlessly
+    const targetOffset = circumference - (percent / 100) * circumference;
+    const controls = animate(strokeDashoffset, targetOffset, {
       duration: 1.5,
-      ease: 'power2.inOut',
-      overwrite: true
+      ease: 'easeInOut'
     });
-  }, []);
+    return () => controls.stop();
+  }, [percent, circumference, strokeDashoffset]);
 
   return (
     <motion.div className="flex flex-col items-center justify-center gap-2 p-4" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
@@ -334,8 +335,8 @@ const View1 = () => {
         <GlassMetricCard title="Warp Core Efficiency" value="98.4%" icon={Zap} delay={0.2} />
         <GlassMetricCard title="Quantum Flux Variance" value="0.04σ" icon={Activity} delay={0.3} />
       </div>
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 10], fov: 70 }} style={{ background: 'transparent' }}>
+      <div className="absolute inset-0 z-0 pointer-events-none w-full h-full">
+        <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 10], fov: 70 }} style={{ background: 'transparent', width: '100%', height: '100%' }}>
           <NebulaParticles mouseRef={mouseRef} />
         </Canvas>
       </div>
@@ -348,7 +349,7 @@ const View2 = () => {
   return (
     <div className="absolute inset-0 flex">
       <div className="w-full md:w-3/4 h-full relative">
-        <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 5], fov: 45 }} style={{ background: 'transparent' }}>
+        <Canvas dpr={[1, 1.5]} camera={{ position: [0, 0, 5], fov: 45 }} style={{ background: 'transparent', width: '100%', height: '100%' }}>
           <Suspense fallback={null}>
             <ExoplanetGlobe onCoordinateSelect={setPanelData} />
             <ambientLight intensity={0.2} />
@@ -391,7 +392,7 @@ const View2 = () => {
 const View3 = () => {
   return (
     <div className="absolute inset-0 flex items-center justify-center p-8 z-10">
-      <Canvas dpr={[1, 1]} camera={{ position: [0, 0, 6] }} style={{ background: 'transparent', position: 'absolute' }}>
+      <Canvas dpr={[1, 1]} camera={{ position: [0, 0, 6] }} style={{ background: 'transparent', position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
         <BlackHoleShader />
       </Canvas>
       <div className="relative z-20 grid grid-cols-1 md:grid-cols-3 gap-8">
