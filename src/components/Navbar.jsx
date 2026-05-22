@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import gsap from 'gsap';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShieldAlert } from 'lucide-react';
 import Logo from './Logo';
 
 const LINKS = [
@@ -54,6 +54,24 @@ export default function Navbar() {
           </ul>
 
           <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+            <Link 
+              to="/portal" 
+              className="nav-link" 
+              style={{ 
+                color: '#a5b4fc', 
+                fontWeight: 600, 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '5px',
+                background: 'rgba(99,102,241,0.08)',
+                border: '1px solid rgba(99,102,241,0.2)',
+                borderRadius: '8px',
+                padding: '6px 12px'
+              }}
+            >
+              <ShieldAlert size={14} color="#8b5cf6" />
+              <span>Portal</span>
+            </Link>
             <Link to="/contact" className="btn btn-primary btn-sm" style={{ display:'flex' }}>Get Started</Link>
             <button className="hamburger" onClick={() => setOpen(o => !o)} aria-label="Menu">
               {open ? <X size={20} color="white" /> : <Menu size={20} color="white" />}
@@ -75,6 +93,14 @@ export default function Navbar() {
             {l.label}
           </NavLink>
         ))}
+        <NavLink
+          to="/portal"
+          className={({ isActive }) => `mobile-link${isActive ? ' active' : ''}`}
+          onClick={() => setOpen(false)}
+          style={{ color: '#a5b4fc', fontWeight: 'bold' }}
+        >
+          ● Portal Console
+        </NavLink>
         <Link to="/contact" className="btn btn-primary" style={{ marginTop:8, justifyContent:'center' }} onClick={() => setOpen(false)}>
           Get Started
         </Link>
