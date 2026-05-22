@@ -56,6 +56,8 @@ export default function Navbar() {
           <div style={{ display:'flex', alignItems:'center', gap:12 }}>
             <Link 
               to="/portal" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="nav-link" 
               style={{ 
                 color: '#a5b4fc', 
@@ -70,7 +72,7 @@ export default function Navbar() {
               }}
             >
               <ShieldAlert size={14} color="#8b5cf6" />
-              <span>Portal</span>
+              <span>Portal ↗</span>
             </Link>
             <Link to="/contact" className="btn btn-primary btn-sm" style={{ display:'flex' }}>Get Started</Link>
             <button className="hamburger" onClick={() => setOpen(o => !o)} aria-label="Menu">
@@ -95,11 +97,13 @@ export default function Navbar() {
         ))}
         <NavLink
           to="/portal"
+          target="_blank"
+          rel="noopener noreferrer"
           className={({ isActive }) => `mobile-link${isActive ? ' active' : ''}`}
           onClick={() => setOpen(false)}
           style={{ color: '#a5b4fc', fontWeight: 'bold' }}
         >
-          ● Portal Console
+          ● Portal Console ↗
         </NavLink>
         <Link to="/contact" className="btn btn-primary" style={{ marginTop:8, justifyContent:'center' }} onClick={() => setOpen(false)}>
           Get Started

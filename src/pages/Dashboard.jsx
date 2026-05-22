@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { 
   Lock, Unlock, ShieldAlert, Terminal, LogOut, Flame, Sprout, Play, 
-  HelpCircle, RefreshCw, Sliders, Dumbbell, Sparkles, Send, Check 
+  HelpCircle, RefreshCw, Sliders, Dumbbell, Sparkles, Send, Check, ExternalLink 
 } from 'lucide-react';
 
 const SYSTEM_LOGS_PRESET = [
@@ -232,6 +232,11 @@ export default function Dashboard() {
     return "✅ Perfect Indore pH! Wheat, soybean, and cotton will thrive beautifully. Excellent agriculture coordination! 🌾";
   };
 
+  // Spawn standalone popout window
+  const openDetachedWindow = () => {
+    window.open('/portal', 'AntigravityDevPortal', 'width=1280,height=820,menubar=no,status=no,toolbar=no,location=no');
+  };
+
   return (
     <div style={{ position: 'relative', zIndex: 1, minHeight: '90vh', paddingBottom: '80px' }}>
       
@@ -310,13 +315,20 @@ export default function Dashboard() {
                 You are attempting to access the private Antigravity v2.0 Dev Console. To view coordinates, B.Sc Agriculture Indore databases, and Agent status, you must unlock this portal.
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: '280px', margin: '0 auto' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: '290px', margin: '0 auto' }}>
                 <button 
                   onClick={() => { setAuthMode('login'); setAuthPopup(true); setErrorMsg(''); }}
                   className="btn btn-primary" 
                   style={{ justifyContent: 'center' }}
                 >
                   <Unlock size={16} /> Decrypt Node
+                </button>
+                <button 
+                  onClick={openDetachedWindow}
+                  className="btn btn-outline" 
+                  style={{ justifyContent: 'center', gap: '8px', color: '#38bdf8', borderColor: 'rgba(56,189,248,0.2)' }}
+                >
+                  <ExternalLink size={14} /> Detached Window Mode ↗
                 </button>
                 <button 
                   onClick={() => { setAuthMode('signup'); setAuthPopup(true); setErrorMsg(''); }}
@@ -375,6 +387,13 @@ export default function Dashboard() {
                 <span className="badge" style={{ background: 'rgba(16,185,129,0.08)', color: '#34d399', border: '1px solid rgba(16,185,129,0.2)' }}>
                   Twins: Sleeping 🍼
                 </span>
+                <button 
+                  onClick={openDetachedWindow}
+                  className="btn btn-outline btn-sm" 
+                  style={{ gap: '6px', borderColor: 'rgba(99,102,241,0.3)', color: '#a5b4fc' }}
+                >
+                  <ExternalLink size={13} /> Standalone View ↗
+                </button>
                 <button 
                   onClick={handleLogout}
                   className="btn btn-outline btn-sm" 
