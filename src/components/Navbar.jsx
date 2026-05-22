@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import gsap from 'gsap';
-import { Menu, X, ShieldAlert } from 'lucide-react';
+import { Menu, X, ShieldAlert, Activity } from 'lucide-react';
 import Logo from './Logo';
 
 const LINKS = [
@@ -54,6 +54,28 @@ export default function Navbar() {
           </ul>
 
           <div style={{ display:'flex', alignItems:'center', gap:12 }}>
+            {/* Beautiful Cyberpunk Glowing Testing Button */}
+            <Link 
+              to="/testing" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-link" 
+              style={{ 
+                color: '#22d3ee', 
+                fontWeight: 600, 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '5px',
+                background: 'rgba(6,182,212,0.08)',
+                border: '1px solid rgba(6,182,212,0.25)',
+                borderRadius: '8px',
+                padding: '6px 12px'
+              }}
+            >
+              <Activity size={14} color="#06b6d4" />
+              <span>Testing ↗</span>
+            </Link>
+
             <Link 
               to="/portal" 
               target="_blank"
@@ -95,6 +117,16 @@ export default function Navbar() {
             {l.label}
           </NavLink>
         ))}
+        <NavLink
+          to="/testing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={({ isActive }) => `mobile-link${isActive ? ' active' : ''}`}
+          onClick={() => setOpen(false)}
+          style={{ color: '#22d3ee', fontWeight: 'bold' }}
+        >
+          ● Testing Core ↗
+        </NavLink>
         <NavLink
           to="/portal"
           target="_blank"

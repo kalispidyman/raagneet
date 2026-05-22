@@ -10,6 +10,7 @@ import Technology from './pages/Technology';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Dashboard from './pages/Dashboard';
+import CosmosDashboard from './pages/Cosmos';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -19,15 +20,18 @@ function ScrollToTop() {
 
 function AppInner() {
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const isTestingPage = location.pathname === '/testing';
+
   return (
     <>
-      <MouseBackground />
+      {!isTestingPage && <MouseBackground />}
       {loading && <LoadingScreen onDone={() => setLoading(false)} />}
       {!loading && (
         <>
           <ScrollToTop />
-          <Navbar />
-          <main style={{ position: 'relative', zIndex: 1, paddingTop: '72px' }}>
+          {!isTestingPage && <Navbar />}
+          <main style={{ position: 'relative', zIndex: 1, paddingTop: isTestingPage ? '0px' : '72px' }}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
@@ -35,9 +39,10 @@ function AppInner() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/portal" element={<Dashboard />} />
+              <Route path="/testing" element={<CosmosDashboard />} />
             </Routes>
           </main>
-          <Footer />
+          {!isTestingPage && <Footer />}
         </>
       )}
     </>
