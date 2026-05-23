@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import gsap from 'gsap';
-import { Menu, X, ShieldAlert, Activity } from 'lucide-react';
+import { Menu, X, Zap } from 'lucide-react';
 import Logo from './Logo';
 
 const LINKS = [
   { to: '/', label: 'Home' },
-  { to: '/products', label: 'Products' },
+  { to: '/products', label: 'Services' },
   { to: '/technology', label: 'Technology' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
@@ -14,6 +14,7 @@ const LINKS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const navRef = useRef(null);
 
   useEffect(() => {
@@ -24,6 +25,12 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
     const close = () => setOpen(false);
     window.addEventListener('resize', close);
     return () => window.removeEventListener('resize', close);
@@ -31,21 +38,19 @@ export default function Navbar() {
 
   return (
     <>
-      <nav ref={navRef} className="navbar" style={{ opacity: 0 }}>
-        <div className="nav-inner">
-          {/* Custom Animated Logo */}
+      <nav ref={navRef} className={`navbar-premium ${scrolled ? 'scrolled' : ''}`} style={{ opacity: 0 }}>
+        <div className="nav-inner-premium">
           <Link to="/" className="nav-logo-link" style={{ textDecoration: 'none' }} onClick={() => setOpen(false)}>
             <Logo size="sm" />
           </Link>
 
-          {/* Desktop links */}
-          <ul className="nav-links">
+          <ul className="nav-links-premium">
             {LINKS.map(l => (
               <li key={l.to}>
                 <NavLink
                   to={l.to}
                   end={l.to === '/'}
-                  className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+                  className={({ isActive }) => `nav-link-p${isActive ? ' active' : ''}`}
                 >
                   {l.label}
                 </NavLink>
@@ -53,93 +58,35 @@ export default function Navbar() {
             ))}
           </ul>
 
-          <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-            {/* Beautiful Cyberpunk Glowing Testing Button */}
-            <Link 
-              to="/testing" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav-link" 
-              style={{ 
-                color: '#22d3ee', 
-                fontWeight: 600, 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '5px',
-                background: 'rgba(6,182,212,0.08)',
-                border: '1px solid rgba(6,182,212,0.25)',
-                borderRadius: '8px',
-                padding: '6px 12px'
-              }}
-            >
-              <Activity size={14} color="#06b6d4" />
-              <span>Testing ↗</span>
+          <div className="nav-actions">
+            <Link to="/contact" className="nav-cta-btn">
+              <Zap size={14} />
+              <span>Start Project</span>
             </Link>
-
-            <Link 
-              to="/portal" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav-link" 
-              style={{ 
-                color: '#a5b4fc', 
-                fontWeight: 600, 
-                display: 'flex', 
-                alignItems: 'center', 
-                gap: '5px',
-                background: 'rgba(99,102,241,0.08)',
-                border: '1px solid rgba(99,102,241,0.2)',
-                borderRadius: '8px',
-                padding: '6px 12px'
-              }}
-            >
-              <ShieldAlert size={14} color="#8b5cf6" />
-              <span>Portal ↗</span>
-            </Link>
-            <Link to="/contact" className="btn btn-primary btn-sm" style={{ display:'flex' }}>Get Started</Link>
-            <button className="hamburger" onClick={() => setOpen(o => !o)} aria-label="Menu">
-              {open ? <X size={20} color="white" /> : <Menu size={20} color="white" />}
+            <button className="hamburger-premium" onClick={() => setOpen(o => !o)} aria-label="Menu">
+              {open ? <X size={22} color="white" /> : <Menu size={22} color="white" />}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Mobile menu */}
-      <div className={`mobile-menu${open ? ' open' : ''}`}>
-        {LINKS.map(l => (
-          <NavLink
-            key={l.to}
-            to={l.to}
-            end={l.to === '/'}
-            className={({ isActive }) => `mobile-link${isActive ? ' active' : ''}`}
-            onClick={() => setOpen(false)}
-          >
-            {l.label}
-          </NavLink>
-        ))}
-        <NavLink
-          to="/testing"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={({ isActive }) => `mobile-link${isActive ? ' active' : ''}`}
-          onClick={() => setOpen(false)}
-          style={{ color: '#22d3ee', fontWeight: 'bold' }}
-        >
-          ● Testing Core ↗
-        </NavLink>
-        <NavLink
-          to="/portal"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={({ isActive }) => `mobile-link${isActive ? ' active' : ''}`}
-          onClick={() => setOpen(false)}
-          style={{ color: '#a5b4fc', fontWeight: 'bold' }}
-        >
-          ● Portal Console ↗
-        </NavLink>
-        <Link to="/contact" className="btn btn-primary" style={{ marginTop:8, justifyContent:'center' }} onClick={() => setOpen(false)}>
-          Get Started
-        </Link>
+      <div className={`mobile-menu-premium${open ? ' open' : ''}`}>
+        <div className="mobile-menu-inner">
+          {LINKS.map(l => (
+            <NavLink
+              key={l.to}
+              to={l.to}
+              end={l.to === '/'}
+              className={({ isActive }) => `mobile-link-p${isActive ? ' active' : ''}`}
+              onClick={() => setOpen(false)}
+            >
+              {l.label}
+            </NavLink>
+          ))}
+          <Link to="/contact" className="mobile-cta" onClick={() => setOpen(false)}>
+            Start Your Project →
+          </Link>
+        </div>
       </div>
     </>
   );
