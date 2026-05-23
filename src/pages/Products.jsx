@@ -5,47 +5,47 @@ import { ArrowRight, Bot, Globe, Box, Workflow, Smartphone, Palette, CheckCircle
 const mainServices = [
   {
     icon: <Bot size={28} />,
-    title: 'AI & Autonomous Agents',
-    description: 'Custom AI bots, LLM integrations, and autonomous agentic workflows that automate complex business operations.',
-    features: ['Custom LLM Fine-tuning', 'Agentic Workflows', 'RAG Systems']
+    title: "AI & Autonomous Agents",
+    description: "Custom AI bots, LLM integrations, and autonomous agentic workflows that automate complex business operations.",
+    features: ["Custom LLM Fine-tuning", "Agentic Workflows", "RAG Systems"]
   },
   {
     icon: <Globe size={28} />,
-    title: 'Premium Web Applications',
-    description: 'High-performance, scalable web platforms built with modern React, Next.js, and glassmorphic UI/UX design.',
-    features: ['SaaS Dashboards', 'E-commerce Platforms', 'Custom Portals']
+    title: "Premium Web Applications",
+    description: "High-performance, scalable web platforms built with modern React, Next.js, and glassmorphic UI/UX design.",
+    features: ["SaaS Dashboards", "E-commerce Platforms", "Custom Portals"]
   },
   {
     icon: <Box size={28} />,
-    title: 'Immersive 3D Experiences',
-    description: 'Interactive WebGL and React Three Fiber environments that push the boundaries of digital storytelling and branding.',
-    features: ['WebGL Animations', 'Product Configurators', 'Virtual Showrooms']
+    title: "Immersive 3D Experiences",
+    description: "Interactive WebGL and React Three Fiber environments that push the boundaries of digital storytelling and branding.",
+    features: ["WebGL Animations", "Product Configurators", "Virtual Showrooms"]
   },
   {
     icon: <Workflow size={28} />,
-    title: 'Business Automation',
-    description: 'End-to-end process automation, API integrations, and custom internal tools to eliminate manual bottlenecks.',
-    features: ['CRM Integrations', 'Automated Pipelines', 'Data Scraping']
+    title: "Business Automation",
+    description: "End-to-end process automation, API integrations, and custom internal tools to eliminate manual bottlenecks.",
+    features: ["CRM Integrations", "Automated Pipelines", "Data Scraping"]
   },
   {
     icon: <Smartphone size={28} />,
-    title: 'Mobile-First Solutions',
-    description: 'Responsive, cross-platform mobile applications and PWA solutions designed for seamless user experiences.',
-    features: ['React Native Apps', 'Progressive Web Apps', 'Offline Support']
+    title: "Mobile-First Solutions",
+    description: "Responsive, cross-platform mobile applications and PWA solutions designed for seamless user experiences.",
+    features: ["React Native Apps", "Progressive Web Apps", "Offline Support"]
   },
   {
     icon: <Palette size={28} />,
-    title: 'UI/UX & Brand Identity',
-    description: 'Strategic design systems, premium interfaces, and brand identities that convert visitors into loyal customers.',
-    features: ['Design Systems', 'Prototyping', 'Brand Guidelines']
+    title: "UI/UX & Brand Identity",
+    description: "Strategic design systems, premium interfaces, and brand identities that convert visitors into loyal customers.",
+    features: ["Design Systems", "Prototyping", "Brand Guidelines"]
   }
 ];
 
 const processSteps = [
-  { step: '01', title: 'Discovery & Strategy', desc: 'We deep-dive into your business goals, target audience, and technical requirements to map out a winning strategy.' },
-  { step: '02', title: 'Design & Prototype', desc: 'Our designers craft premium, glassmorphic interfaces and interactive prototypes for your approval before coding begins.' },
-  { step: '03', title: 'Agile Development', desc: 'Our engineering team builds your solution using cutting-edge tech stacks, ensuring scalability and blazing-fast performance.' },
-  { step: '04', title: 'Launch & Scale', desc: 'We handle deployment, CI/CD pipelines, and post-launch support to ensure your product scales seamlessly with your growth.' }
+  { step: "01", title: "Discovery & Strategy", desc: "We deep-dive into your business goals, target audience, and technical requirements to map out a winning strategy." },
+  { step: "02", title: "Design & Prototype", desc: "Our designers craft premium, glassmorphic interfaces and interactive prototypes for your approval before coding begins." },
+  { step: "03", title: "Agile Development", desc: "Our engineering team builds your solution using cutting-edge tech stacks, ensuring scalability and blazing-fast performance." },
+  { step: "04", title: "Launch & Scale", desc: "We handle deployment, CI/CD pipelines, and post-launch support to ensure your product scales seamlessly with your growth." }
 ];
 
 export default function Products() {
