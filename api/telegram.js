@@ -1,9 +1,3 @@
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 export default async function handler(req, res) {
   // Support CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -31,16 +25,16 @@ export default async function handler(req, res) {
   // Handle raw query params
   const urlObj = new URL(req.url, 'https://' + (req.headers.host || 'localhost'));
   const searchParams = urlObj.searchParams;
-  searchParams.delete('path'); // remove the proxy route helper param if present
+  searchParams.delete('path');
   const searchStr = searchParams.toString();
   
   const targetUrl = 'https://api.telegram.org' + subpath + (searchStr ? '?' + searchStr : '');
 
   try {
-    // Read raw body from stream
+    // Read raw body from stream safely
     const chunks = [];
     for await (const chunk of req) {
-      chunks.push(chunk);
+      chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
     }
     const bodyBuffer = Buffer.concat(chunks);
 
