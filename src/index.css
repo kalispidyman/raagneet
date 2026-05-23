@@ -1,58 +1,145 @@
-/* Add this CSS to style the content container */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-dark: #050510;
+  --glass-bg: rgba(15, 15, 25, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-hover: rgba(255, 255, 255, 0.12);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent-cyan: #22d3ee;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #ec4899;
+  --accent-green: #10b981;
+  --accent-yellow: #f59e0b;
+  --accent-red: #ef4444;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
 .cosmos-page {
   position: relative;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.1) 0%, transparent 40%),
+              #050510;
 }
 
-.content-container {
+.cosmos-overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5,5,16,0.4) 0%, rgba(5,5,16,0.8) 100%);
+  pointer-events: none;
   z-index: 1;
 }
 
-.content-container h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.content-container p {
-  font-size: 1.2rem;
-}
-
-.cards-container {
+.cosmos-content {
+  position: relative;
+  z-index: 10;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.cosmos-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #10b981;
+  text-transform: uppercase;
+}
+
+.pulse-icon {
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 4px #10b981); }
+  50% { opacity: 0.5; filter: drop-shadow(0 0 8px #10b981); }
+}
+
+.cosmos-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #22d3ee 0%, #8b5cf6 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cosmos-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.cosmos-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
   gap: 2rem;
-  margin-top: 2rem;
+  align-items: start;
 }
 
-.card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 2rem;
-  width: 20rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+@media (max-width: 1024px) {
+  .cosmos-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .grid-col-1 { grid-column: 1 / 2; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid-col-2 { grid-column: 2 / 3; }
+  .grid-col-3 { grid-column: 1 / 3; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 }
 
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+@media (max-width: 640px) {
+  .cosmos-grid { grid-template-columns: 1fr; }
+  .grid-col-1, .grid-col-3 { grid-column: 1; grid-template-columns: 1fr; }
+  .grid-col-2 { grid-column: 1; }
+  .cosmos-content { padding: 2rem 1rem 4rem; }
 }
 
-.card h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+.grid-col-1, .grid-col-2, .grid-col-3 {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.card p {
-  font-size: 1rem;
-  line-height: 1.5;
-}
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px
