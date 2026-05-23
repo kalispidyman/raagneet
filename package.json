@@ -13,8 +13,8 @@
   "dependencies": {
     "@react-three/drei": "^9.105.4",
     "@react-three/fiber": "^8.16.8",
-    "framer-motion": "^12.38.0",
-    "gsap": "^3.15.0",
+    "framer-motion": "^11.3.2",
+    "gsap": "^3.12.5",
     "lucide-react": "^0.407.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

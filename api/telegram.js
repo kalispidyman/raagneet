@@ -13,19 +13,12 @@ export default async function handler(req, res) {
     return;
   }
 
-  // Extract subpath from rewrite path query or fallback to original req.url
-  let subpath = '';
-  if (req.query.path) {
-    subpath = '/' + req.query.path;
-  } else {
-    const url = new URL(req.url, 'https://' + (req.headers.host || 'localhost'));
-    subpath = url.pathname.replace(/^\/api\/telegram/, '');
-  }
+  // Vercel natively passes the full original URL in req.url
+  const url = new URL(req.url, 'https://' + (req.headers.host || 'localhost'));
+  const subpath = url.pathname.replace(/^\/api\/telegram/, '');
 
-  // Handle raw query params
-  const urlObj = new URL(req.url, 'https://' + (req.headers.host || 'localhost'));
-  const searchParams = urlObj.searchParams;
-  searchParams.delete('path');
+  // Handle raw query params cleanly
+  const searchParams = url.searchParams;
   const searchStr = searchParams.toString();
   
   const targetUrl = 'https://api.telegram.org' + subpath + (searchStr ? '?' + searchStr : '');
