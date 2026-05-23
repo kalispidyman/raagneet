@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stars } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 
 const MovingBackground = () => {
   const meshRef = useRef();
@@ -42,6 +43,13 @@ const MovingBackground = () => {
   );
 };
 
+const Card = ({ title, description }) => (
+  <div className="card">
+    <h2>{title}</h2>
+    <p>{description}</p>
+  </div>
+);
+
 const Cosmos = () => {
   return (
     <div className="cosmos-page">
@@ -49,6 +57,11 @@ const Cosmos = () => {
       <div className="content-container">
         <h1>Testing Page</h1>
         <p>Welcome to the testing page with an interactive 3D background.</p>
+        <div className="cards-container">
+          <Card title="Card 1" description="This is the first card with some cool content." />
+          <Card title="Card 2" description="This is the second card with more awesome content." />
+          <Card title="Card 3" description="This is the third card with even more amazing content." />
+        </div>
       </div>
     </div>
   );
