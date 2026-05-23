@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import MouseBackground from './components/MouseBackground';
+import LoadingScreen from './components/LoadingScreen';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Technology from './pages/Technology';
@@ -16,8 +17,19 @@ function ScrollToTop() {
 }
 
 function AppInner() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Give the assets and the progress bar enough time to render beautifully
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2200);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
+      <LoadingScreen isLoading={isLoading} />
       <MouseBackground />
       <ScrollToTop />
       <Navbar />
