@@ -1,185 +1,164 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Zap, Shield, TrendingUp, Users, Clock, CheckCircle2, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { 
+  ArrowRight, Zap, Shield, TrendingUp, Users, Star, 
+  Bot, Globe, Brain, ChevronRight, CheckCircle2, Sparkles,
+  BarChart3, Clock, Award
+} from 'lucide-react';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: i * 0.1, ease: [0.25, 0.46, 0.45, 0.94] } })
+};
 
 const stats = [
   { value: '50+', label: 'Projects Delivered' },
   { value: '98%', label: 'Client Satisfaction' },
-  { value: '3x', label: 'Average ROI' },
+  { value: '3x', label: 'Average ROI Increase' },
   { value: '24/7', label: 'Support Available' },
 ];
 
 const services = [
   {
-    icon: <Sparkles size={24} />,
+    icon: <Bot size={24} />,
     title: 'AI-Powered Solutions',
-    desc: 'Custom AI agents, chatbots, and automation workflows that save hundreds of hours and reduce operational costs by up to 60%.',
-    highlight: 'Most Popular'
+    desc: 'Custom AI bots, automation workflows, and intelligent systems that reduce costs and scale your operations.',
   },
   {
-    icon: <Zap size={24} />,
-    title: 'Premium Web Applications',
-    desc: 'High-performance websites and web apps with stunning 3D visuals, glassmorphism design, and lightning-fast load times.',
-    highlight: null
+    icon: <Globe size={24} />,
+    title: 'Premium Web Development',
+    desc: 'High-performance websites and web apps with stunning 3D visuals that convert visitors into customers.',
   },
   {
-    icon: <Shield size={24} />,
+    icon: <Brain size={24} />,
     title: 'Business Automation',
-    desc: 'End-to-end process automation that eliminates manual work, reduces errors, and scales your operations effortlessly.',
-    highlight: null
+    desc: 'End-to-end process automation that eliminates manual work and lets your team focus on growth.',
+  },
+];
+
+const testimonials = [
+  {
+    name: 'Rajesh Sharma',
+    role: 'CEO, TechVentures',
+    text: 'NEET AI Studio transformed our entire customer service with their AI bot. Response times dropped by 80% and customer satisfaction skyrocketed.',
+    rating: 5,
+  },
+  {
+    name: 'Priya Mehta',
+    role: 'Founder, GrowthLab',
+    text: 'The website they built for us isn\'t just beautiful — it\'s a conversion machine. Our leads increased 3x within the first month of launch.',
+    rating: 5,
+  },
+  {
+    name: 'Arjun Patel',
+    role: 'Director, InnovateCo',
+    text: 'Their automation systems saved us 40+ hours per week. The ROI was visible within weeks, not months. Absolutely recommend.',
+    rating: 5,
   },
 ];
 
 const process = [
-  { step: '01', title: 'Discovery Call', desc: 'We understand your business goals, challenges, and vision in a free 30-minute consultation.' },
-  { step: '02', title: 'Strategy & Design', desc: 'Our team crafts a tailored solution with clear timelines, milestones, and expected outcomes.' },
-  { step: '03', title: 'Development', desc: 'We build your solution using cutting-edge technology with weekly progress updates.' },
-  { step: '04', title: 'Launch & Scale', desc: 'We deploy, monitor, and continuously optimize your system for maximum performance.' },
-];
-
-const testimonials = [
-  { name: 'Rajesh Kumar', role: 'CEO, TechVentures', text: 'NEET AI Studio transformed our entire customer service with their AI chatbot. Response time dropped from 4 hours to 30 seconds. Revenue increased 40% in 3 months.', rating: 5 },
-  { name: 'Priya Sharma', role: 'Founder, StyleHub', text: 'The 3D website they built for us is absolutely stunning. Our bounce rate dropped 65% and conversions tripled. Best investment we ever made.', rating: 5 },
-  { name: 'Arjun Patel', role: 'CTO, DataFlow', text: 'Their automation system saved us 200+ hours per month. The team is brilliant, responsive, and truly understands business needs.', rating: 5 },
+  { step: '01', title: 'Discovery', desc: 'We dive deep into your business goals, audience, and challenges to craft the perfect strategy.' },
+  { step: '02', title: 'Design & Build', desc: 'Our team designs and develops your solution with precision, keeping you in the loop at every stage.' },
+  { step: '03', title: 'Launch & Scale', desc: 'We deploy, optimize, and provide ongoing support to ensure your solution delivers maximum results.' },
 ];
 
 export default function Home() {
   return (
-    <div className="home-premium">
+    <div className="page-home">
       {/* Hero Section */}
       <section className="hero-section">
-        <div className="hero-content">
-          <div className="hero-badge">
-            <Star size={14} className="hero-badge-star" />
-            <span>Trusted by 50+ businesses across India</span>
-          </div>
-          <h1 className="hero-title">
-            We Build AI Systems That
-            <span className="hero-gradient-text"> Grow Your Revenue</span>
-          </h1>
-          <p className="hero-subtitle">
-            Premium AI solutions, stunning web experiences, and intelligent automation — designed to save you time, cut costs, and multiply your profits.
-          </p>
-          <div className="hero-actions">
-            <Link to="/contact" className="btn-hero-primary">
-              Get Free Consultation
+        <div className="hero-bg-elements">
+          <div className="hero-orb hero-orb-1" />
+          <div className="hero-orb hero-orb-2" />
+          <div className="hero-orb hero-orb-3" />
+        </div>
+        <div className="container-hero">
+          <motion.div className="hero-badge" variants={fadeUp} initial="hidden" animate="visible" custom={0}>
+            <Sparkles size={14} />
+            <span>AI-Powered Digital Solutions</span>
+          </motion.div>
+          <motion.h1 className="hero-title" variants={fadeUp} initial="hidden" animate="visible" custom={1}>
+            We Build Systems That
+            <span className="hero-gradient-text"> Grow Your Business</span>
+          </motion.h1>
+          <motion.p className="hero-subtitle" variants={fadeUp} initial="hidden" animate="visible" custom={2}>
+            From intelligent AI bots to premium web experiences — we create technology solutions 
+            that drive real revenue, reduce costs, and give you an unfair competitive advantage.
+          </motion.p>
+          <motion.div className="hero-cta-group" variants={fadeUp} initial="hidden" animate="visible" custom={3}>
+            <Link to="/contact" className="btn-primary-lg">
+              <span>Start Your Project</span>
               <ArrowRight size={18} />
             </Link>
-            <Link to="/products" className="btn-hero-secondary">
-              View Our Services
+            <Link to="/products" className="btn-secondary-lg">
+              <span>View Our Services</span>
             </Link>
-          </div>
-          <div className="hero-trust">
-            <div className="hero-avatars">
-              <div className="avatar-circle" style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)' }}>R</div>
-              <div className="avatar-circle" style={{ background: 'linear-gradient(135deg, #06b6d4, #22d3ee)' }}>P</div>
-              <div className="avatar-circle" style={{ background: 'linear-gradient(135deg, #f43f5e, #ec4899)' }}>A</div>
-              <div className="avatar-circle" style={{ background: 'linear-gradient(135deg, #10b981, #34d399)' }}>S</div>
+          </motion.div>
+          <motion.div className="hero-trust" variants={fadeUp} initial="hidden" animate="visible" custom={4}>
+            <div className="trust-avatars">
+              <div className="trust-avatar" style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7)' }}>R</div>
+              <div className="trust-avatar" style={{ background: 'linear-gradient(135deg, #06b6d4, #3b82f6)' }}>P</div>
+              <div className="trust-avatar" style={{ background: 'linear-gradient(135deg, #f43f5e, #ec4899)' }}>A</div>
+              <div className="trust-avatar" style={{ background: 'linear-gradient(135deg, #10b981, #06b6d4)' }}>S</div>
             </div>
-            <span className="hero-trust-text">Join 50+ happy clients growing with AI</span>
-          </div>
+            <div className="trust-text">
+              <div className="trust-stars">
+                {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="#fbbf24" color="#fbbf24" />)}
+              </div>
+              <span>Trusted by 50+ businesses across India</span>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Stats Section */}
       <section className="stats-section">
-        <div className="stats-grid">
-          {stats.map((s, i) => (
-            <div key={i} className="stat-card">
-              <span className="stat-value">{s.value}</span>
-              <span className="stat-label">{s.label}</span>
-            </div>
-          ))}
+        <div className="container-section">
+          <div className="stats-grid">
+            {stats.map((stat, i) => (
+              <motion.div key={i} className="stat-card" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}>
+                <span className="stat-value">{stat.value}</span>
+                <span className="stat-label">{stat.label}</span>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Services Overview */}
       <section className="services-section">
-        <div className="section-container">
-          <div className="section-header">
-            <span className="section-label">What We Do</span>
-            <h2 className="section-title">Services That Drive Real Results</h2>
-            <p className="section-desc">Every solution we build is designed with one goal: measurable business growth.</p>
-          </div>
+        <div className="container-section">
+          <motion.div className="section-header" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <span className="section-badge">What We Do</span>
+            <h2 className="section-title">Solutions That Drive <span className="text-gradient">Real Results</span></h2>
+            <p className="section-desc">We don't just build technology — we build growth engines. Every solution is designed to increase your revenue, efficiency, and market position.</p>
+          </motion.div>
           <div className="services-grid">
-            {services.map((s, i) => (
-              <div key={i} className="service-card-premium">
-                {s.highlight && <span className="service-badge">{s.highlight}</span>}
-                <div className="service-icon-wrap">{s.icon}</div>
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
-                <Link to="/contact" className="service-link">
-                  Learn More <ArrowRight size={14} />
+            {services.map((service, i) => (
+              <motion.div key={i} className="service-card-premium" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}>
+                <div className="service-icon-wrap">{service.icon}</div>
+                <h3>{service.title}</h3>
+                <p>{service.desc}</p>
+                <Link to="/products" className="service-card-link">
+                  Learn More <ChevronRight size={16} />
                 </Link>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="process-section">
-        <div className="section-container">
-          <div className="section-header">
-            <span className="section-label">How It Works</span>
-            <h2 className="section-title">From Idea to Launch in 4 Simple Steps</h2>
-            <p className="section-desc">No complexity. No confusion. Just a clear path to your AI-powered future.</p>
-          </div>
-          <div className="process-grid">
-            {process.map((p, i) => (
-              <div key={i} className="process-card">
-                <span className="process-step">{p.step}</span>
-                <h3>{p.title}</h3>
-                <p>{p.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="testimonials-section">
-        <div className="section-container">
-          <div className="section-header">
-            <span className="section-label">Client Success</span>
-            <h2 className="section-title">Real Results From Real Businesses</h2>
-          </div>
-          <div className="testimonials-grid">
-            {testimonials.map((t, i) => (
-              <div key={i} className="testimonial-card">
-                <div className="testimonial-stars">
-                  {[...Array(t.rating)].map((_, j) => <Star key={j} size={16} fill="#fbbf24" color="#fbbf24" />)}
-                </div>
-                <p className="testimonial-text">"{t.text}"</p>
-                <div className="testimonial-author">
-                  <div className="testimonial-avatar">{t.name[0]}</div>
-                  <div>
-                    <strong>{t.name}</strong>
-                    <span>{t.role}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="cta-section">
-        <div className="cta-card">
-          <h2>Ready to 10x Your Business with AI?</h2>
-          <p>Book a free 30-minute strategy call. We'll show you exactly how AI can save you time, cut costs, and grow revenue — no obligations, no pressure.</p>
-          <div className="cta-features">
-            <span><CheckCircle2 size={16} /> Free consultation</span>
-            <span><CheckCircle2 size={16} /> Custom strategy</span>
-            <span><CheckCircle2 size={16} /> No obligations</span>
-          </div>
-          <Link to="/contact" className="btn-cta-main">
-            Book Your Free Call Now
-            <ArrowRight size={18} />
-          </Link>
-        </div>
-      </section>
-    </div>
-  );
-}
+      {/* Why Choose Us */}
+      <section className="why-section">
+        <div className="container-section">
+          <div className="why-grid">
+            <motion.div className="why-content" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <span className="section-badge">Why NEET AI Studio</span>
+              <h2 className="section-title left-align">We Don't Just Code. <span className="text-gradient">We Solve Business Problems.</span></h2>
+              <p className="why-desc">Most agencies deliver pretty websites. We deliver systems that generate revenue. Here's what makes us different:</p>
+              <ul className="why-list">
+                <li><CheckCircle2 size={18} className="check-icon" /> <span><strong>ROI-Focused:</strong> Every feature we build is tied to a business outcome — more leads, more sales, less cost.</span></li>
+                <li><CheckCircle2 size={18} className="check-icon" /> <span><strong>AI-First Approach:</strong> We integrate intelligent automation into everything, giving you an edge competitors can't match.</span></li>
+                <li><CheckCircle2 size={18} className="check-icon" /> <span><strong>Premium Quality:</strong> Glassmorphism UI, 3D experiences, and pixel-perfect design that positions you as a market leader.</span></

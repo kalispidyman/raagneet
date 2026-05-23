@@ -31,16 +31,19 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const close = () => setOpen(false);
-    window.addEventListener('resize', close);
-    return () => window.removeEventListener('resize', close);
-  }, []);
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
 
   return (
     <>
       <nav ref={navRef} className={`navbar-premium ${scrolled ? 'scrolled' : ''}`} style={{ opacity: 0 }}>
         <div className="nav-inner-premium">
-          <Link to="/" className="nav-logo-link" style={{ textDecoration: 'none' }} onClick={() => setOpen(false)}>
+          <Link to="/" className="nav-logo-link" onClick={() => setOpen(false)}>
             <Logo size="sm" />
           </Link>
 
@@ -61,7 +64,7 @@ export default function Navbar() {
           <div className="nav-actions">
             <Link to="/contact" className="nav-cta-btn">
               <Zap size={14} />
-              <span>Start Project</span>
+              <span>Get Started</span>
             </Link>
             <button className="hamburger-premium" onClick={() => setOpen(o => !o)} aria-label="Menu">
               {open ? <X size={22} color="white" /> : <Menu size={22} color="white" />}

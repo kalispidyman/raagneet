@@ -10,16 +10,16 @@ export default function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <Logo size="md" />
-            <p className="footer-tagline">Building intelligent systems that transform businesses and redefine what's possible with AI.</p>
+            <p className="footer-tagline">We build AI-powered systems and premium digital experiences that drive real business growth.</p>
             <div className="footer-contact-info">
-              <div className="footer-contact-item">
+              <a href="mailto:hello@neetai.studio" className="footer-contact-item">
                 <Mail size={15} />
                 <span>hello@neetai.studio</span>
-              </div>
-              <div className="footer-contact-item">
+              </a>
+              <a href="tel:+919876543210" className="footer-contact-item">
                 <Phone size={15} />
                 <span>+91 98765 43210</span>
-              </div>
+              </a>
               <div className="footer-contact-item">
                 <MapPin size={15} />
                 <span>Indore, India</span>
@@ -44,17 +44,17 @@ export default function Footer() {
           </div>
 
           <div className="footer-links-group">
-            <h4>Resources</h4>
-            <Link to="/technology">Our Stack</Link>
-            <Link to="/about">Case Studies</Link>
+            <h4>Get Started</h4>
             <Link to="/contact">Free Consultation</Link>
             <Link to="/contact">Get a Quote</Link>
+            <Link to="/products">View Pricing</Link>
+            <Link to="/about">Our Process</Link>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>© {new Date().getFullYear()} NEET AI Studio. All rights reserved.</p>
-          <p className="footer-made">Crafted with precision in India 🇮🇳</p>
+          <p>&copy; {new Date().getFullYear()} NEET AI Studio. All rights reserved.</p>
+          <p className="footer-made">Crafted with precision in India</p>
         </div>
       </div>
     </footer>

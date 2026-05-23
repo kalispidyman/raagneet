@@ -8,8 +8,6 @@ import Products from './pages/Products';
 import Technology from './pages/Technology';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Dashboard from './pages/Dashboard';
-import CosmosDashboard from './pages/Cosmos';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -23,15 +21,13 @@ function AppInner() {
       <MouseBackground />
       <ScrollToTop />
       <Navbar />
-      <main style={{ position: 'relative', zIndex: 1, paddingTop: '72px' }}>
+      <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/technology" element={<Technology />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/portal" element={<Dashboard />} />
-          <Route path="/testing" element={<CosmosDashboard />} />
         </Routes>
       </main>
       <Footer />
