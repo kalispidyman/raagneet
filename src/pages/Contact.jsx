@@ -1,186 +1,221 @@
-import React, { useState, useEffect } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, MessageCircle, MapPin, Send, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Mail, Phone, MapPin, Send, MessageSquare, Zap, CheckCircle, ArrowUpRight } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
-
-const FAQS = [
-  { q:'How do I get access to NEET AI bots?', a:'Sign up for free and get instant access to NeetChat and CodeForge. Pro and Enterprise plans unlock all 6 bots. Apply for the waitlist for Preview-tier bots.' },
-  { q:'What models power the NEET AI platform?', a:'Our platform runs NEET-1 (our proprietary model), plus integrations with Claude 3.5 Sonnet, Gemini 2.5 Flash, and GPT-4o — selectable per use case.' },
-  { q:'Can I fine-tune a model on my own data?', a:'Yes. Pro and Enterprise users can upload datasets and trigger fine-tuning jobs via our dashboard or API. Results deploy in hours, not days.' },
-  { q:'Is there an API I can integrate into my app?', a:'Absolutely. Our REST and WebSocket APIs are fully documented. SDK libraries available for JavaScript, Python, and Go. Rate limits scale with your plan.' },
-  { q:'Do you offer on-premise or private cloud deployment?', a:'Enterprise customers can deploy NEET AI systems in their own VPC or on bare-metal servers. Contact our sales team for architecture details.' },
-];
-
-const INFO = [
-  { icon:Mail, label:'Email', value:'hello@neetai.studio', color:'#6366f1' },
-  { icon:MessageCircle, label:'Discord', value:'discord.gg/neetai', color:'#8b5cf6' },
-  { icon:MapPin, label:'Headquarters', value:'San Francisco, CA', color:'#06b6d4' },
+const contactInfo = [
+  {
+    icon: <Mail className="text-indigo-400" size={24} />,
+    title: 'Email Us',
+    value: 'hello@neetai.studio',
+    link: 'mailto:hello@neetai.studio',
+    desc: 'Drop us a line anytime.'
+  },
+  {
+    icon: <Phone className="text-cyan-400" size={24} />,
+    title: 'Call Us',
+    value: '+91 98765 43210',
+    link: 'tel:+919876543210',
+    desc: 'Mon-Fri from 9am to 6pm.'
+  },
+  {
+    icon: <MapPin className="text-purple-400" size={24} />,
+    title: 'Visit Us',
+    value: 'Indore, India',
+    link: '#',
+    desc: 'Come say hello at our HQ.'
+  }
 ];
 
 export default function Contact() {
-  const [form, setForm] = useState({ name:'', email:'', subject:'general', message:'' });
-  const [sending, setSending] = useState(false);
-  const [sent, setSent] = useState(false);
-  const [openFaq, setOpenFaq] = useState(null);
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    gsap.fromTo('.page-header-anim', { opacity:0, y:30 }, { opacity:1, y:0, duration:0.7, stagger:0.12 });
-    gsap.fromTo('.contact-form-card',
-      { opacity:0, y:40 },
-      { opacity:1, y:0, duration:0.65, scrollTrigger:{ trigger:'.contact-form-card', start:'top 80%' } }
-    );
-    gsap.fromTo('.info-card',
-      { opacity:0, y:30 },
-      { opacity:1, y:0, duration:0.5, stagger:0.1, scrollTrigger:{ trigger:'.info-card', start:'top 85%' } }
-    );
-    gsap.fromTo('.faq-section',
-      { opacity:0, y:30 },
-      { opacity:1, y:0, duration:0.6, scrollTrigger:{ trigger:'.faq-section', start:'top 80%' } }
-    );
-    return () => ScrollTrigger.getAll().forEach(t => t.kill());
-  }, []);
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
-
-  const handleSubmit = async e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) return;
-    setSending(true);
-    await new Promise(r => setTimeout(r, 1400));
-    setSending(false);
-    setSent(true);
-    setForm({ name:'', email:'', subject:'general', message:'' });
-    setTimeout(() => setSent(false), 5000);
+    setLoading(true);
+    // Simulate network request
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setSubmitted(false), 4000);
+    }, 1500);
   };
 
   return (
-    <div style={{ position:'relative', zIndex:1 }}>
-      <div className="orb" style={{ width:450, height:450, background:'radial-gradient(circle,rgba(99,102,241,0.1),transparent 70%)', top:0, left:'30%' }} />
+    <div className="relative min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Background Ambient Glows */}
+      <div className="absolute top-20 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Header */}
-      <div className="page-header">
-        <div className="container">
-          <div className="badge page-header-anim" style={{ marginBottom:16 }}><Mail size={12} /> Contact</div>
-          <h1 className="section-title page-header-anim" style={{ marginBottom:16 }}>
-            Get in <span className="gradient-text">Touch</span>
+      <div className="relative max-w-7xl mx-auto">
+        {/* Header Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6">
+            <MessageSquare size={14} className="text-cyan-400" />
+            <span className="text-xs font-medium text-slate-300 tracking-wide uppercase">Get In Touch</span>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-4 tracking-tight">
+            Let's Build Something <br />
+            <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+              Extraordinary
+            </span>
           </h1>
-          <p className="section-sub page-header-anim" style={{ margin:'0 auto' }}>
-            Questions, partnership enquiries, or just want to say hi — we'd love to hear from you.
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            Have a project in mind or want to discuss how AI can transform your business? 
+            We'd love to hear from you.
           </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-5 gap-8 lg:gap-12">
+          {/* Contact Info Cards */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-2 flex flex-col gap-6"
+          >
+            {contactInfo.map((info, idx) => (
+              <a 
+                key={idx} 
+                href={info.link}
+                className="group relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.05] backdrop-blur-xl hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300"
+              >
+                <div className="flex items-start gap-4">
+                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform duration-300">
+                    {info.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-1">{info.title}</h3>
+                    <p className="text-indigo-300 font-medium mb-1 group-hover:text-cyan-300 transition-colors">{info.value}</p>
+                    <p className="text-sm text-slate-500">{info.desc}</p>
+                  </div>
+                  <ArrowUpRight size={18} className="absolute top-6 right-6 text-slate-600 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                </div>
+              </a>
+            ))}
+
+            {/* Quick Response Guarantee Card */}
+            <div className="p-6 rounded-2xl bg-gradient-to-br from-indigo-500/10 to-purple-500/5 border border-indigo-500/20 backdrop-blur-xl">
+              <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                <Zap size={18} className="text-yellow-400" />
+                Quick Response Guarantee
+              </h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                We typically respond within 2-4 hours during business days. For urgent inquiries, 
+                please mention "URGENT" in your subject line.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="lg:col-span-3"
+          >
+            <form 
+              onSubmit={handleSubmit}
+              className="relative p-8 md:p-10 rounded-3xl bg-white/[0.02] border border-white/[0.05] backdrop-blur-xl shadow-2xl shadow-black/20"
+            >
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
+              
+              <div className="relative space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="text-sm font-medium text-slate-300">Full Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      placeholder="Navneet Singh"
+                      className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.08] text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all duration-200"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-sm font-medium text-slate-300">Email Address</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      placeholder="you@company.com"
+                      className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.08] text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all duration-200"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="subject" className="text-sm font-medium text-slate-300">Subject</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    required
+                    placeholder="Project Inquiry / AI Integration"
+                    className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.08] text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all duration-200"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium text-slate-300">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                    rows="5"
+                    placeholder="Tell us about your project, goals, and timeline..."
+                    className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/[0.08] text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500/50 transition-all duration-200 resize-none"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading || submitted}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group"
+                >
+                  {submitted ? (
+                    <>
+                      <CheckCircle size={20} className="text-green-300" />
+                      <span>Message Sent Successfully!</span>
+                    </>
+                  ) : loading ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      <span>Send Message</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </form>
+          </motion.div>
         </div>
       </div>
-
-      {/* Form + Info */}
-      <section className="section-sm">
-        <div className="container">
-          <div style={{ display:'grid', gridTemplateColumns:'clamp(1fr,1.4fr,1.4fr) clamp(1fr,1fr,1fr)', gap:28, alignItems:'start' }} className="contact-grid">
-
-            {/* Form */}
-            <div className="glass-card contact-form-card" style={{ padding:'36px', opacity:0 }}>
-              {sent ? (
-                <div style={{ textAlign:'center', padding:'40px 0' }}>
-                  <div style={{ fontSize:'2.5rem', marginBottom:16 }}>✅</div>
-                  <h3 style={{ fontFamily:"var(--ffd)", fontWeight:700, marginBottom:8 }}>Message Sent!</h3>
-                  <p style={{ color:'#94a3b8', fontSize:'.88rem' }}>We'll get back to you within 24 hours.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit}>
-                  <h3 style={{ fontFamily:"var(--ffd)", fontWeight:800, fontSize:'1.2rem', marginBottom:24 }}>Send a Message</h3>
-                  <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 }}>
-                    <div className="form-group">
-                      <label>Name</label>
-                      <input name="name" className="form-input" placeholder="Your name" value={form.name} onChange={handleChange} required />
-                    </div>
-                    <div className="form-group">
-                      <label>Email</label>
-                      <input name="email" type="email" className="form-input" placeholder="you@example.com" value={form.email} onChange={handleChange} required />
-                    </div>
-                  </div>
-                  <div className="form-group">
-                    <label>Subject</label>
-                    <select name="subject" className="form-select" value={form.subject} onChange={handleChange}>
-                      <option value="general">General Inquiry</option>
-                      <option value="enterprise">Enterprise Sales</option>
-                      <option value="partnership">Partnership</option>
-                      <option value="support">Technical Support</option>
-                      <option value="press">Press & Media</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>Message</label>
-                    <textarea name="message" className="form-textarea" placeholder="Tell us what's on your mind..." value={form.message} onChange={handleChange} required />
-                  </div>
-                  <button type="submit" className="btn btn-primary" style={{ width:'100%', justifyContent:'center' }} disabled={sending}>
-                    {sending ? (
-                      <><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ animation:'spin 0.7s linear infinite' }}><path d="M4 4v5h.582m15.356 2A8 8 0 1 1 4.582 9"/></svg> Sending…</>
-                    ) : (
-                      <>Send Message <Send size={15} /></>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
-
-            {/* Info cards */}
-            <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
-              {INFO.map((info, i) => {
-                const Icon = info.icon;
-                return (
-                  <div key={i} className="glass-card info-card" style={{ padding:'22px 24px', display:'flex', gap:16, alignItems:'center', opacity:0 }}>
-                    <div style={{ width:44, height:44, borderRadius:12, background:`${info.color}18`, border:`1px solid ${info.color}30`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
-                      <Icon size={20} color={info.color} />
-                    </div>
-                    <div>
-                      <div style={{ fontSize:'.72rem', color:'#475569', fontWeight:600, textTransform:'uppercase', letterSpacing:'.08em', marginBottom:3 }}>{info.label}</div>
-                      <div style={{ fontWeight:600, fontSize:'.9rem', color:'#f1f5f9' }}>{info.value}</div>
-                    </div>
-                  </div>
-                );
-              })}
-
-              {/* Response time */}
-              <div className="glass-card info-card" style={{ padding:'22px 24px', opacity:0, background:'rgba(99,102,241,0.06)', border:'1px solid rgba(99,102,241,0.2)' }}>
-                <div style={{ fontSize:'.72rem', color:'#6366f1', fontWeight:600, textTransform:'uppercase', letterSpacing:'.08em', marginBottom:8 }}>Typical Response Time</div>
-                <div style={{ display:'flex', gap:16, flexWrap:'wrap' }}>
-                  {[{ t:'Community', v:'48h' }, { t:'Pro', v:'12h' }, { t:'Enterprise', v:'2h' }].map(r => (
-                    <div key={r.t}>
-                      <div style={{ fontFamily:"'JetBrains Mono',monospace", fontWeight:700, fontSize:'1.1rem', color:'#a5b4fc' }}>{r.v}</div>
-                      <div style={{ fontSize:'.7rem', color:'#475569' }}>{r.t}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="section" style={{ borderTop:'1px solid rgba(255,255,255,0.06)' }}>
-        <div className="container faq-section" style={{ opacity:0 }}>
-          <div className="text-center" style={{ marginBottom:48 }}>
-            <div className="badge" style={{ marginBottom:14 }}>FAQ</div>
-            <h2 className="section-title" style={{ fontSize:'clamp(1.6rem,3.5vw,2.4rem)' }}>
-              Common <span className="gradient-text">Questions</span>
-            </h2>
-          </div>
-          <div style={{ maxWidth:720, margin:'0 auto' }}>
-            {FAQS.map((faq, i) => (
-              <div key={i} className="accordion-item">
-                <button className="accordion-btn" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
-                  {faq.q}
-                  {openFaq === i ? <ChevronUp size={18} color="#6366f1" style={{ flexShrink:0 }} /> : <ChevronDown size={18} color="#475569" style={{ flexShrink:0 }} />}
-                </button>
-                {openFaq === i && (
-                  <div className="accordion-body">{faq.a}</div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
