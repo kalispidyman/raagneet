@@ -29,7 +29,7 @@ function AppInner() {
   }, []);
 
   return (
-    <div className="nb-bg-root nb-bg-base" style={{ minHeight: '100vh', position: 'relative' }}>
+    <div className="nb-bg-root" style={{ minHeight: '100vh', position: 'relative' }}>
       <LoadingScreen isLoading={isLoading} />
       <MouseBackground />
       <ScrollToTop />
