@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import MouseBackground from './components/MouseBackground';
+import AnimatedBackground from './components/AnimatedBackground';
 import LoadingScreen from './components/LoadingScreen';
 import Home from './pages/Home';
 import Products from './pages/Products';
@@ -31,7 +31,7 @@ function AppInner() {
   return (
     <div className="nb-bg-root" style={{ minHeight: '100vh', position: 'relative' }}>
       <LoadingScreen isLoading={isLoading} />
-      <MouseBackground />
+      <AnimatedBackground />
       <ScrollToTop />
       <Navbar />
       <main className="main-content" style={{ position: 'relative', zIndex: 2 }}>

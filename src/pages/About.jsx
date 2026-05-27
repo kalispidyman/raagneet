@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Target, Heart, Rocket, Users } from 'lucide-react';
+import { Target, Heart, Rocket, Users, Award, Globe, Code2, Zap, ChevronRight, Star } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,6 +16,7 @@ const VALUES = [
   { icon:Target, title:'Precision First', desc:'Every model, every system is engineered with obsessive attention to accuracy, reliability and edge-case safety.', color:'#6366f1' },
   { icon:Heart, title:'Human-Centric AI', desc:'We build AI that amplifies human potential — never replacing human judgment, always enhancing it.', color:'#ec4899' },
   { icon:Rocket, title:'Relentless Progress', desc:'We operate at the frontier, shipping innovations that others consider research-only — every single quarter.', color:'#f59e0b' },
+  { icon:Globe, title:'Global Impact', desc:'Our technology serves millions across 40+ countries, democratizing access to frontier AI capabilities.', color:'#10b981' },
 ];
 
 const MILESTONES = [
@@ -27,64 +28,100 @@ const MILESTONES = [
   { year:'2025 Q2', title:'Full Platform Launch', desc:'All 6 AI bots live. Enterprise tier launched. 50K+ active users across 40 countries.' },
 ];
 
+const STATS = [
+  { value: '50+', label: 'Team Members' },
+  { value: '40+', label: 'Countries Served' },
+  { value: '50K+', label: 'Active Users' },
+  { value: '$55M', label: 'Total Funding' },
+];
+
 export default function About() {
   const teamRef = useRef(null);
   const valRef = useRef(null);
   const timelineRef = useRef(null);
+  const statsRef = useRef(null);
 
   useEffect(() => {
-    gsap.fromTo('.page-header-anim', { opacity:0, y:30 }, { opacity:1, y:0, duration:0.7, stagger:0.12 });
-    gsap.fromTo('.mission-anim', { opacity:0, scale:0.97 }, { opacity:1, scale:1, duration:0.7,
-      scrollTrigger:{ trigger:'.mission-anim', start:'top 80%' }
-    });
-    gsap.fromTo('.team-card-a',
-      { opacity:0, y:40 },
-      { opacity:1, y:0, duration:0.55, stagger:0.12,
-        scrollTrigger:{ trigger:teamRef.current, start:'top 78%' }
+    // Header
+    gsap.fromTo('.about-header', { opacity:0, y:40 }, { opacity:1, y:0, duration:0.8, stagger:0.15, ease:'power3.out' });
+
+    // Mission card
+    gsap.fromTo('.mission-card',
+      { opacity:0, y:30, scale:0.97 },
+      { opacity:1, y:0, scale:1, duration:0.7, ease:'power3.out',
+        scrollTrigger:{ trigger:'.mission-card', start:'top 80%' }
       }
     );
+
+    // Stats
+    gsap.fromTo('.stat-card',
+      { opacity:0, y:20 },
+      { opacity:1, y:0, duration:0.5, stagger:0.1, ease:'power2.out',
+        scrollTrigger:{ trigger:statsRef.current, start:'top 78%' }
+      }
+    );
+
+    // Team cards
+    gsap.fromTo('.team-card',
+      { opacity:0, y:50, rotateY:-5 },
+      { opacity:1, y:0, rotateY:0, duration:0.6, stagger:0.12, ease:'power3.out',
+        scrollTrigger:{ trigger:teamRef.current, start:'top 75%' }
+      }
+    );
+
+    // Values
     gsap.fromTo('.val-card',
-      { opacity:0, x:-20 },
-      { opacity:1, x:0, duration:0.55, stagger:0.12,
+      { opacity:0, x:-30 },
+      { opacity:1, x:0, duration:0.55, stagger:0.12, ease:'power3.out',
         scrollTrigger:{ trigger:valRef.current, start:'top 78%' }
       }
     );
-    gsap.fromTo('.timeline-item-a',
-      { opacity:0, x:20 },
-      { opacity:1, x:0, duration:0.45, stagger:0.1,
+
+    // Timeline
+    gsap.fromTo('.tl-item',
+      { opacity:0, x:30 },
+      { opacity:1, x:0, duration:0.5, stagger:0.1, ease:'power2.out',
         scrollTrigger:{ trigger:timelineRef.current, start:'top 78%' }
       }
     );
+
     return () => ScrollTrigger.getAll().forEach(t => t.kill());
   }, []);
 
   return (
-    <div style={{ position:'relative', zIndex:1 }}>
-      <div className="orb" style={{ width:500, height:500, background:'radial-gradient(circle,rgba(139,92,246,0.1),transparent 70%)', top:0, right:0 }} />
+    <div className="relative">
+      {/* Decorative orbs */}
+      <div className="fixed top-0 right-0 w-[600px] h-[600px] bg-purple-600/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[500px] h-[500px] bg-indigo-500/8 rounded-full blur-[130px] pointer-events-none" />
 
       {/* Header */}
-      <div className="page-header">
-        <div className="container">
-          <div className="badge page-header-anim" style={{ marginBottom:16 }}><Users size={12} /> About Us</div>
-          <h1 className="section-title page-header-anim" style={{ marginBottom:16 }}>
-            Who <span className="gradient-text">We Are</span>
+      <section className="relative pt-32 pb-20 px-4">
+        <div className="max-w-5xl mx-auto text-center">
+          <div className="about-header inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/10 border border-purple-500/20 backdrop-blur-md mb-6 opacity-0">
+            <Users size={14} className="text-purple-400" />
+            <span className="text-sm font-medium text-purple-200 tracking-wide">About Us</span>
+          </div>
+          <h1 className="about-header text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6 opacity-0">
+            <span className="block text-white">Who</span>
+            <span className="block bg-gradient-to-r from-purple-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">We Are</span>
           </h1>
-          <p className="section-sub page-header-anim" style={{ margin:'0 auto' }}>
-            A team of ex-DeepMind, Google Brain and OpenAI engineers on a mission to build AI that matters.
+          <p className="about-header text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed opacity-0">
+            A team of ex-DeepMind, Google Brain and OpenAI engineers on a mission to build AI that actually matters — powerful, reliable, and accessible to everyone.
           </p>
         </div>
-      </div>
+      </section>
 
       {/* Mission */}
-      <section className="section-sm">
-        <div className="container">
-          <div className="glass mission-anim" style={{ borderRadius:24, padding:'48px 40px', background:'linear-gradient(135deg,rgba(99,102,241,0.08),rgba(139,92,246,0.05))', border:'1px solid rgba(99,102,241,0.2)', opacity:0 }}>
-            <div style={{ display:'flex', gap:16, alignItems:'flex-start' }}>
-              <div style={{ fontSize:'2.5rem', flexShrink:0 }}>🎯</div>
+      <section className="relative py-16 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="mission-card relative p-10 md:p-14 rounded-3xl bg-gradient-to-br from-indigo-500/8 to-purple-500/5 backdrop-blur-xl border border-indigo-500/15 opacity-0">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-1/2 bg-indigo-500/10 blur-[80px] rounded-full pointer-events-none" />
+            <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start">
+              <div className="text-5xl flex-shrink-0">🎯</div>
               <div>
-                <div style={{ fontFamily:"var(--ffm)", fontSize:'.72rem', color:'#6366f1', letterSpacing:'.12em', textTransform:'uppercase', marginBottom:12, fontWeight:600 }}>Our Mission</div>
-                <blockquote style={{ fontFamily:"var(--ffd)", fontWeight:700, fontSize:'clamp(1.2rem,2.5vw,1.7rem)', lineHeight:1.4, letterSpacing:'-0.02em' }}>
-                  "To build AI systems so powerful they feel like <span className="gradient-text">superpowers</span> — and make them accessible to every developer, every company, every human on Earth."
+                <div className="text-xs font-semibold text-indigo-400 tracking-[0.15em] uppercase mb-4">Our Mission</div>
+                <blockquote className="text-2xl md:text-3xl font-bold text-white leading-tight tracking-tight">
+                  "To build AI systems so powerful they feel like <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">superpowers</span> — and make them accessible to every developer, every company, every human on Earth."
                 </blockquote>
               </div>
             </div>
@@ -92,72 +129,102 @@ export default function About() {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="section" style={{ borderTop:'1px solid rgba(255,255,255,0.06)' }}>
-        <div className="container" ref={teamRef}>
-          <div style={{ marginBottom:48 }}>
-            <div className="badge" style={{ marginBottom:12 }}>The Team</div>
-            <h2 className="section-title" style={{ fontSize:'clamp(1.6rem,3.5vw,2.4rem)' }}>Built by <span className="gradient-text">AI Pioneers</span></h2>
-          </div>
-          <div className="grid-4">
-            {TEAM.map((m, i) => (
-              <div key={i} className="glass-card team-card team-card-a" style={{ opacity:0 }}>
-                <img
-                  src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${m.seed}&backgroundColor=6366f1,8b5cf6`}
-                  alt={m.name}
-                  className="team-avatar"
-                  style={{ background:'rgba(99,102,241,0.15)' }}
-                />
-                <div className="team-name">{m.name}</div>
-                <div className="team-role">{m.role}</div>
-                <p style={{ color:'#475569', fontSize:'.78rem', marginTop:10, lineHeight:1.65 }}>{m.desc}</p>
+      {/* Stats */}
+      <section className="relative py-16 px-4">
+        <div className="max-w-5xl mx-auto" ref={statsRef}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {STATS.map((stat, i) => (
+              <div key={i} className="stat-card group relative p-6 rounded-2xl bg-white/[0.02] backdrop-blur-xl border border-white/[0.06] hover:border-purple-500/30 transition-all duration-400 text-center opacity-0">
+                <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-300 to-cyan-300 bg-clip-text text-transparent mb-2">{stat.value}</div>
+                <div className="text-sm text-slate-500 font-medium tracking-wide uppercase">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Values + Timeline */}
-      <section className="section-sm" style={{ borderTop:'1px solid rgba(255,255,255,0.06)' }}>
-        <div className="container">
-          <div className="grid-2" style={{ gap:48, alignItems:'start' }}>
-            {/* Values */}
-            <div ref={valRef}>
-              <div className="badge" style={{ marginBottom:12 }}>Our Values</div>
-              <h2 className="section-title" style={{ fontSize:'clamp(1.4rem,3vw,2rem)', marginBottom:28 }}>What <span className="gradient-text">Drives Us</span></h2>
-              <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
-                {VALUES.map((v, i) => {
-                  const Icon = v.icon;
-                  return (
-                    <div key={i} className="glass-card val-card" style={{ padding:'22px', display:'flex', gap:16, alignItems:'flex-start', opacity:0 }}>
-                      <div style={{ width:40, height:40, borderRadius:12, background:`${v.color}18`, border:`1px solid ${v.color}30`, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 }}>
-                        <Icon size={18} color={v.color} />
-                      </div>
-                      <div>
-                        <h4 style={{ fontFamily:"var(--ffd)", fontWeight:700, marginBottom:5 }}>{v.title}</h4>
-                        <p style={{ color:'#94a3b8', fontSize:'.83rem', lineHeight:1.65 }}>{v.desc}</p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Timeline */}
-            <div ref={timelineRef}>
-              <div className="badge" style={{ marginBottom:12 }}>Journey</div>
-              <h2 className="section-title" style={{ fontSize:'clamp(1.4rem,3vw,2rem)', marginBottom:28 }}>Our <span className="gradient-text">Story</span></h2>
-              <div className="timeline">
-                {MILESTONES.map((m, i) => (
-                  <div key={i} className="timeline-item timeline-item-a" style={{ opacity:0 }}>
-                    <div className="timeline-dot" />
-                    <div className="timeline-year">{m.year}</div>
-                    <div className="timeline-title">{m.title}</div>
-                    <div className="timeline-desc">{m.desc}</div>
+      {/* Team */}
+      <section className="relative py-20 px-4">
+        <div className="max-w-6xl mx-auto" ref={teamRef}>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Built by <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">AI Pioneers</span></h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">World-class engineers from the leading AI labs, united by a shared vision.</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {TEAM.map((m, i) => (
+              <div key={i} className="team-card group relative p-6 rounded-2xl bg-white/[0.02] backdrop-blur-xl border border-white/[0.06] hover:border-indigo-500/30 transition-all duration-500 opacity-0">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10">
+                  <div className="w-20 h-20 rounded-2xl mx-auto mb-5 overflow-hidden border-2 border-indigo-500/20 group-hover:border-indigo-500/40 transition-colors duration-300" style={{ background:'rgba(99,102,241,0.1)' }}>
+                    <img
+                      src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${m.seed}&backgroundColor=6366f1,8b5cf6`}
+                      alt={m.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                ))}
+                  <h3 className="text-lg font-bold text-white text-center mb-1">{m.name}</h3>
+                  <p className="text-sm text-indigo-400 font-medium text-center mb-4">{m.role}</p>
+                  <p className="text-xs text-slate-400 leading-relaxed text-center">{m.desc}</p>
+                </div>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="relative py-20 px-4">
+        <div className="max-w-5xl mx-auto" ref={valRef}>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">What <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Drives Us</span></h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">Our core values shape every decision, every line of code, every product we ship.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {VALUES.map((v, i) => {
+              const Icon = v.icon;
+              return (
+                <div key={i} className="val-card group relative p-8 rounded-2xl bg-white/[0.02] backdrop-blur-xl border border-white/[0.06] hover:border-purple-500/30 transition-all duration-500 opacity-0">
+                  <div className="flex items-start gap-5">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center border flex-shrink-0 transition-all duration-300 group-hover:scale-110" style={{ background: `${v.color}15`, borderColor: `${v.color}30` }}>
+                      <Icon size={20} color={v.color} />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-white mb-2">{v.title}</h3>
+                      <p className="text-slate-400 text-sm leading-relaxed">{v.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="relative py-20 px-4">
+        <div className="max-w-4xl mx-auto" ref={timelineRef}>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our <span className="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">Journey</span></h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">From a bold idea to a global AI platform — here's how we got here.</p>
+          </div>
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-indigo-500/30 via-purple-500/30 to-cyan-500/30" />
+            
+            {MILESTONES.map((m, i) => (
+              <div key={i} className={`tl-item relative flex items-start gap-8 mb-12 last:mb-0 opacity-0 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                {/* Dot */}
+                <div className="absolute left-6 md:left-1/2 w-3 h-3 rounded-full bg-indigo-500 border-4 border-[#050510] -translate-x-1/2 mt-1 z-10" />
+                
+                {/* Content */}
+                <div className={`ml-16 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
+                  <div className="inline-block px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-mono text-indigo-300 mb-3">{m.year}</div>
+                  <h3 className="text-lg font-bold text-white mb-2">{m.title}</h3>
+                  <p className="text-sm text-slate-400 leading-relaxed">{m.desc}</p>
+                </div>
+                <div className="hidden md:block md:w-1/2" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
