@@ -12,7 +12,9 @@ import Contact from './pages/Contact';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  React.useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [pathname]);
+  React.useEffect(() => { 
+    window.scrollTo({ top: 0, behavior: 'instant' }); 
+  }, [pathname]);
   return null;
 }
 
@@ -20,7 +22,6 @@ function AppInner() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Give the assets and the progress bar enough time to render beautifully
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2200);
@@ -28,12 +29,12 @@ function AppInner() {
   }, []);
 
   return (
-    <>
+    <div className="nb-bg-root nb-bg-base" style={{ minHeight: '100vh', position: 'relative' }}>
       <LoadingScreen isLoading={isLoading} />
       <MouseBackground />
       <ScrollToTop />
       <Navbar />
-      <main className="main-content">
+      <main className="main-content" style={{ position: 'relative', zIndex: 2 }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
@@ -43,7 +44,7 @@ function AppInner() {
         </Routes>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 

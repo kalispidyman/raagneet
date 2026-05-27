@@ -18,10 +18,12 @@ export default function Navbar() {
   const navRef = useRef(null);
 
   useEffect(() => {
-    gsap.fromTo(navRef.current,
-      { y: -80, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
-    );
+    if (navRef.current) {
+      gsap.fromTo(navRef.current,
+        { y: -80, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+      );
+    }
   }, []);
 
   useEffect(() => {
