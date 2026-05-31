@@ -190,20 +190,6 @@ export default function Packages() {
           ))}
         </motion.div>
       </section>
-
-      {/* Bottom Assurance */}
-      <section className="relative pb-24 px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mx-auto p-8 rounded-2xl bg-white/[0.02] backdrop-blur-xl border border-white/[0.06]"
-        >
-          <Shield size={28} className="text-cyan-400 mx-auto mb-4" />
-          <p className="text-slate-300 text-lg font-medium mb-1">Designer @NEET</p>
-        </motion.div>
-      </section>
     </div>
   );
 }
