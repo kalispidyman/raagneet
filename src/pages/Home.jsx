@@ -1,233 +1,119 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, Brain, Cpu, Globe, ArrowRight, Sparkles, Shield, Rocket, Code2, Layers, ChevronRight } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowRight, Zap, Code2, Bot, Shield, Globe, Sparkles } from 'lucide-react';
 
-const features = [
-  {
-    icon: Brain,
-    title: 'Advanced AI Models',
-    description: 'Custom-trained neural networks optimized for your specific business needs, delivering unmatched accuracy and performance.'
-  },
-  {
-    icon: Cpu,
-    title: 'Autonomous Systems',
-    description: 'Self-operating AI agents that handle complex, multi-step workflows with minimal human intervention and maximum efficiency.'
-  },
-  {
-    icon: Globe,
-    title: 'Global Scale',
-    description: 'Cloud-native infrastructure engineered to serve millions of concurrent requests across continents with sub-50ms latency.'
-  },
-  {
-    icon: Shield,
-    title: 'Enterprise Security',
-    description: 'Military-grade encryption, SOC2 compliance, and zero-trust architectures to protect your most sensitive proprietary data.'
-  }
-];
-
-const stats = [
-  { value: '99.99%', label: 'Uptime SLA' },
-  { value: '50M+', label: 'API Calls/Day' },
-  { value: '<45ms', label: 'Avg Latency' },
-  { value: '200+', label: 'Enterprise Clients' }
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
-};
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
+  const heroRef = useRef(null);
+  const featuresRef = useRef(null);
+
+  useEffect(() => {
+    // Hero animations
+    gsap.fromTo('.hero-badge', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.2, ease: 'power2.out' });
+    gsap.fromTo('.hero-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.4, ease: 'power3.out' });
+    gsap.fromTo('.hero-desc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, delay: 0.6, ease: 'power3.out' });
+    gsap.fromTo('.hero-cta', { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.8, ease: 'power2.out' });
+
+    // Features section
+    gsap.fromTo('.feature-card',
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: { trigger: featuresRef.current, start: 'top 78%' }
+      }
+    );
+
+    return () => ScrollTrigger.getAll().forEach(t => t.kill());
+  }, []);
+
   return (
-    <div className="relative overflow-hidden">
-      {/* ================= HERO SECTION ================= */}
-      <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4">
-        {/* Animated Background Elements */}
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse-slow" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-cyan-500/15 rounded-full blur-[140px] animate-pulse-slow" style={{ animationDelay: '2s' }} />
-          <div className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[800px] h-[400px] bg-purple-600/10 rounded-full blur-[100px]" />
-        </div>
+    <div className="relative">
+      {/* Ambient orbs */}
+      <div className="fixed top-0 right-0 w-[700px] h-[700px] bg-indigo-600/8 rounded-full blur-[180px] pointer-events-none" />
+      <div className="fixed bottom-0 left-0 w-[600px] h-[600px] bg-cyan-500/6 rounded-full blur-[150px] pointer-events-none" />
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 backdrop-blur-md mb-8"
-          >
-            <Sparkles size={14} className="text-cyan-400" />
-            <span className="text-sm font-medium text-indigo-200 tracking-wide">Next-Gen AI Platform v2.0</span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.1] mb-6"
-          >
-            <span className="block text-white">Building the</span>
-            <span className="block bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              Future of Intelligence
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-10"
-          >
-            NEET AI Studio engineers world-class artificial intelligence systems, autonomous agents, and next-generation platforms that transform how enterprises operate at scale.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Link 
-              to="/contact" 
-              className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 text-white font-semibold text-base shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.03] transition-all duration-300"
-            >
-              <Rocket size={18} />
-              <span>Start Building</span>
-              <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </Link>
-            <Link 
-              to="/technology" 
-              className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 text-slate-200 font-semibold text-base hover:bg-white/10 hover:border-white/20 hover:scale-[1.03] transition-all duration-300"
-            >
-              <span>Explore Tech</span>
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ================= STATS SECTION ================= */}
-      <section className="relative py-16 px-4">
-        <div className="max-w-6xl mx-auto">
-          <motion.div 
-            className="grid grid-cols-2 md:grid-cols-4 gap-4"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            {stats.map((stat) => (
-              <motion.div
-                key={stat.label}
-                variants={itemVariants}
-                className="group relative p-6 rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] hover:border-indigo-500/30 transition-all duration-400 text-center overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-                <div className="relative z-10">
-                  <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-300 to-cyan-300 bg-clip-text text-transparent mb-2">{stat.value}</div>
-                  <div className="text-sm text-slate-500 font-medium tracking-wide uppercase">{stat.label}</div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ================= FEATURES SECTION ================= */}
-      <section className="relative py-24 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight"
-            >
-              Powered by <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Cutting-Edge</span> Technology
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed"
-            >
-              Our AI infrastructure is engineered for extreme performance, rock-solid reliability, and infinite horizontal scalability.
-            </motion.p>
+      {/* Hero */}
+      <section ref={heroRef} className="relative min-h-[90vh] flex items-center justify-center pt-24 pb-16 px-4">
+        <div className="max-w-5xl text-center">
+          <div className="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 backdrop-blur-md mb-6 opacity-0">
+            <Sparkles size={14} className="text-indigo-400" />
+            <span className="text-sm font-medium text-indigo-200 tracking-wide">NEET AI Studio Presents</span>
           </div>
 
-          <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-          >
-            {features.map((feature) => (
-              <motion.div
-                key={feature.title}
-                variants={itemVariants}
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="group relative p-7 rounded-2xl bg-white/[0.02] backdrop-blur-xl border border-white/[0.06] hover:border-indigo-500/30 hover:bg-white/[0.04] transition-all duration-400"
-              >
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-                <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/20 to-cyan-500/20 border border-indigo-500/20 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:border-indigo-400/40 transition-all duration-300">
-                    <feature.icon size={22} className="text-cyan-400" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-slate-100 mb-3 group-hover:text-white transition-colors">{feature.title}</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">{feature.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+          <h1 className="hero-title text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[0.95] mb-6 text-white opacity-0">
+            Future‑Ready<br />
+            <span className="bg-gradient-to-br from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">AI & Websites</span>
+          </h1>
+
+          <p className="hero-desc text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-10 opacity-0">
+            We engineer state‑of‑the‑art AI bots and craft stunning, high‑converting websites that elevate your brand into the next dimension.
+          </p>
+
+          <div className="hero-cta flex flex-wrap gap-4 justify-center opacity-0">
+            <Link
+              to="/packages"  {/* UPDATED: now points to the new Packages page */}
+              className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 text-white font-semibold text-lg shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-300 hover:-translate-y-1"
+            >
+              Start Building
+              <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <Link
+              to="/technology"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-md text-white font-semibold text-lg hover:bg-white/[0.08] transition-all duration-300 hover:-translate-y-1"
+            >
+              Explore AI
+              <Zap size={20} className="text-cyan-400" />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ================= CTA SECTION ================= */}
-      <section className="relative py-24 px-4">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.98 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative p-10 md:p-14 rounded-3xl overflow-hidden text-center"
-            style={{
-              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(6, 182, 212, 0.04) 100%)',
-              border: '1px solid rgba(99, 102, 241, 0.15)'
-            }}
-          >
-            {/* Glow effect */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-1/2 bg-indigo-500/10 blur-[80px] rounded-full pointer-events-none" />
-            
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
-                Ready to <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Transform</span> Your Business?
-              </h2>
-              <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
-                Let's architect a custom AI solution that accelerates your growth, automates your workflows, and gives you an unfair competitive advantage.
-              </p>
-              <Link 
-                to="/contact" 
-                className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 text-white font-semibold text-base shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.03] transition-all duration-300"
-              >
-                <Zap size={18} />
-                <span>Get in Touch</span>
-                <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
-              </Link>
-            </div>
-          </motion.div>
+      {/* Features */}
+      <section className="relative py-20 px-4" ref={featuresRef}>
+        <div className="max-w-6xl mx-auto text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            One Platform, <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Endless Possibilities</span>
+          </h2>
+          <p className="text-slate-400 max-w-2xl mx-auto">
+            From intelligent automation to pixel‑perfect web experiences — we deliver the full tech stack.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          {[
+            { icon: Bot, title: 'AI Bots', desc: 'Custom chatbots, automation agents, and neural cores trained on your data.' },
+            { icon: Code2, title: 'Web Development', desc: 'Blazing‑fast React/Next.js sites with glassmorphism UI and stellar performance.' },
+            { icon: Shield, title: 'Enterprise Security', desc: 'SSL, DDoS protection, and zero‑trust architecture embedded in every project.' },
+            { icon: Globe, title: 'Global CDN', desc: 'Worldwide edge delivery ensuring sub‑100ms load times from any location.' },
+          ].map((feat, i) => {
+            const Icon = feat.icon;
+            return (
+              <div key={i} className="feature-card group p-6 rounded-2xl bg-white/[0.02] backdrop-blur-xl border border-white/[0.06] hover:border-indigo-500/25 transition-all duration-400 hover:-translate-y-1 opacity-0">
+                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Icon size={22} className="text-indigo-400" />
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">{feat.title}</h3>
+                <p className="text-sm text-slate-400 leading-relaxed">{feat.desc}</p>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* CTA Banner */}
+      <section className="relative py-20 px-4">
+        <div className="max-w-4xl mx-auto rounded-3xl bg-gradient-to-br from-indigo-600/10 via-purple-600/10 to-cyan-600/10 border border-white/10 backdrop-blur-2xl p-10 md:p-16 text-center">
+          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">Ready to level up?</h2>
+          <p className="text-slate-400 mb-8 max-w-xl mx-auto">Choose a website package or let us build a custom AI solution just for you.</p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <Link to="/packages" className="px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 text-white font-semibold hover:shadow-xl hover:shadow-indigo-500/30 transition-all duration-300">
+              View Packages
+            </Link>
+            <Link to="/contact" className="px-8 py-4 rounded-xl border border-white/10 bg-white/[0.04] text-white font-semibold hover:bg-white/[0.08] transition-all duration-300">
+              Contact Us
+            </Link>
+          </div>
         </div>
       </section>
     </div>

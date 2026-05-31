@@ -9,6 +9,7 @@ import Products from './pages/Products';
 import Technology from './pages/Technology';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Packages from './pages/Packages'; // NEW import
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -41,6 +42,7 @@ function AppInner() {
           <Route path="/technology" element={<Technology />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/packages" element={<Packages />} /> {/* NEW route */}
         </Routes>
       </main>
       <Footer />
