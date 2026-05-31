@@ -77,7 +77,7 @@ const cardVariants = {
 
 export default function Packages() {
   return (
-    <div className="relative">
+    <div className="relative bg-[#050510] min-h-screen">
       {/* Ambient background glows */}
       <div className="fixed top-0 left-1/4 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none" />
       <div className="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-500/8 rounded-full blur-[140px] pointer-events-none" />
