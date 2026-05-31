@@ -77,7 +77,7 @@ const cardVariants = {
 
 export default function Packages() {
   return (
-    <div className="relative bg-[#050510] min-h-screen">
+    <div className="relative bg-black min-h-screen">
       {/* Ambient background glows */}
       <div className="fixed top-0 left-1/4 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none" />
       <div className="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-500/8 rounded-full blur-[140px] pointer-events-none" />
@@ -201,8 +201,7 @@ export default function Packages() {
           className="max-w-2xl mx-auto p-8 rounded-2xl bg-white/[0.02] backdrop-blur-xl border border-white/[0.06]"
         >
           <Shield size={28} className="text-cyan-400 mx-auto mb-4" />
-          <p className="text-slate-300 text-lg font-medium mb-1">100% Money‑Back Guarantee</p>
-          <p className="text-sm text-slate-500">If you're not satisfied with the delivered website, we'll refund every rupee. No questions asked.</p>
+          <p className="text-slate-300 text-lg font-medium mb-1">Designer @NEET</p>
         </motion.div>
       </section>
     </div>
