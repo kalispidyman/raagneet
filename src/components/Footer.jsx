@@ -1,10 +1,97 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Zap, Github, Twitter, Linkedin, Mail } from 'lucide-react';
 import Logo from './Logo';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const sparkContainerRef = useRef(null);
+
+  const handleSparkClick = useCallback((e) => {
+    const container = sparkContainerRef.current;
+    if (!container) return;
+
+    // Get click/touch position relative to container
+    const rect = container.getBoundingClientRect();
+    const x = (e.clientX || e.touches?.[0]?.clientX) - rect.left;
+    const y = (e.clientY || e.touches?.[0]?.clientY) - rect.top;
+
+    // Create multiple spark particles
+    const colors = ['#22d3ee', '#a855f7', '#f43f5e', '#6366f1', '#34d399', '#fbbf24'];
+    const particleCount = 12;
+
+    for (let i = 0; i < particleCount; i++) {
+      const spark = document.createElement('div');
+      const size = Math.random() * 6 + 3;
+      const angle = (Math.PI * 2 / particleCount) * i + (Math.random() - 0.5) * 0.5;
+      const velocity = Math.random() * 80 + 40;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      spark.style.cssText = `
+        position: absolute;
+        left: ${x}px;
+        top: ${y}px;
+        width: ${size}px;
+        height: ${size}px;
+        border-radius: 50%;
+        background: ${color};
+        pointer-events: none;
+        z-index: 50;
+        box-shadow: 0 0 6px ${color}, 0 0 12px ${color}66;
+        transition: none;
+      `;
+
+      container.appendChild(spark);
+
+      // Animate outward with requestAnimationFrame
+      let startTime = null;
+      const duration = 600 + Math.random() * 200;
+
+      const animate = (timestamp) => {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        const eased = 1 - Math.pow(1 - progress, 3); // cubic ease-out
+        const currentX = x + Math.cos(angle) * velocity * eased;
+        const currentY = y + Math.sin(angle) * velocity * eased - (velocity * 0.3 * eased); // slight upward arc
+        const opacity = 1 - eased;
+        const scale = 1 - eased * 0.5;
+
+        spark.style.transform = `translate(${currentX - x}px, ${currentY - y}px) scale(${scale})`;
+        spark.style.opacity = opacity;
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          spark.remove();
+        }
+      };
+
+      requestAnimationFrame(animate);
+    }
+
+    // Also add a radial burst glow effect
+    const burst = document.createElement('div');
+    burst.style.cssText = `
+      position: absolute;
+      left: ${x - 30}px;
+      top: ${y - 30}px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 49;
+      transition: all 0.5s ease-out;
+    `;
+    container.appendChild(burst);
+    requestAnimationFrame(() => {
+      burst.style.transform = 'scale(3)';
+      burst.style.opacity = '0';
+    });
+    setTimeout(() => burst.remove(), 500);
+  }, []);
 
   return (
     <footer className="relative z-10 border-t border-white/[0.06] bg-dark-950/80 backdrop-blur-xl">
@@ -97,7 +184,12 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="pt-8 border-t border-white/[0.06] flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="relative flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+          <div 
+            ref={sparkContainerRef}
+            onClick={handleSparkClick}
+            onTouchStart={handleSparkClick}
+            className="relative flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md cursor-pointer select-none active:scale-95 transition-transform duration-150 hover:bg-white/[0.08]"
+          >
             <Sparkles size={14} className="text-cyan-400" />
             <span className="text-xs font-mono font-medium bg-gradient-to-r from-indigo-300 to-cyan-300 bg-clip-text text-transparent">
               Designer @NEET
