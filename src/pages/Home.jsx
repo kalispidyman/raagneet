@@ -53,7 +53,7 @@ export default function Home() {
 
           <div className="hero-cta flex flex-wrap gap-4 justify-center opacity-0">
             <Link
-              to="/packages"  {/* UPDATED: now points to the new Packages page */}
+              to="/packages"
               className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-600 to-cyan-600 text-white font-semibold text-lg shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-300 hover:-translate-y-1"
             >
               Start Building
