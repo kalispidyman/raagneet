@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { Menu, X, Zap } from 'lucide-react';
 import Logo from './Logo';
@@ -16,6 +16,10 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navRef = useRef(null);
+  const location = useLocation();
+
+  // Detect if current route is the Packages page
+  const isPackages = location.pathname === '/packages';
 
   useEffect(() => {
     if (navRef.current) {
@@ -43,7 +47,11 @@ export default function Navbar() {
 
   return (
     <>
-      <nav ref={navRef} className={`navbar-premium ${scrolled ? 'scrolled' : ''}`} style={{ opacity: 0 }}>
+      <nav
+        ref={navRef}
+        className={`navbar-premium ${scrolled ? 'scrolled' : ''} ${isPackages ? 'navbar-packagedark' : ''}`}
+        style={{ opacity: 0 }}
+      >
         <div className="nav-inner-premium">
           <Link to="/" className="nav-logo-link" onClick={() => setOpen(false)}>
             <Logo size="sm" />
