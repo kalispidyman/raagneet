@@ -1,148 +1,121 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Bot, Globe, Box, Workflow, Smartphone, Palette, CheckCircle2, Sparkles } from 'lucide-react';
+import { Bot, Code2, Cloud, Database, Workflow, ArrowRight, CheckCircle, Sparkles } from 'lucide-react';
 
-const mainServices = [
+const fadeUp = {
+  initial: { opacity: 0, y: 40 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-50px' },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] }
+};
+
+const services = [
   {
-    icon: <Bot size={28} />,
-    title: "AI & Autonomous Agents",
-    description: "Custom AI bots, LLM integrations, and autonomous agentic workflows that automate complex business operations.",
-    features: ["Custom LLM Fine-tuning", "Agentic Workflows", "RAG Systems"]
+    icon: Bot,
+    title: 'Autonomous Agents',
+    desc: 'Deploy intelligent agents that autonomously execute complex workflows, make decisions, and adapt to changing environments in real-time.',
+    features: ['Multi-agent orchestration', 'Reinforcement learning', 'Contextual memory', 'API integration layer']
   },
   {
-    icon: <Globe size={28} />,
-    title: "Premium Web Applications",
-    description: "High-performance, scalable web platforms built with modern React, Next.js, and glassmorphic UI/UX design.",
-    features: ["SaaS Dashboards", "E-commerce Platforms", "Custom Portals"]
+    icon: Code2,
+    title: 'AI Development Suite',
+    desc: 'Full-stack AI development platform with integrated training pipelines, model evaluation, and one-click deployment to production.',
+    features: ['Custom model training', 'Automated testing', 'Version control', 'CI/CD integration']
   },
   {
-    icon: <Box size={28} />,
-    title: "Immersive 3D Experiences",
-    description: "Interactive WebGL and React Three Fiber environments that push the boundaries of digital storytelling and branding.",
-    features: ["WebGL Animations", "Product Configurators", "Virtual Showrooms"]
+    icon: Cloud,
+    title: 'Cloud AI Infrastructure',
+    desc: 'Enterprise-grade cloud infrastructure optimized for AI workloads with auto-scaling, load balancing, and global edge distribution.',
+    features: ['Auto-scaling clusters', 'Edge deployment', '99.99% uptime', 'Multi-region failover']
   },
   {
-    icon: <Workflow size={28} />,
-    title: "Business Automation",
-    description: "End-to-end process automation, API integrations, and custom internal tools to eliminate manual bottlenecks.",
-    features: ["CRM Integrations", "Automated Pipelines", "Data Scraping"]
+    icon: Database,
+    title: 'Intelligent Data Pipeline',
+    desc: 'End-to-end data processing pipeline with automated cleaning, labeling, augmentation, and real-time streaming capabilities.',
+    features: ['Real-time ingestion', 'Automated labeling', 'Data augmentation', 'Quality monitoring']
   },
   {
-    icon: <Smartphone size={28} />,
-    title: "Mobile-First Solutions",
-    description: "Responsive, cross-platform mobile applications and PWA solutions designed for seamless user experiences.",
-    features: ["React Native Apps", "Progressive Web Apps", "Offline Support"]
-  },
-  {
-    icon: <Palette size={28} />,
-    title: "UI/UX & Brand Identity",
-    description: "Strategic design systems, premium interfaces, and brand identities that convert visitors into loyal customers.",
-    features: ["Design Systems", "Prototyping", "Brand Guidelines"]
+    icon: Workflow,
+    title: 'Workflow Automation',
+    desc: 'Visual workflow builder with AI-powered process optimization, scheduled triggers, and cross-platform integration.',
+    features: ['Drag-and-drop builder', 'AI optimization', 'Webhook triggers', 'Custom actions']
   }
-];
-
-const processSteps = [
-  { step: "01", title: "Discovery & Strategy", desc: "We deep-dive into your business goals, target audience, and technical requirements to map out a winning strategy." },
-  { step: "02", title: "Design & Prototype", desc: "Our designers craft premium, glassmorphic interfaces and interactive prototypes for your approval before coding begins." },
-  { step: "03", title: "Agile Development", desc: "Our engineering team builds your solution using cutting-edge tech stacks, ensuring scalability and blazing-fast performance." },
-  { step: "04", title: "Launch & Scale", desc: "We handle deployment, CI/CD pipelines, and post-launch support to ensure your product scales seamlessly with your growth." }
 ];
 
 export default function Products() {
   return (
-    <div className="pt-24 pb-16 min-h-screen">
-      {/* Hero Section */}
-      <section className="px-6 py-16 md:py-24">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-glass border border-glass-border mb-6">
-            <Sparkles size={16} className="text-accent-cyan" />
-            <span className="text-sm font-medium text-slate-300">Premium Digital Solutions</span>
+    <div className="min-h-screen">
+      {/* ===== HERO ===== */}
+      <section className="page-hero">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+          <div className="section-badge">
+            <Sparkles size={14} />
+            <span>Our Services</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-display font-bold text-white mb-6 leading-tight">
-            Services That <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-cyan to-accent-purple">Drive Growth</span>
+          <h1>
+            AI Solutions for <span className="gradient-text">Every Scale</span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-400 mb-10 max-w-3xl mx-auto">
-            We engineer high-end AI systems, immersive 3D web experiences, and scalable applications tailored to elevate your brand and automate your business.
+          <p>
+            From solo developers to Fortune 500 enterprises — we provide the tools, infrastructure, and intelligence to transform your workflow.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/contact" className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-accent-cyan to-accent-purple text-white font-semibold shadow-lg shadow-accent-cyan/20 hover:shadow-accent-cyan/40 transition-all duration-300 flex items-center gap-2">
-              Start Your Project <ArrowRight size={18} />
-            </Link>
-            <Link to="/technology" className="px-8 py-3.5 rounded-xl bg-glass border border-glass-border text-white font-semibold hover:bg-glass-heavy hover:border-glass-border-hover transition-all duration-300">
-              Explore Our Tech Stack
-            </Link>
-          </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* Main Services Grid */}
-      <section className="px-6 py-16">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Our Core Expertise</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">From intelligent automation to breathtaking visual interfaces, we deliver end-to-end digital excellence.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {mainServices.map((service, idx) => (
-              <div key={idx} className="p-6 rounded-2xl bg-glass border border-glass-border backdrop-blur-md hover:border-glass-border-hover hover:bg-glass-heavy transition-all duration-300 group">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-cyan/20 to-accent-purple/10 flex items-center justify-center text-accent-cyan mb-5 group-hover:scale-110 transition-transform duration-300">
-                  {service.icon}
+      {/* ===== SERVICES ===== */}
+      <section className="section-premium">
+        <div className="space-y-8">
+          {services.map((s, i) => (
+            <motion.div
+              key={i}
+              className="glass-card p-8 md:p-10 flex flex-col md:flex-row gap-8 group"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+            >
+              <div className="md:w-16 shrink-0">
+                <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/15 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <s.icon size={28} className="text-indigo-400" />
                 </div>
-                <h3 className="text-xl font-display font-semibold text-white mb-3">{service.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed mb-5">{service.description}</p>
-                <ul className="space-y-2">
-                  {service.features.map((feat, i) => (
-                    <li key={i} className="flex items-center gap-2 text-sm text-slate-300">
-                      <CheckCircle2 size={14} className="text-accent-cyan flex-shrink-0" />
-                      {feat}
-                    </li>
+              </div>
+
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-white mb-3">{s.title}</h3>
+                <p className="text-slate-400 mb-5 leading-relaxed">{s.desc}</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {s.features.map((f, j) => (
+                    <div key={j} className="flex items-center gap-2 text-sm text-slate-300">
+                      <CheckCircle size={14} className="text-emerald-400 shrink-0" />
+                      <span>{f}</span>
+                    </div>
                   ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="px-6 py-16 bg-dark-950/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Our Proven Process</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">A streamlined, transparent workflow designed to deliver exceptional results on time and within budget.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {processSteps.map((step, idx) => (
-              <div key={idx} className="relative">
-                <div className="text-6xl font-display font-black text-white/5 absolute -top-6 -left-2 select-none">{step.step}</div>
-                <div className="relative pt-10">
-                  <h3 className="text-xl font-display font-semibold text-white mb-3">{step.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{step.desc}</p>
                 </div>
               </div>
-            ))}
-          </div>
+
+              <div className="md:self-center">
+                <Link to="/contact" className="btn-outline whitespace-nowrap">
+                  Get Started <ArrowRight size={14} />
+                </Link>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="px-6 py-24">
-        <div className="max-w-5xl mx-auto">
-          <div className="p-10 md:p-16 rounded-3xl bg-glass border border-glass-border backdrop-blur-md text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent-cyan/5 to-accent-purple/5 pointer-events-none" />
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-4">Ready to Build Something Extraordinary?</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto mb-8 text-lg">
-                Let's discuss your vision. Whether you need an autonomous AI agent, a premium 3D website, or a full-scale SaaS platform, we have the expertise to bring it to life.
-              </p>
-              <Link to="/contact" className="inline-flex px-8 py-3.5 rounded-xl bg-gradient-to-r from-accent-cyan to-accent-purple text-white font-semibold shadow-lg shadow-accent-cyan/20 hover:shadow-accent-cyan/40 transition-all duration-300 items-center gap-2">
-                Schedule a Free Consultation <ArrowRight size={18} />
-              </Link>
-            </div>
-          </div>
-        </div>
+      {/* ===== CTA ===== */}
+      <section className="section-premium text-center">
+        <motion.div className="glass-card-heavy max-w-3xl mx-auto p-12 md:p-16" {...fadeUp}>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Not Sure What You Need?
+          </h2>
+          <p className="text-slate-400 mb-8 max-w-lg mx-auto">
+            We'll help you design the perfect AI solution for your specific use case.
+          </p>
+          <Link to="/contact" className="btn-primary text-base px-10 py-4">
+            Book a Free Consultation <ArrowRight size={18} />
+          </Link>
+        </motion.div>
       </section>
     </div>
   );
