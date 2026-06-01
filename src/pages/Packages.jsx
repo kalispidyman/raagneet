@@ -75,6 +75,15 @@ const cardVariants = {
   }
 };
 
+// NEW: header scroll animation variants
+const headerVariants = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1, y: 0,
+    transition: { duration: 0.8, ease: "easeOut" }
+  }
+};
+
 export default function Packages() {
   return (
     <div className="relative bg-black min-h-screen">
@@ -82,12 +91,13 @@ export default function Packages() {
       <div className="fixed top-0 left-1/4 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none" />
       <div className="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-500/8 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Header */}
+      {/* Header with scroll-triggered animation */}
       <section className="relative pt-32 pb-16 px-4 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 backdrop-blur-md mb-6">
             <Rocket size={14} className="text-cyan-400" />
@@ -102,7 +112,7 @@ export default function Packages() {
         </motion.div>
       </section>
 
-      {/* Pricing Cards */}
+      {/* Pricing Cards - already has whileInView animation */}
       <section className="relative pb-24 px-4">
         <motion.div
           className="max-w-6xl mx-auto grid gap-8 md:grid-cols-3"
