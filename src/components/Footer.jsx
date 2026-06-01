@@ -40,7 +40,7 @@ export default function Footer() {
 
       <div className="footer-bottom">
         <span>&copy; {new Date().getFullYear()} NEET AI Studio. All rights reserved.</span>
-        <span>Crafted with precision • Powered by neural innovation</span>
+        <span>Designer @NEET</span>
       </div>
     </footer>
   );
