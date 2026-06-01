@@ -75,7 +75,6 @@ const cardVariants = {
   }
 };
 
-// NEW: header scroll animation variants
 const headerVariants = {
   hidden: { opacity: 0, y: 40 },
   show: {
@@ -91,7 +90,7 @@ export default function Packages() {
       <div className="fixed top-0 left-1/4 w-[600px] h-[600px] bg-indigo-600/10 rounded-full blur-[160px] pointer-events-none" />
       <div className="fixed bottom-0 right-1/4 w-[500px] h-[500px] bg-cyan-500/8 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Header with scroll-triggered animation */}
+      {/* Header with entrance animation */}
       <section className="relative pt-32 pb-16 px-4 text-center">
         <motion.div
           variants={headerVariants}
@@ -112,7 +111,7 @@ export default function Packages() {
         </motion.div>
       </section>
 
-      {/* Pricing Cards - already has whileInView animation */}
+      {/* Pricing Cards with entrance animation */}
       <section className="relative pb-24 px-4">
         <motion.div
           className="max-w-6xl mx-auto grid gap-8 md:grid-cols-3"
@@ -187,8 +186,7 @@ export default function Packages() {
                   to="/contact"
                   className={`w-full py-3.5 rounded-xl font-semibold text-sm tracking-wide uppercase text-center
                     bg-gradient-to-r ${pkg.color} text-white
-                    hover:shadow-lg hover:shadow-${pkg.color.split(' ')[1] ? pkg.color.split(' ')[1].replace('from-','').replace('to-','') : 'cyan'}-500/25
-                    transition-all duration-300 group/link`}
+                    hover:shadow-lg transition-all duration-300 group/link`}
                 >
                   <span className="flex items-center justify-center gap-2">
                     {pkg.cta}

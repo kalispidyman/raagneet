@@ -70,14 +70,19 @@ export default function Footer() {
       <div className="footer-bottom">
         <span>&copy; {new Date().getFullYear()} NEET AI Studio. All rights reserved.</span>
         <span
-          className="relative inline-flex items-center cursor-pointer select-none"
+          className="relative inline-flex items-center cursor-pointer select-none footer-designer-label"
           onClick={handleSpark}
           onTouchStart={handleSpark}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => e.key === 'Enter' && handleSpark()}
         >
-          Designer @NEET
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" className="mr-1.5 inline-block" style={{ filter: 'drop-shadow(0 0 4px rgba(99,102,241,0.5))' }}>
+            <path d="M12 2L2 7v10l10 5 10-5V7L12 2z" stroke="#6366f1" strokeWidth="1.5" fill="rgba(99,102,241,0.15)" />
+            <path d="M12 2v20M2 7l10 5M22 7l-10 5" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+          <span className="footer-designer-text">Designer @NEET</span>
+          <span className="footer-spark-indicator"></span>
           <AnimatePresence>
             {spark && (
               <motion.span
