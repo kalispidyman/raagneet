@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import AnimatedBackground from './components/AnimatedBackground';
-import LoadingScreen from './components/LoadingScreen';
+import HeroSection from './components/HeroSection';
 import Home from './pages/Home';
-import Products from './pages/Products';
-import Technology from './pages/Technology';
+import Services from './pages/Services';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Packages from './pages/Packages';
-import Deepseek from './pages/Deepseek'; // NEW import
+import Portfolio from './pages/Portfolio';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -20,42 +17,25 @@ function ScrollToTop() {
   return null;
 }
 
-function AppInner() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2200);
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <div className="nb-bg-root" style={{ minHeight: '100vh', position: 'relative' }}>
-      <LoadingScreen isLoading={isLoading} />
-      <AnimatedBackground />
-      <ScrollToTop />
-      <Navbar />
-      <main className="main-content" style={{ position: 'relative', zIndex: 2 }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/technology" element={<Technology />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/packages" element={<Packages />} />
-          <Route path="/deepseek" element={<Deepseek />} /> {/* NEW route */}
-        </Routes>
-      </main>
-      <Footer />
-    </div>
-  );
-}
-
-export default function App() {
+function App() {
   return (
     <BrowserRouter>
-      <AppInner />
+      <div className="nb-bg-root" style={{ minHeight: '100vh', position: 'relative' }}>
+        <ScrollToTop />
+        <Navbar />
+        <main className="main-content" style={{ position: 'relative', zIndex: 2 }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }
+
+export default App;
