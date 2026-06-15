@@ -9,6 +9,7 @@ const LINKS = [
   { to: '/products', label: 'Services' },
   { to: '/technology', label: 'Technology' },
   { to: '/packages', label: 'Packages' },
+  { to: '/deepseek', label: 'Deepseek' }, // NEW link
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ];

@@ -9,7 +9,8 @@ import Products from './pages/Products';
 import Technology from './pages/Technology';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Packages from './pages/Packages'; // NEW import
+import Packages from './pages/Packages';
+import Deepseek from './pages/Deepseek'; // NEW import
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -42,7 +43,8 @@ function AppInner() {
           <Route path="/technology" element={<Technology />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/packages" element={<Packages />} /> {/* NEW route */}
+          <Route path="/packages" element={<Packages />} />
+          <Route path="/deepseek" element={<Deepseek />} /> {/* NEW route */}
         </Routes>
       </main>
       <Footer />
