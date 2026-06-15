@@ -23,6 +23,7 @@ function App() {
       <div className="nb-bg-root" style={{ minHeight: '100vh', position: 'relative' }}>
         <ScrollToTop />
         <Navbar />
+        <AnimatedBackground />
         <main className="main-content" style={{ position: 'relative', zIndex: 2 }}>
           <Routes>
             <Route path="/" element={<Home />} />
